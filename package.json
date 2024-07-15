@@ -9,8 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@splidejs/splide": "^4.1.4",
+    "framer-motion": "^11.3.2",
+    "next": "14.2.4",
+    "next-intl": "^3.17.0",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
+    "react-dom": "^18"
   }
 }
