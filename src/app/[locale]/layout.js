@@ -1,5 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import Link from 'next/link';
+import { Providers } from '../Theme';
+import Footer from '@/components/Footer/Footer';
+import Header from '@/components/Header/Header';
+import CartDrawer from '@/components/Drawer/CartDrawer';
+import { CartProvider } from '@/lib/context-api';
 
 export default async function LocaleLayout({
   children,
@@ -11,10 +17,26 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <title>
+        Yummi Sushi
+      </title>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <Providers>
+          <CartProvider >
+
+
+            <CartDrawer fixed={true} />
+
+
+            <NextIntlClientProvider messages={messages}>
+              <Header locale={locale} />
+              {children}
+              <Footer locale={locale} />
+            </NextIntlClientProvider>
+          </CartProvider>
+
+        </Providers>
+
       </body>
     </html>
   );

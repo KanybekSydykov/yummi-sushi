@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend_yummi
+    build:
+      context: .
+      target: runner  # указываем, что нужно использовать стадию runner для сборки
+    ports:
+      - "3003:3003"  # пробрасываем порт, чтобы приложение было доступно снаружи
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+      - HOSTNAME=0.0.0.0
+    user: "1001"  # используем созданного пользователя для запуска
+    restart: always
+
+
+volumes:
+  .next_cache:  # объявляем volume, если вы хотите сохранить кэш .next между перезапусками контейнера
