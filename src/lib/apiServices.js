@@ -25,7 +25,6 @@ export async function requestOtp(credentials,url,locale) {
 
 
   export async function postData (credentials,token,url) {
-    console.log('credentials', credentials,token,url);
     try {
       const res = await fetch(url, {
         method: 'POST',
@@ -95,7 +94,6 @@ export async function requestOtp(credentials,url,locale) {
   
       // Handle the fact that res.json() won't work
       const data = await res.json(); // Assume success based on no error
-      console.log(data);
       const response = {data, status: res.status};
       return response;
     } catch (error) {
@@ -119,7 +117,6 @@ export async function requestOtp(credentials,url,locale) {
   
       // Handle the fact that res.json() won't work
       const data = await res.json(); // Assume success based on no error
-      console.log(data);
       const response = {data, status: res.status};
       return response;
     } catch (error) {
@@ -143,7 +140,6 @@ export async function requestOtp(credentials,url,locale) {
   
       // Handle the fact that res.json() won't work
       const data = await res.json(); // Assume success based on no error
-      console.log(data);
       const response = {data, status: res.status};
       return response;
     } catch (error) {

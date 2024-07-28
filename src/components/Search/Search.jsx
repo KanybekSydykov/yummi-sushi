@@ -54,7 +54,7 @@ const Search = () => {
     setIsRequestPending(true);
     try {
       const response = await fetch(
-        `https://food.tatadev.pro/api/v1/products/product/search?title=${query}`
+        `https://food.tatadev.pro/api/v1/products/product/search?name=${query}`
       );
       const data = await response.json();
       setSearchResults(data || []);

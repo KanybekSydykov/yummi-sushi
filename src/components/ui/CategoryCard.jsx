@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 
 const CategoryCard = ({ item }) => {
   useEffect(() => {
-    console.log(item);
   }, [item]);
 
   const categoryTextStyles = {

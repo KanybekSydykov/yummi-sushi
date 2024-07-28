@@ -13,16 +13,21 @@ const CartBtn = ({ fn, textBlack = false, fixed = false }) => {
       gap={"7px"}
       justifyContent={fixed ? "center" : "flex-start"}
       alignItems={"center"}
-      w={"47px"}
+      w={"50px"}
       h={"50px"}
       position={fixed ? "fixed" : "relative"}
       bottom={fixed ? "90px" : "unset"}
       right={fixed ? "16px" : "unset"}
       zIndex={fixed ? "100" : "unset"}
-      borderRadius={fixed ? "50%" : "none"}
+      borderRadius={fixed ? "50%" : "5px"}
       boxShadow={fixed ? "0px 0px 7px 0px #73737333" : "none"}
       bg={fixed ? "#ff8341" : "transparent"}
       cursor={"pointer"}
+      transition={"all 0.3s ease"}
+      _hover={{
+        transform: "scale3d(1.05, 1.05, 1.05)",
+        bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), #FF8341",
+      }}
     >
       <AspectRatio ratio={1} width={"24px"} h={"24px"} position={"relative"} filter={fixed ? "invert(0%) sepia(100%) saturate(0%) hue-rotate(90deg) brightness(200%) contrast(100%)" : 'none'}>
         <Image src={"/cart-icon.svg"} alt="profile" fill />

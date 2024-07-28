@@ -14,7 +14,6 @@ const ProductList = ({products}) => {
   const [selectedProduct,setSelectedProduct] = useState(null);
 
   const handleButtonClick = (product) => {
-    console.log(product);
     setSelectedProduct(product);
     onOpen();
   };

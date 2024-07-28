@@ -15,7 +15,6 @@ const headingStyles = {
 }
 
 const getProducts = async(params) =>{
-  console.log(params);
   const data = await fetch(`${ENDPOINTS.getCategoryData(params.category)}`, {
     headers:{
       'Accept-Language': `${params.locale}`,
@@ -26,9 +25,7 @@ const getProducts = async(params) =>{
 }
 
 const page = async({ params }) => {
-  console.log(params);
   const products = await getProducts(params)
-  console.log(products);
 
   return (
     <Container maxW={{ base: 'container.xl', xl: '1296px' }} pt={{ base: '22px', lg: '38px' }} px={{ base: '20px', xl: '0px' }}>

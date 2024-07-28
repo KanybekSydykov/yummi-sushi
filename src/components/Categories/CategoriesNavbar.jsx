@@ -15,8 +15,6 @@ async function getCategories() {
 const CategoriesNavbar = async () => {
   const categories = await getCategories();
 
-  console.log(categories);
-
   return (
     <Container
       maxW={{ base: "container.xl", xl: "1296px" }}

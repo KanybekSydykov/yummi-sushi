@@ -9,8 +9,6 @@ const DeliveryPrice = ({ id,token , setDeliveryPrice}) => {
   const [price, setPrice] = useState('');
   const [isRequesting, setIsRequesting] = useState(false);
 
-  console.log(id,token);
-
   async function getDeliveryPrice() {
     setIsRequesting(true);
     const res = await fetch(ENDPOINTS.getDeliveryPrice(), {

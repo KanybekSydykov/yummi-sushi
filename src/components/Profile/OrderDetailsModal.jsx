@@ -25,6 +25,10 @@ const headingStyles = {
   fontSize: "16px",
   textAlign: "left",
   color: "#010101",
+  display:'flex',
+  flexDir:'row',
+  alignItems:'center',
+  gap:'10px',
 };
 const priceStyles = {
   fontFamily: "roboto",
@@ -39,12 +43,12 @@ const descriptionStyles = {
   fontSize: { base: "14px", lg: "16px" },
   color: "fontgray",
 };
-const OrderDetailsModal = ({ isOpen, onClose, onOpen }) => {
+const OrderDetailsModal = ({ isOpen, onClose, onOpen, order }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent p={"20px"} maxW={{base: '95%', lg: '980px'}}>
+        <ModalContent p={"20px"} maxW={{ base: "95%", lg: "980px" }}>
           <ModalBody>
             <Text
               fontFamily={"roboto"}
@@ -56,36 +60,50 @@ const OrderDetailsModal = ({ isOpen, onClose, onOpen }) => {
               Детали заказа №1
             </Text>
 
-            <Flex flexDir={'row'} w={'100%'}>
-              <Flex flexDir={"row"} gap={"16px"} alignItems={"flex-start"}>
-                <AspectRatio
-                  ratio={1}
-                  w={{ base: "100px", lg: "150px" }}
-                  flexShrink={0}
-                  position={"relative"}
-                >
-                  <Image
-                    src={"/category-img.png"}
-                    fill
-                    alt={"pizza"}
-                    style={{
-                      borderRadius: "10px",
-                      boxShadow: " 0px 0px 1px 0px #87878740",
-                    }}
-                  />
-                </AspectRatio>
-                <Flex flexDir={"column"} gap={"8px"}>
-                  <Heading {...headingStyles}>Сет “Мега хит”</Heading>
-                  <Text {...descriptionStyles}>
-                    18 хрустящих крыльев, пицца “Пепперони” (32 см), пицца
-                    “Маргарита” (32 см), порция фри, 18 хрустящих крыльев, пицца
-                    “Пепперони” (32 см), пицца “Маргарита” (32 см), порция фри18
-                    хрустящих крыльев, пицца “Пепперони” (32 см), пицца
-                    “Маргарита” (32 см), порция фри
-                  </Text>
-                  <Text {...priceStyles}>1 800 com</Text>
+            <Flex flexDir={"row"} w={"100%"}>
+              {order?.order_items?.map((item) => (
+                <Flex flexDir={"row"} gap={"16px"} alignItems={"center"}>
+                  <AspectRatio
+                    ratio={1}
+                    w={{ base: "100px", lg: "150px" }}
+                    flexShrink={0}
+                    position={"relative"}
+                  >
+                    <Image
+                      src={item.product.image}
+                      fill
+                      alt={"pizza"}
+                      style={{
+                        borderRadius: "10px",
+                        boxShadow: " 0px 0px 1px 0px #87878740",
+                      }}
+                    />
+                  </AspectRatio>
+                  <Flex flexDir={"column"} gap={"8px"} >
+                    <Heading {...headingStyles}>
+                      {item.product.name}
+
+                      {item.quantity > 1 && (
+                        <Text
+                          fontSize={"14px"}
+                          fontFamily={"roboto"}
+                          fontWeight={"600"}
+                          color={"fontgray"}
+                        >
+                          x {item.quantity}
+                        </Text>
+                      )}
+                    </Heading>
+                    <Text {...descriptionStyles}>
+                      18 хрустящих крыльев, пицца “Пепперони” (32 см), пицца
+                      “Маргарита” (32 см), порция фри, 18 хрустящих крыльев,
+                      пицца “Пепперони” (32 см), пицца “Маргарита” (32 см),
+                      порция фри18 хрустящих крыльев, пицца “Пепперони” (32 см),
+                      пицца “Маргарита” (32 см), порция фри
+                    </Text>
+                  </Flex>
                 </Flex>
-              </Flex>
+              ))}
             </Flex>
           </ModalBody>
 

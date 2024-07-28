@@ -14,21 +14,46 @@ import {
   TableCaption,
   TableContainer,
   useDisclosure,
+  Box,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../ui/FormInput";
 import { useRouter, useSearchParams } from "next/navigation";
 import CustomButton from "../ui/CustomButton";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import OrderDetailsModal from "./OrderDetailsModal";
+import { ENDPOINTS } from "@/api/endpoints";
 
-const MyOrders = () => {
+const MyOrders = ({ token }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
+  useEffect(() => {
+    getOrders();
+  }, []);
 
-  function handleOrderDetails(){
+  async function getOrders() {
+    try {
+      const res = await fetch(`${ENDPOINTS.getUserOrders()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setOrders(data);
+      }
+    } catch (error) {
+      throw new Error({ status: error.status || 500 });
+    }
+  }
+
+  function handleOrderDetails(order) {
+    setSelectedOrder(order);
     onOpen();
   }
 
@@ -45,7 +70,9 @@ const MyOrders = () => {
         boxShadow={"0px 0px 4px 0px rgba(151, 151, 151, 0.25)"}
         borderRadius={"10px"}
         p={"30px"}
-        w={{ base: "100%", lg: "fit-content" }}
+        w={{ base: "100%", lg: "auto" }}
+        flexGrow={1}
+        overflow={"hidden"}
         h={"fit-content"}
       >
         <Flex mb={"20px"} flexDir={"row"} gap={"30px"} alignItems={"center"}>
@@ -78,40 +105,55 @@ const MyOrders = () => {
                 Нажмите на заказ чтобы посмотреть подробную информацию
               </TableCaption>
               <Thead>
-                <Tr>
+                <Tr >
                   <Th isNumeric>№</Th>
                   <Th isNumeric>Цена</Th>
-                  <Th isNumeric>Начислено баллов</Th>
+                  <Th isNumeric>Баллы</Th>
                   <Th isNumeric>Товаров</Th>
                   <Th>Адрес</Th>
+                  <Th>Дата</Th>
                   <Th>Статус</Th>
                 </Tr>
               </Thead>
+
               <Tbody>
-                <Tr cursor={"pointer"} onClick={handleOrderDetails}>
-                  <Td isNumeric>1</Td>
-                  <Td isNumeric>1000 сом</Td>
-                  <Td isNumeric>25.4</Td>
-                  <Td isNumeric>5</Td>
-                  <Td>Турусбекова ул. 5 кв. 5 </Td>
-                  <Td>Доставлен</Td>
-                </Tr>
-             
+                {orders.map((order) => (
+                  <Tr
+                    key={order.id}
+                    cursor={"pointer"}
+                    onClick={() => handleOrderDetails(order)}
+                    _hover={{ bg: "rgba(255, 131, 65, 0.2)" }}
+                  >
+                    <Td isNumeric>{order.id}</Td>
+                    <Td isNumeric>{order.total_amount} </Td>
+                    <Td isNumeric>
+                      {order.total_bonus_amount
+                        ? order.total_bonus_amount
+                        : "-"}
+                    </Td>
+                    <Td isNumeric>{order.order_items.length}</Td>
+                    <Td>{order.order_time}</Td>
+                    <Td>{order.order_time}</Td>
+                    <Td>Доставлен</Td>
+                  </Tr>
+                ))}
               </Tbody>
+
               <Tfoot>
                 <Tr>
                   <Th>№</Th>
                   <Th isNumeric>Цена</Th>
-                  <Th isNumeric>Начислено баллов</Th>
+                  <Th isNumeric>Баллы</Th>
                   <Th isNumeric>Товаров</Th>
                   <Th>Адрес</Th>
+                  <Th>Дата</Th>
                   <Th>Статус</Th>
                 </Tr>
               </Tfoot>
             </Table>
           </TableContainer>
         </Flex>
-        <OrderDetailsModal isOpen={isOpen} onClose={onClose}/>
+        <OrderDetailsModal order={selectedOrder} isOpen={isOpen} onClose={onClose} />
       </Flex>
     );
   } else {

@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex, Button, useMediaQuery } from "@chakra-ui/react";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Image from "next/image";
@@ -7,6 +7,11 @@ import "@splidejs/react-splide/css";
 import Link from "next/link";
 
 const BannerSlider = ({ banners}) => {
+  const [loading,setLoading] = useState(true)
+
+  function onImageLoad(){
+    setLoading(false)
+  }
 
   // const [isDesktop] = useMediaQuery("(min-width: 992px)");
 
@@ -18,8 +23,6 @@ const BannerSlider = ({ banners}) => {
   //     return item.small_image
   //   }
   // }
-
-  console.log(banners);
 
   return (
     <>
@@ -45,10 +48,11 @@ const BannerSlider = ({ banners}) => {
               <Box pos={"relative"} w={"100%"} h={"100%"} aspectRatio={{base:358/520,lg:1296/400}} position={'relative'}>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",lg:"block"}}>
               <Image
-                  src={item.image_desktop}
+                  src={loading ? "/loading-img.gif" : item.image_desktop}
                   alt={item.title}
                   fill
                   priority
+            onLoad={onImageLoad}
                   sizes="100%"
                 />
               </Box>

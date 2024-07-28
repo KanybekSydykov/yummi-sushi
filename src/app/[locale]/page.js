@@ -20,7 +20,6 @@ export default async function HomePage() {
 
 
 
-  console.log(data);
 
   return <main>
     <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', xl: '0px' }}>

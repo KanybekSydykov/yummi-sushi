@@ -15,7 +15,6 @@ async function getBanners() {
 const BannersCover = async() => {
     const banners = await getBanners()
 
-    console.log(banners);
   return (
     <AspectRatio w={"100%"} ratio={{ base: 358 / 520, lg: 1296 / 400 }} h={{ base: '220px', lg: '440px' }} mt={{ base: '40px', lg: '70px' }}>
         <BannerSlider banners={banners} />

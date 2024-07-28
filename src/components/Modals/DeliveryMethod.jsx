@@ -33,7 +33,6 @@ function DeliveryMethod({
   setSelectedRestaurant
 }) {
 
-  console.log(restaurants);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

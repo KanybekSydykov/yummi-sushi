@@ -83,8 +83,10 @@ function ProductDetails({
       setSelectedSize(product.product_sizes[0]);
     }
 
-    setTotalPrice(product.product_sizes[0].price);
+    setTotalPrice(product.product_sizes[0].discounted_price ? product.product_sizes[0].discounted_price : product.product_sizes[0].price);
   }, [product]);
+
+  console.log(totalPrice);
 
   const handleAddonClick = (addon) => {
     if (addons.includes(addon)) {
@@ -95,7 +97,7 @@ function ProductDetails({
   };
 
   useEffect(() => {
-    const price = parseFloat(selectedSize?.price) || 0;
+    const price =  parseFloat(selectedSize?.discounted_price || selectedSize?.price);
     const addonsTotalPrice = addons.reduce(
       (sum, addon) => sum + (parseFloat(addon.price) || 0),
       0
@@ -103,10 +105,11 @@ function ProductDetails({
     setTotalPrice(price + addonsTotalPrice);
   }, [selectedSize,addons]);
 
-  console.log(size,addons,selectedSize);
+  console.log(product);
+
 
   const handleAddToCart = () => {
-    const sizePrice = parseFloat(selectedSize.price) || 0;
+    const sizePrice = parseFloat(selectedSize?.discounted_price || selectedSize?.price);
     const addonsTotalPrice = addons.reduce(
       (sum, addon) => sum + (parseFloat(addon.price) || 0),
       0
@@ -249,11 +252,11 @@ function ProductDetails({
                   alignItems={"center"}
                   gap={"8px"}
                 >
-                  <Text {...priceStyles}>{selectedSize?.price}</Text>
+                  <Text {...priceStyles}>{selectedSize?.discounted_price ? selectedSize?.discounted_price : selectedSize?.price} сом</Text>
                   {selectedSize?.discounted_price && (
                     <Text {...discountStyles}>
-                      {selectedSize?.discounted_price}
-                    </Text>
+                      {selectedSize?.price} сом
+                    </Text> 
                   )}
                 </Flex>
 

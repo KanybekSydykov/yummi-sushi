@@ -58,7 +58,7 @@ const page = async () => {
 
     const session = await getSession()
 
-    const access_token = session?.user?.access_token
+    const access_token = session?.access_token
 
     if(!session){
         redirect('/');
@@ -76,7 +76,6 @@ const page = async () => {
 
     const defaultAddress = getPrimaryAdress(addresses)
     const restaurants = await getRestaurantAdresses();
-    console.log(restaurants);
     return (
         <Container maxW={{ base: 'container.xl', xl: '1296px' }} pt={'50px'} px={{ base: '20px', xl: '0px' }}>
 

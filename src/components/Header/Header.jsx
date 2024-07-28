@@ -1,4 +1,5 @@
-import { AspectRatio, Box, Container, Flex, Text } from "@chakra-ui/react";
+'use client'
+import { AspectRatio, Box, Container, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import Logo from "../ui/Logo";
 import Search from "../Search/Search";
@@ -7,12 +8,15 @@ import Link from "next/link";
 import LocaleSwitcher from "../LocaleSwitcher/LocaleSwitcher";
 import CallBox from "../ui/CallBox";
 import MenuDrawer from "../Drawer/MenuDrawer";
-import ProfileBtn from "../ui/ProfileBtn";
-import CartBtn from "../ui/CartBtn";
 import LoginModal from "../Modals/Login";
 import CartDrawer from "../Drawer/CartDrawer";
+import Bonus from "../ui/Bonus";
 
 const Header = () => {
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
   return (
     <Container boxShadow={" 0px 0px 7px 0px #73737333"} maxW={"unset"}>
       <Flex
@@ -37,7 +41,8 @@ const Header = () => {
           <Flex flexDir={"row"} gap={"30px"}>
             <LocaleSwitcher />
             <Flex flexDir={"row"} gap={"16px"}>
-              <LoginModal textBlack={true}/>
+              <Bonus />
+              <LoginModal textBlack={true} closeMenu={onClose}/>
               <CartDrawer textBlack={true}  />
             </Flex>
           </Flex>
@@ -47,7 +52,7 @@ const Header = () => {
           <Search />
         </Box>
 
-        <MenuDrawer />
+        <MenuDrawer onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
       </Flex>
     </Container>
   );

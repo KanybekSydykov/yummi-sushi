@@ -86,7 +86,6 @@ export default function AdressModal({
       : await postUserAdress(headers, address);
     const responseData = await res.json();
     if (res.ok) {
-      console.log(res);
       if (isEdit) {
         setAddressInfo(responseData);
       } else {

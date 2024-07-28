@@ -37,7 +37,7 @@ const OrderInfo = ({ item }) => {
       position={"relative"}
       borderRadius={"30px"}
       transition={"all 0.3s ease"}
-      maxW={'calc(50% - 16px)'}
+      maxW={{ base: "100%", lg: "calc(50% - 16px)" }}
       _hover={{
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
         transform: "scale3d(1.02, 1.02, 1.01)",

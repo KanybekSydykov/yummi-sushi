@@ -17,4 +17,7 @@ export const ENDPOINTS = {
     getBanners: () => _URI + 'pages/banners/',
     getCategories: () => _URI + 'products/categories/only/',
     getContacts: () => _URI + 'pages/contacts/',
+    getBonusAmount: () => _URI + 'users/bonus/',
+    getUserOrders : () => _URI + 'orders/orders/',
+    getBonusProducts: () => _URI + 'products/bonus/',
 }

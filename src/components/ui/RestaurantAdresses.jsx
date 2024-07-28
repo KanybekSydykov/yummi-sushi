@@ -17,7 +17,6 @@ const RestaurantAdresses = ({
   );
   const [isRequesting, setIsRequesting] = useState(false);
 
-  console.log(restaurantAdresses);
 
   return (
     <Flex flexDir={"column"} gap={"20px"} position={"relative"}>

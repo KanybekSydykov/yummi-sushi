@@ -33,7 +33,6 @@ const cardStyles = {
 const Addon = ({topping,handleAddon,active=false}) => {
   const [isActive, setIsActive] = useState(false);
 
-  console.log(active);
 
   useEffect(() => {
     setIsActive(active)
@@ -71,7 +70,7 @@ const Addon = ({topping,handleAddon,active=false}) => {
 
       <Flex flexDir={"row"} justifyContent={"space-between"} w={"100%"}>
         <Text fontFamily="roboto" fontWeight="700" fontSize="16px" color="main">
-          {topping.price}
+          {topping.price} сом
         </Text>
       </Flex>
     </Flex>

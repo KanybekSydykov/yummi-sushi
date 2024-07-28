@@ -1,12 +1,12 @@
 "use client";
 
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import FormInput from "../ui/FormInput";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import CustomButton from "../ui/CustomButton";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { ENDPOINTS } from "@/api/endpoints";
+import GoBack from "../ui/GoBack";
 
 const ProfileInfo = ({ data, token }) => {
   const [name, setName] = useState(data.full_name);
@@ -16,7 +16,6 @@ const ProfileInfo = ({ data, token }) => {
   const [isRequesting, setIsRequesting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     if (name && email && phone && dob) {
@@ -48,7 +47,6 @@ const ProfileInfo = ({ data, token }) => {
       }
     } catch (error) {
       setIsRequesting(false);
-
       throw new Error(error);
     }
   }
@@ -70,23 +68,7 @@ const ProfileInfo = ({ data, token }) => {
         h={"fit-content"}
       >
         <Flex mb={"20px"} flexDir={"row"} gap={"30px"} alignItems={"center"}>
-          <Button
-            onClick={() => router.push("/profile")}
-            display={{ base: "flex", md: "none" }}
-            width={"50px"}
-            h={"50px"}
-            borderRadius={"50%"}
-            bg={"#fff"}
-            _hover={{
-              bg: "#fff",
-            }}
-            _focus={{
-              bg: "#fff",
-            }}
-            boxShadow={"0px 0px 4px 0px rgba(151, 151, 151, 0.25)"}
-          >
-            <ChevronLeftIcon width={"32px"} h={"32px"} />
-          </Button>
+          <GoBack />
           <Text fontFamily={"roboto"} fontSize={"18px"} fontWeight={"400"}>
             Личные данные
           </Text>

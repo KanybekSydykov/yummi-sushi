@@ -14,8 +14,6 @@ const HomeInfo = ({ info }) => {
     mb: "20px",
   };
 
-  console.log(info);
-
   return (
     <Flex as={motion.div}
       flexDir={"column"}
@@ -44,6 +42,8 @@ const HomeInfo = ({ info }) => {
           justifyContent={"center"}
           maxW={{ base: "container.xl", xl: "1296px" }}
           mx={"auto"}
+          px={{base:'0px',lg:'16px'}}
+
         >
           {info?.order.map((item) => (
             <InfoCard key={item.title} item={item} type={"order-info"} />
@@ -53,7 +53,7 @@ const HomeInfo = ({ info }) => {
       <Flex flexDir={"column"} py={"40px"} borderRadius={"30px"}>
         <Text {...titleStyles}>Условия доставки</Text>
         <Flex
-          flexDir={"row"}
+          flexDir={{base:"column",lg:"row"}}
           mt={{ base: "30px", lg: "50px" }}
           columnGap={{ base: "60px", lg: "20px" }}
           rowGap={{ base: "60px", lg: "60px" }}
@@ -62,6 +62,7 @@ const HomeInfo = ({ info }) => {
           justifyContent={"center"}
           maxW={{ base: "container.xl", xl: "1296px" }}
           mx={"auto"}
+          px={'16px'}
         >
           {info?.delivery.map((item) => (
             <InfoCard key={item.title} item={item} type={"delivery-info"} />
@@ -80,6 +81,8 @@ const HomeInfo = ({ info }) => {
           justifyContent={"center"}
           maxW={{ base: "container.xl", xl: "1296px" }}
           mx={"auto"}
+          px={'16px'}
+
         >
           {info?.payment.map((item) => (
             <InfoCard key={item.title} item={item} type={"payment-info"} />

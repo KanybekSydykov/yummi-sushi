@@ -25,7 +25,7 @@ const getUserProfileInfo = async(params,token) =>{
 const page = async({ params }) => {
     const session = await getSession()
 
-    const access_token = session?.user?.access_token
+    const access_token = session?.access_token
 
     if(!session){
         redirect('/');
@@ -33,16 +33,13 @@ const page = async({ params }) => {
 
     const data = await getUserProfileInfo(params,access_token)
 
-    console.log(data);
-
     return (
         <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', xl: '0px' }} pt={{ xl: '50px' }} minH={'100dvh'} h={'auto'}>
-            <Bread />
             <Flex flexDir={'row'} gap={'50px'} mt={'50px'} position={"relative"} minH={{ base: '100dvh', lg: 'auto' }}>
                 <ProfileNav />
                 <ProfileInfo data={data} token={access_token}/>
-                <Cashback />
-                <MyOrders />
+                <Cashback token={access_token} />
+                <MyOrders token={access_token} />
                 <LogOut />
 
             </Flex>

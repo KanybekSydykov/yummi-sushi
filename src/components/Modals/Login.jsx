@@ -52,16 +52,13 @@ const inputStyles = {
   },
 };
 
-function LoginModal({ textBlack }) {
+function LoginModal({ textBlack ,closeMenu }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { setAuth } = useCart();
-
+  const { setAuth,isAuthenticated } = useCart();
   const [number, setNumber] = useState("");
   const [isNumberSent, setIsNumberSent] = useState(false);
   const [isOtpConfirming, setIsOtpConfirming] = useState(false);
-
   const router = useRouter();
-
   async function handleOtp(otp) {
     setIsOtpConfirming(true);
     try {
@@ -74,8 +71,8 @@ function LoginModal({ textBlack }) {
       });
 
       if (res.ok) {
-        console.log("loggin successfull");
         const data = await res.json();
+        console.log("loggin successfull",data);
         login(data);
         setAuth(true);
         onClose();
@@ -87,9 +84,19 @@ function LoginModal({ textBlack }) {
     }
   }
 
+  function handleModal() {
+    if(!isAuthenticated){
+      onOpen();
+    }else {
+      closeMenu();
+      router.push('/profile?tab=profile')
+    }
+   
+  }
+
   return (
     <>
-      <ProfileBtn fn={onOpen} textBlack={textBlack} />
+      <ProfileBtn fn={() => handleModal()} textBlack={textBlack} isAuthenticated={isAuthenticated} />
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
@@ -235,9 +242,7 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
       }
 
       const data = await res.json();
-      console.log(data);
     } catch (error) {
-      console.log(error);
       setIsRequesting(false);
     }
   }

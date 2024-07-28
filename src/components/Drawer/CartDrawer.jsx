@@ -21,6 +21,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/lib/context-api";
 import EmptyCart from "../ui/EmptyCart";
 import LoginModal from "../Modals/Login";
+import BonusCartItem from "../Bonus/BonusCartItem";
 
 const formatToTwoDecimalPlaces = (num) => {
   // Convert to string with a fixed number of decimal places, then truncate
@@ -46,6 +47,7 @@ const CartDrawer = ({ textBlack, fixed }) => {
     getTotalPrice,
     getTotalQuantity,
     isAuthenticated,
+    bonusCart
   } = useCart();
   function handleCheckout() {
     router.push("/checkout");
@@ -55,8 +57,6 @@ const CartDrawer = ({ textBlack, fixed }) => {
   if (path.includes("checkout") && fixed) {
     return null;
   }
-
-  console.log(cart);
 
   function countCashback() {
     let cashbackValue = 2.5 / 100;
@@ -71,7 +71,7 @@ const CartDrawer = ({ textBlack, fixed }) => {
         <DrawerContent>
           <DrawerCloseButton _focus={{ boxShadow: "none" }} />
           <DrawerBody>
-            {cart.length ? (
+            {cart.length || bonusCart.length ? (
               <>
                 <Text
                   fontFamily={"roboto"}
@@ -82,6 +82,13 @@ const CartDrawer = ({ textBlack, fixed }) => {
                 >
                   {getTotalQuantity()} товаров на {getTotalPrice()} сом
                 </Text>
+            {bonusCart.length > 0 && <Flex flexDir={"column"} gap={"16px"}>
+              {bonusCart.map((item, index, arr) => (
+                  <BonusCartItem key={item.bonusId} product={item} isLast={arr.length - 1 === index} />
+                
+              ))}
+                </Flex>
+                }
 
                 <Flex flexDir={"column"} gap={"16px"}>
                   {cart.map((item) => (

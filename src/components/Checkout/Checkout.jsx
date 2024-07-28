@@ -19,6 +19,7 @@ import AdressModal from "../Modals/AddAdress";
 import { ENDPOINTS } from "@/api/endpoints";
 import FormInput from "../ui/FormInput";
 import { useRouter } from "next/navigation";
+import BonusCartItem from "../Bonus/BonusCartItem";
 
 const DELIVERY_OPTIONS = ["Самовывоз", "Доставка"];
 
@@ -51,6 +52,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     getTotalPrice,
     getTotalQuantity,
     clearCart,
+    bonusCart
   } = useCart();
   const [selectedAdressId, setSelectedAdressId] = useState(
     defaultAddress ? defaultAddress.id : null
@@ -67,6 +69,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [comment, setComment] = useState(" ");
   const toast = useToast();
   const router = useRouter();
+  console.log(bonusCart);
 
   function openDeliveryModal(change = false) {
     if (change === false) {
@@ -93,19 +96,27 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         is_bonus: false,
       };
     });
+
+    const bonusProducts = bonusCart.map((item) => {
+      return {
+        product_size_id: item.id,
+        quantity: item.quantity,
+        is_bonus: true,
+      };
+    })
     const is_pickup = deliveryMethod === "Самовывоз";
     const restaurant_id = selectedRestaurant.id;
     const body = {
-      products,
+      products: [...products, ...bonusProducts],
       is_pickup,
-      delivery:{
+      delivery: {
         user_address_id: selectedAdressId,
       },
       restaurant_id,
       change,
       comment,
       payment_method: paymentMethod,
-      order_source: "web"
+      order_source: "web",
     };
 
     const res = await fetch(ENDPOINTS.postCreateOrder(), {
@@ -118,7 +129,6 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     });
     const data = await res.json();
     if (res.ok) {
-      console.log(data);
       toast({
         title: "Заказ успешно создан",
         status: "success",
@@ -129,7 +139,6 @@ const Checkout = ({ defaultAddress, token, branches }) => {
       setComment(" ");
       clearCart();
       router.push(`/`);
-
     }
   }
   return (
@@ -160,26 +169,43 @@ const Checkout = ({ defaultAddress, token, branches }) => {
           Состав заказа
         </Text>
 
-     {cart.length > 0 ?   <Flex flexDir={"column"} gap={"30px"} mt={"30px"}>
-          {cart.map((item, index, arr) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              deleteItem={deleteItem}
-              increaseQuantity={increaseQuantity}
-              decreaseQuantity={decreaseQuantity}
-              isLast={index === arr.length - 1}
-            />
-          ))}
-        </Flex>
-        
-        :
-        <Text textAlign={"center"} mt={"30px"} color={"#000"} fontFamily={"roboto"} fontSize={"18px"} flexGrow={1}>
-          Корзина пуста
-        </Text>
-        }
+        {cart.length > 0 ? (
+          <Flex flexDir={"column"} gap={"30px"} mt={"30px"} >
+            {cart.map((item, index, arr) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                deleteItem={deleteItem}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                isLast={index === arr.length - 1}
+              />
+            ))}
 
-
+            {bonusCart.length > 0 && (
+              <Flex flexDir={"column"} gap={"16px"} pt={'16px'} borderTop={bonusCart.length ? "1px solid #E2E2E2" : ""}>
+                {bonusCart.map((item, index, arr) => (
+                  <BonusCartItem
+                    key={item.bonusId}
+                    product={item}
+                    isLast={arr.length - 1 === index}
+                  />
+                ))}
+              </Flex>
+            )}
+          </Flex>
+        ) : (
+          <Text
+            textAlign={"center"}
+            mt={"30px"}
+            color={"#000"}
+            fontFamily={"roboto"}
+            fontSize={"18px"}
+            flexGrow={1}
+          >
+            Корзина пуста
+          </Text>
+        )}
       </Flex>
 
       <Flex
@@ -227,10 +253,26 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             {deliveryMethod === "Доставку" ? (
               <>
                 {selectedAdress ? (
-                  <Text fontFamily={"roboto"} fontSize={'16px'} fontWeight={"400"} width={"75%"}>{getAdressString(selectedAdress)}</Text>
-                ) : <Text fontFamily={"roboto"} fontSize={'16px'} fontWeight={"400"} width={"75%"} cursor={"pointer"} onClick={() => openDeliveryModal(true)}>
-                  Добавьте адрес для доставки
-                  </Text>}
+                  <Text
+                    fontFamily={"roboto"}
+                    fontSize={"16px"}
+                    fontWeight={"400"}
+                    width={"75%"}
+                  >
+                    {getAdressString(selectedAdress)}
+                  </Text>
+                ) : (
+                  <Text
+                    fontFamily={"roboto"}
+                    fontSize={"16px"}
+                    fontWeight={"400"}
+                    width={"75%"}
+                    cursor={"pointer"}
+                    onClick={() => openDeliveryModal(true)}
+                  >
+                    Добавьте адрес для доставки
+                  </Text>
+                )}
               </>
             ) : (
               <>{selectedRestaurant.address}</>

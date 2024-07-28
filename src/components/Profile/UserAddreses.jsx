@@ -25,7 +25,6 @@ const UserAddreses = ({handleAdressSelect,selectedAdressId}) => {
 
     if (res.ok) {
       setAddresses(data);
-      console.log(res);
       setIsRequesting(false);
     }
   };
@@ -55,7 +54,6 @@ const UserAddreses = ({handleAdressSelect,selectedAdressId}) => {
     setAddresses((prev) => [...prev, adress])
   }
 
-  console.log(addresses);
 
   return (
     <Box position={"relative"}>

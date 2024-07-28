@@ -17,6 +17,7 @@ const ProfileNav = () => {
       boxShadow={"0px 0px 4px 0px rgba(151, 151, 151, 0.25)"}
       borderRadius={"10px"}
       h={'max-content'}
+      flexShrink={0}
     >
       <Flex
         flexDir={"row"}
@@ -62,7 +63,7 @@ const ProfileNav = () => {
           }}
         />
         <Image src={"/cashback.svg"} alt="profile" width={20} height={20} />
-        <Text>Кэшбек</Text>
+        <Text>Баллы</Text>
       </Flex>
       <Flex
         flexDir={"row"}

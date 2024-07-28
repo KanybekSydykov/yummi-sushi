@@ -23,10 +23,9 @@ import CartBtn from "../ui/CartBtn";
 import Image from "next/image";
 import LoginModal from "../Modals/Login";
 import CartDrawer from "./CartDrawer";
+import Bonus from "../ui/Bonus";
 
-const MenuDrawer = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
   const linkStyles = {
     fontWeight: "400",
     fontSize: "16px",
@@ -35,48 +34,55 @@ const MenuDrawer = () => {
   };
 
   return (
-    <Box display={{ base: "block", lg: "none" }} h={'36px'}>
-      <Grid width={'36px'} height={'36px'} flexShrink={0} gap={'4px'} onClick={onOpen} gridTemplateColumns={"repeat(3, 1fr)"}>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-       <GridItem pos={'relative'}>
-        <Image src={'/sushi-menu2.png'} fill alt={'menu'} />
-       </GridItem>
-      </Grid>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        size={'sm'}
+    <Box display={{ base: "block", lg: "none" }} h={"36px"}>
+      <Grid
+        width={"36px"}
+        height={"36px"}
+        flexShrink={0}
+        gap={"4px"}
+        onClick={onOpen}
+        gridTemplateColumns={"repeat(3, 1fr)"}
       >
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+        <GridItem pos={"relative"}>
+          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+        </GridItem>
+      </Grid>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={"sm"}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton color={"white"} size={"lg"} />
 
           <DrawerBody bg={"black"}>
-            <Flex flexDir={"column"} justifyContent={'space-evenly'} alignItems={'center'} height={'100%'}>
+            <Flex
+              flexDir={"column"}
+              justifyContent={"space-evenly"}
+              alignItems={"center"}
+              height={"100%"}
+            >
               <CallBox inMenu={true} />
 
               <Flex
@@ -96,14 +102,18 @@ const MenuDrawer = () => {
 
               <LocaleSwitcher inMenu={true} />
 
-              <Flex flexDir={'row'} gap={'16px'} alignItems={'flex-start'} justifyContent={'center'} >
-                <LoginModal />
+              <Flex
+                flexDir={"row"}
+                gap={"16px"}
+                alignItems={"flex-start"}
+                justifyContent={"center"}
+              >
+                <Bonus />
+
+                <LoginModal closeMenu={onClose} />
 
                 <CartDrawer />
-                
               </Flex>
-
-
             </Flex>
           </DrawerBody>
         </DrawerContent>

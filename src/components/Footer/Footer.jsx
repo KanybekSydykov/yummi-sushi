@@ -23,7 +23,6 @@ return footerData
 const Footer = async({  locale }) => {
 
   const data = await getFooterData(locale)
-  console.log(data);
 
   return (
     <>

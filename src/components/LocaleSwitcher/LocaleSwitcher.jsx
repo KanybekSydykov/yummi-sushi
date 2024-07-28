@@ -8,8 +8,6 @@ const LocaleSwitcher = ({inMenu=false}) => {
     const pathName = usePathname();
     const {locale} = useParams();
 
-    console.log(pathName);
-
     function switchLocale(lang) {
       const url = pathName.replace(`${locale}`, `${lang}`);
       router.push(url);
