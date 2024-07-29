@@ -54,7 +54,7 @@ const Bonus = () => {
     }}
     >
         <Flex flexDir={'row'} alignItems={'center'} justifyContent={'space-between'}>
-  {bonusAmount !== 0 && <Text fontFamily={'roboto'} fontWeight={'600'} fontSize={'10px'} color={'#000'}>
+  {bonusAmount !== 0 && isAuthenticated && <Text fontFamily={'roboto'} fontWeight={'600'} fontSize={'10px'} color={'#000'}>
         +{Math.floor(bonusAmount)}
     </Text>}
       <AspectRatio

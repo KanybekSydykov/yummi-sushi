@@ -9,10 +9,12 @@ const AdressItem = ({ address,selectedAdressId,handleAdressSelect,deleteUserAdre
 
   const [addresInfo, setAddressInfo] = useState(address);
 
+  console.log(addresInfo);
+
   const getAdressString = (item) => {
-    return `${item.city}, ул. ${item.street} , кв. ${item.house_number} ${
+    return `${item.city}, ${
       item.entrance ? `, подъезд ${item.entrance}` : ""
-    } ${item.flooer ? `, этаж ${item.floor}` : ""} ${
+    } ${item.floor ? `, этаж ${item.floor}` : ""} ${
       item.intercom ? `, домофон ${item.intercom}` : ""
     } `;
   };

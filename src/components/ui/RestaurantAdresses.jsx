@@ -11,6 +11,8 @@ const RestaurantAdresses = ({
   selectedAdressId,
   setSelectedRestaurant,
   restaurants,
+
+  selectedRestaurant
 }) => {
   const [restaurantAdresses, setRestaurantAdresses] = useState(
     restaurants ? restaurants : []
@@ -27,6 +29,7 @@ const RestaurantAdresses = ({
           address={address}
           selectedAdressId={selectedAdressId}
           handleAdressSelect={handleAdressSelect}
+          selectedRestaurant={selectedRestaurant}
         />
       ))}
       {isRequesting && <SpinnerBox />}
@@ -41,7 +44,13 @@ function RestoranAdressItem({
   selectedAdressId,
   handleAdressSelect,
   setSelectedRestaurant,
+  selectedRestaurant
+  
 }) {
+
+
+  console.log(address,selectedAdressId,selectedRestaurant);
+
   return (
     <Flex
       flexDir={"row"}
@@ -50,7 +59,7 @@ function RestoranAdressItem({
       w={"100%"}
       borderRadius={"10px"}
       border={`2px solid ${
-        address.id === selectedAdressId ? "#FF8341" : "#EAEAEA"
+        selectedRestaurant?.id === address.id ? "#FF8341" : "#EAEAEA"
       }`}
       p={"10px"}
       alignItems={"center"}
@@ -58,7 +67,7 @@ function RestoranAdressItem({
       minH={"80px"}
       cursor={"pointer"}
       onClick={() => {
-        setSelectedRestaurant(address), handleAdressSelect(address.id);
+        setSelectedRestaurant(address);
       }}
     >
       <AspectRatio

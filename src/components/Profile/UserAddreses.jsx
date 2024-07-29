@@ -30,7 +30,9 @@ const UserAddreses = ({handleAdressSelect,selectedAdressId}) => {
   };
 
   const deleteUserAdress = async (id) => {
+    console.log(id);
     const { access_token } = await getSession();
+    console.log(access_token);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${access_token}`,

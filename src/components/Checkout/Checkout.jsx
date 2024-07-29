@@ -1,11 +1,15 @@
 "use client";
 import {
+  background,
+  border,
   Box,
+  Button,
   Flex,
   Radio,
   RadioGroup,
   Stack,
   Text,
+  Tooltip,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -20,6 +24,8 @@ import { ENDPOINTS } from "@/api/endpoints";
 import FormInput from "../ui/FormInput";
 import { useRouter } from "next/navigation";
 import BonusCartItem from "../Bonus/BonusCartItem";
+import { motion, useAnimate } from "framer-motion";
+import OrderSuccess from "../Modals/OrderSuccess";
 
 const DELIVERY_OPTIONS = ["Самовывоз", "Доставка"];
 
@@ -34,9 +40,9 @@ function countCashback(val) {
 }
 
 const getAdressString = (item) => {
-  return `${item.city}, ул. ${item.street} , кв. ${item.house_number} ${
+  return `${item.city}, ${
     item.entrance ? `, подъезд ${item.entrance}` : ""
-  } ${item.flooer ? `, этаж ${item.floor}` : ""} ${
+  } ${item.floor ? `, этаж ${item.floor}` : ""} ${
     item.intercom ? `, домофон ${item.intercom}` : ""
   } `;
 };
@@ -52,11 +58,12 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     getTotalPrice,
     getTotalQuantity,
     clearCart,
-    bonusCart
+    bonusCart,
   } = useCart();
   const [selectedAdressId, setSelectedAdressId] = useState(
     defaultAddress ? defaultAddress.id : null
   );
+  const [scope,animate] = useAnimate()
   const [deliveryPrice, setDeliveryPrice] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [selectedAdress, setSelectedAdress] = useState(
@@ -69,7 +76,11 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [comment, setComment] = useState(" ");
   const toast = useToast();
   const router = useRouter();
-  console.log(bonusCart);
+  const [isOrdering, setIsOrdering] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [isAdressError, setIsAdressError] = useState(false);
+
+
 
   function openDeliveryModal(change = false) {
     if (change === false) {
@@ -82,12 +93,38 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     onOpen();
   }
 
+  console.log(selectedRestaurant, 'in checkout jsx');
+
   function handleAdressSelect(id, address) {
     setSelectedAdressId(id);
     setSelectedAdress(address);
   }
 
   async function createOrder() {
+    if(!selectedAdress && scope.current && deliveryMethod === "Доставку"){
+      await animate(scope.current, {  x:[-20,15,-10,5,0],border:'1px solid red' }, { duration: 0.3 });
+      toast({
+        title: "Адрес доставки не указан",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      })
+      return;
+    }
+
+    if(!deliveryPrice && deliveryMethod === "Доставку"){
+
+      toast({
+        title: "Адрес указан не верно",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      })
+      return;
+    }
+
     const products = cart.map((item) => {
       return {
         product_size_id: item.selectedSize.id,
@@ -103,14 +140,14 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         quantity: item.quantity,
         is_bonus: true,
       };
-    })
+    });
     const is_pickup = deliveryMethod === "Самовывоз";
     const restaurant_id = selectedRestaurant.id;
     const body = {
       products: [...products, ...bonusProducts],
       is_pickup,
       delivery: {
-        user_address_id: selectedAdressId,
+        user_address_id: selectedAdress?.id,
       },
       restaurant_id,
       change,
@@ -119,27 +156,37 @@ const Checkout = ({ defaultAddress, token, branches }) => {
       order_source: "web",
     };
 
-    const res = await fetch(ENDPOINTS.postCreateOrder(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      toast({
-        title: "Заказ успешно создан",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+    try {
+    setIsOrdering(true);
+
+      const res = await fetch(ENDPOINTS.postCreateOrder(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
       });
-      setChange(0);
-      setComment(" ");
-      clearCart();
-      router.push(`/`);
+      const data = await res.json();
+      if (res.ok) {
+        toast({
+          title: "Заказ успешно создан",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        setChange(0);
+        setComment(" ");
+        clearCart();
+        setOrderSuccess(true);
+        setIsOrdering(false);
+      }
+    } catch (error) {
+      setIsOrdering(false);
+      throw new Error({ status: error.status || 500 });
     }
+
+
   }
   return (
     <Flex
@@ -170,7 +217,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         </Text>
 
         {cart.length > 0 ? (
-          <Flex flexDir={"column"} gap={"30px"} mt={"30px"} >
+          <Flex flexDir={"column"} gap={"30px"} mt={"30px"}>
             {cart.map((item, index, arr) => (
               <CartItem
                 key={item.id}
@@ -183,7 +230,12 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             ))}
 
             {bonusCart.length > 0 && (
-              <Flex flexDir={"column"} gap={"16px"} pt={'16px'} borderTop={bonusCart.length ? "1px solid #E2E2E2" : ""}>
+              <Flex
+                flexDir={"column"}
+                gap={"16px"}
+                pt={"16px"}
+                borderTop={bonusCart.length ? "1px solid #E2E2E2" : ""}
+              >
                 {bonusCart.map((item, index, arr) => (
                   <BonusCartItem
                     key={item.bonusId}
@@ -243,6 +295,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             Адрес {deliveryMethod === "Самовывоз" ? "пицерии" : "доставки"}
           </Text>
           <Flex
+          ref={scope}
             flexDir={"row"}
             flexWrap={"wrap"}
             borderRadius={"10px"}
@@ -275,7 +328,17 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                 )}
               </>
             ) : (
-              <>{selectedRestaurant.address}</>
+              <>
+                <Text
+                    fontFamily={"roboto"}
+                    fontSize={"16px"}
+                    fontWeight={"400"}
+                    width={"75%"}
+                  >
+
+              {selectedRestaurant.address}
+                  </Text>
+              </>
             )}
             <Text
               onClick={() => openDeliveryModal(true)}
@@ -423,10 +486,11 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             setValue={setComment}
           />
         </Flex>
-
+        <Tooltip hasArrow label='Минимальная сумма заказа 1000 сом' isDisabled={getTotalPrice() >= 1000} bg='red.600'>
         <Box mx={"auto"} maxW={"350px"} width={"100%"} mt={"55px"}>
-          <CustomButton text={"Подтвердить заказ"} fn={createOrder} />
+          <CustomButton isDisabled={cart.length === 0 || getTotalPrice() < 1000} isRequesting={isOrdering} text={"Подтвердить заказ"} fn={createOrder} />
         </Box>
+</Tooltip>
       </Flex>
 
       <DeliveryMethod
@@ -438,7 +502,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         deliveryMethod={deliveryMethod}
         restaurants={branches}
         setSelectedRestaurant={setSelectedRestaurant}
+        selectedRestaurant={selectedRestaurant}
       />
+      <OrderSuccess showModal={orderSuccess} setShowModal={setOrderSuccess} />
     </Flex>
   );
 };

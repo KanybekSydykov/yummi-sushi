@@ -23,6 +23,8 @@ const Search = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const ref = useRef(null);
 
+  console.log(searchResults);
+
   function handleInputFocus(e, show = false) {
     window.scrollTo(0, 0);
     e.stopPropagation();
@@ -54,7 +56,7 @@ const Search = () => {
     setIsRequestPending(true);
     try {
       const response = await fetch(
-        `https://food.tatadev.pro/api/v1/products/product/search?name=${query}`
+        `https://food.tatadev.pro/api/v1/products/product/search/?name=${query}`
       );
       const data = await response.json();
       setSearchResults(data || []);
@@ -177,9 +179,9 @@ const Search = () => {
               {searchResults.length > 0 ? (
                 <Box
                   position="absolute"
-                  top={{ base: "120px", lg: "80px" }}
-                  left="20px"
-                  right="20px"
+                  top={{ base: "150px", lg: "120px" }}
+                  left="320px"
+                  right="320px"
                   width="auto"
                   padding={"20px"}
                   borderRadius={"10px"}
@@ -204,9 +206,7 @@ const Search = () => {
                       >
                         <Image
                           src={
-                            result.images.length > 0
-                              ? result.images[0]
-                              : "/placeholder.jpeg"
+                            result.photo
                           }
                           alt={result.name}
                           width={50}

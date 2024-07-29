@@ -12,9 +12,6 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import AdressItem from "../ui/AdressItem";
-import CustomButton from "../ui/CustomButton";
 import AdressModal from "./AddAdress";
 import UserAddreses from "../Profile/UserAddreses";
 import RestaurantAdresses from "../ui/RestaurantAdresses";
@@ -30,7 +27,8 @@ function DeliveryMethod({
   handleAdressSelect,
   selectedAdressId,
   restaurants,
-  setSelectedRestaurant
+  setSelectedRestaurant,
+  selectedRestaurant
 }) {
 
   return (
@@ -99,7 +97,7 @@ function DeliveryMethod({
             {deliveryMethod === "Доставку" ? (
               <UserAddreses handleAdressSelect={handleAdressSelect} selectedAdressId={selectedAdressId}/>
             ) : (
-              <RestaurantAdresses handleAdressSelect={handleAdressSelect} selectedAdressId={selectedAdressId} restaurants={restaurants} setSelectedRestaurant={setSelectedRestaurant} />
+              <RestaurantAdresses selectedRestaurant={selectedRestaurant} handleAdressSelect={handleAdressSelect} selectedAdressId={selectedAdressId} restaurants={restaurants} setSelectedRestaurant={setSelectedRestaurant} />
             )}
             </Box>
           </ModalBody>

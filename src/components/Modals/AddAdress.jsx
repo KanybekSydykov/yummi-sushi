@@ -21,6 +21,7 @@ import React, { useState, useEffect } from "react";
 import FormInput from "../ui/FormInput";
 import { getSession } from "@/lib/auth";
 import { ENDPOINTS } from "@/api/endpoints";
+import GoogleMapsAutocomplete from "../GoogleAutoComplete/GoogleMapsAutocomplete";
 
 export default function AdressModal({
   children,
@@ -31,16 +32,14 @@ export default function AdressModal({
   handleAdressSelect,
   deleteUserAdress,
 }) {
+
+  console.log(data);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isRequesting, setIsRequesting] = useState(false);
 
   const [city, setCity] = useState(data.city ? data.city : "");
-  const [street, setStreet] = useState(data.street ? data.street : "");
   const [floor, setFloor] = useState(data.floor ? data.floor : "");
-  const [house_number, setHouse_number] = useState(
-    data.house_number ? data.house_number : ""
-  );
   const [apartment, setApartment] = useState(
     data.apartment_number ? data.apartment_number : ""
   );
@@ -67,10 +66,8 @@ export default function AdressModal({
     setIsRequesting(true);
     const address = {
       city,
-      street,
       floor,
       apartment_number: apartment,
-      house_number,
       entrance,
       intercom,
       is_primary: true,
@@ -143,34 +140,9 @@ export default function AdressModal({
               columnGap={"16px"}
             >
               <GridItem colSpan={2}>
-                <FormInput
-                  title={"Город"}
-                  title_en={"City"}
-                  value={"Бишкек"}
-                  type={"text"}
-                  required
-                  isReadOnly={true}
-                />
+                <GoogleMapsAutocomplete city={city}  setCity={setCity} />
               </GridItem>
-              <GridItem colSpan={2}>
-                <FormInput
-                  title={"Улица"}
-                  title_en={"Street"}
-                  value={street}
-                  setValue={setStreet}
-                  type={"text"}
-                  required
-                />
-              </GridItem>
-              <GridItem colSpan={1}>
-                <FormInput
-                  title={"Дом"}
-                  title_en={"House number"}
-                  value={house_number}
-                  setValue={setHouse_number}
-                  type={"text"}
-                />
-              </GridItem>
+          
               <GridItem colSpan={1}>
                 <FormInput
                   title={"Квартира"}

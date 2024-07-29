@@ -9,8 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Text,
   useToast,
@@ -86,7 +84,6 @@ function ProductDetails({
     setTotalPrice(product.product_sizes[0].discounted_price ? product.product_sizes[0].discounted_price : product.product_sizes[0].price);
   }, [product]);
 
-  console.log(totalPrice);
 
   const handleAddonClick = (addon) => {
     if (addons.includes(addon)) {
@@ -105,7 +102,6 @@ function ProductDetails({
     setTotalPrice(price + addonsTotalPrice);
   }, [selectedSize,addons]);
 
-  console.log(product);
 
 
   const handleAddToCart = () => {
@@ -195,8 +191,9 @@ function ProductDetails({
             bg={{ base: "white", lg: "none" }}
             borderRadius={"50%"}
             _focusVisible={{ boxShadow: "none" }}
+            zIndex={10}
           />
-          <ModalBody p={{ base: "16px", lg: "30px" }}>
+          <ModalBody p={{ base: "16px", lg: "30px" }} position={'relative'} >
             <Flex
               flexDir={{ base: "column", lg: "row" }}
               gap={{ base: "20px", lg: "40px" }}
@@ -288,6 +285,7 @@ function ProductDetails({
                     ))}
                   </Flex>
                 </Flex>
+                <Flex position={{base:"sticky",lg:'relative'}} left={{base:'0',lg:'unset'}} bottom={{base:'0',lg:'unset'}} padding={{base:'0px',lg:'0px'}} bg={{base:'rgba(255,255,255,0.25)',lg:'transparent'}}>
                 <CustomButton
                   text={
                     isEdit
@@ -296,6 +294,8 @@ function ProductDetails({
                   }
                   fn={handleAddToCart}
                 />
+                </Flex>
+             
               </Flex>
             </Flex>
           </ModalBody>

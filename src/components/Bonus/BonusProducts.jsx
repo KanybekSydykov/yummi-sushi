@@ -29,7 +29,7 @@ const BonusProducts = async () => {
     <Flex
       flexDir={"column"}
       w={"100%"}
-      mt={"50px"}
+      my={"50px"}
       bg={
         "linear-gradient(45deg, rgb(21, 178, 241) 0%, rgb(11, 120, 227) 98.04%)"
       }

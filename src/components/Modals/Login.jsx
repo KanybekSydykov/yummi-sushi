@@ -242,6 +242,8 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
       }
 
       const data = await res.json();
+
+      console.log(data);
     } catch (error) {
       setIsRequesting(false);
     }
@@ -257,6 +259,11 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
           isRequired={true}
           placeholder="+996 XXX XXX XXX"
           value={number}
+          onFocus={() => {
+            if (!number) {
+              setNumber("+996");
+            }
+          }}
           onChange={(e) => setNumber(e.target.value)}
         />
       </FormControl>
