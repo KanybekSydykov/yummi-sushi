@@ -1,12 +1,14 @@
 "use client";
 import { useCart } from "@/lib/context-api";
 import { Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 
 const AddBonusToCart = ({ item,bonusId }) => {
   const { addBonusItem, bonusAmount } = useCart();
   const toast = useToast();
+  const t = useTranslations("Common");
 
   const handleAddBonus = () => {
     const body = {
@@ -35,7 +37,7 @@ const AddBonusToCart = ({ item,bonusId }) => {
           fontWeight={"400"}
           onClick={onClose}
         >
-          <Text fontSize={"14px"}>Добавлено:</Text>
+          <Text fontSize={"14px"}>{t('added')}:</Text>
           <Text fontSize={"16px"}>
             {item.product_name} {item.size}
           </Text>
@@ -60,7 +62,7 @@ const AddBonusToCart = ({ item,bonusId }) => {
         fontSize={"14px"}
         color={"#fff"}
       >
-        Добавить за {item.bonus_price}
+        {t('addFor')} {item.bonus_price}
       </Text>
     </Button>
   );

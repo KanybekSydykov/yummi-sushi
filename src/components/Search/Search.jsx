@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const Search = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -23,6 +24,7 @@ const Search = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const ref = useRef(null);
 
+  const t = useTranslations("HomePage");
   function handleInputFocus(e, show = false) {
     window.scrollTo(0, 0);
     e.stopPropagation();
@@ -90,7 +92,7 @@ const Search = () => {
       >
         <Input
           type="search"
-          placeholder={locale === "en" ? "Search" : "Я ищу..."}
+          placeholder={t("search")}
           bg={isFocused ? "fff" : "transparent"}
           border={"1px solid #A4A4A4"}
           borderRadius={"10px"}

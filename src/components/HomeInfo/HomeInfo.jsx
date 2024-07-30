@@ -1,8 +1,8 @@
-'use client';
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import InfoCard from "../ui/InfoCard";
-import {motion} from "framer-motion"
+import AnimatedCoverHomeInfo from "./AnimatedCoverHomeInfo";
+import { useTranslations } from "next-intl";
 
 const HomeInfo = ({ info }) => {
   const titleStyles = {
@@ -14,16 +14,10 @@ const HomeInfo = ({ info }) => {
     mb: "20px",
   };
 
+  const t = useTranslations('HomePage')
+
   return (
-    <Flex as={motion.div}
-      flexDir={"column"}
-      mt={{ base: "100px", lg: "120px" }}
-      mb={{ base: "158px", lg: "143px" }}
-      initial={{opacity:0,y:30}}
-      transition={{duration:1.8,ease:"linear"}}
-      whileInView={{opacity:1,y:0}}
-      viewport={{ once: true, amount: { base: 0.8, lg: 0.3 } }}
-    >
+    <AnimatedCoverHomeInfo>
       <Flex
         flexDir={"column"}
         bg={"#F9FAFB"}
@@ -31,7 +25,7 @@ const HomeInfo = ({ info }) => {
         px={{ base: "16px", lg: "0px" }}
         borderRadius={"30px"}
       >
-        <Text {...titleStyles}>Типы заказов</Text>
+        <Text {...titleStyles}>{t('orderTypes')}</Text>
         <Flex
           flexDir={"row"}
           mt={{ base: "30px", lg: "50px" }}
@@ -51,7 +45,7 @@ const HomeInfo = ({ info }) => {
         </Flex>
       </Flex>
       <Flex flexDir={"column"} py={"40px"} borderRadius={"30px"}>
-        <Text {...titleStyles}>Условия доставки</Text>
+        <Text {...titleStyles}>{t('deliveryRule')}</Text>
         <Flex
           flexDir={{base:"column",lg:"row"}}
           mt={{ base: "30px", lg: "50px" }}
@@ -70,7 +64,7 @@ const HomeInfo = ({ info }) => {
         </Flex>
       </Flex>
       <Flex flexDir={"column"} py={"40px"} borderRadius={"30px"}>
-        <Text {...titleStyles}>Способы оплаты</Text>
+        <Text {...titleStyles}>{t('payment')}</Text>
         <Flex
           flexDir={"row"}
           mt={{ base: "30px", lg: "50px" }}
@@ -89,7 +83,7 @@ const HomeInfo = ({ info }) => {
           ))}
         </Flex>
       </Flex>
-    </Flex>
+      </AnimatedCoverHomeInfo>
   );
 };
 

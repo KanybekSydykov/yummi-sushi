@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../ui/Logo";
 import { ENDPOINTS } from "@/api/endpoints";
+import { getTranslations } from "next-intl/server";
 
 const getFooterData = async(locale) =>{
   const res = await fetch(`${ENDPOINTS.getContacts()}`, {
@@ -24,6 +25,8 @@ return footerData
 const Footer = async({  locale }) => {
 
   const data = await getFooterData(locale)
+
+  const t = await getTranslations("HomePage");
 
   return (
     <>
@@ -80,7 +83,7 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {locale === "ru" ? " Тех.поддержка" : "Support"}
+              {t('support')}
             </Text>
             {data.phones?.map((item, index) => (
               <ListItem
@@ -116,7 +119,7 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {locale === "ru" ? " Наши соцсети" : "Social networks"}
+              {t('social')}
             </Text>
             <Flex flexDir={"row"} flexWrap={"wrap"} gap={"12px"}>
               {data.socials?.map((item) => (
@@ -169,7 +172,7 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {locale === "ru" ? " СПОСОБЫ ОПЛАТЫ" : "Payment methods"}
+              {t('payment')}
             </Text>
             <Flex flexDir={"row"} flexWrap={"wrap"} gap={"12px"}>
               {data.payment?.map((item) => (

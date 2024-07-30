@@ -38,8 +38,10 @@ const DeliveryPrice = ({ id,token , setDeliveryPrice,adress}) => {
   }
 
   useEffect(() => {
-    getDeliveryPrice();
-  }, [adress.city]);
+    if(adress?.city){
+      getDeliveryPrice();
+    }
+  }, [adress?.city]);
 
   return (
     <Box position={"relative"}>
