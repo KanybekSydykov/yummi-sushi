@@ -20,4 +20,5 @@ export const ENDPOINTS = {
     getBonusAmount: () => _URI + 'users/bonus/',
     getUserOrders : () => _URI + 'orders/orders/',
     getBonusProducts: () => _URI + 'products/bonus/',
+    getStaticPageInfo: (slug) => _URI + `pages/static-pages/${slug}/`,
 }

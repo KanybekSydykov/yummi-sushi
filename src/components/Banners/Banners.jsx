@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { Box, Flex, Button, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Button, useMediaQuery, Spinner } from "@chakra-ui/react";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Image from "next/image";
 import "@splidejs/react-splide/css";
@@ -12,18 +12,6 @@ const BannerSlider = ({ banners}) => {
   function onImageLoad(){
     setLoading(false)
   }
-
-  // const [isDesktop] = useMediaQuery("(min-width: 992px)");
-
-  // function getResponsiveImage(item){
-    
-  //   if(isDesktop){
-  //     return item.image_desktop
-  //   } else {
-  //     return item.small_image
-  //   }
-  // }
-
   return (
     <>
       <Box
@@ -45,26 +33,28 @@ const BannerSlider = ({ banners}) => {
         <Box as={SplideTrack} w={"100%"} h={"100%"}>
           {banners?.map((item, index) => (
             <SplideSlide key={index}>
-              <Box pos={"relative"} w={"100%"} h={"100%"} aspectRatio={{base:358/520,lg:1296/400}} position={'relative'}>
+              <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,lg:1296/400}} position={'relative'}>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",lg:"block"}}>
               <Image
-                  src={loading ? "/loading-img.gif" : item.image_desktop}
+                  src={loading ? "/banner-placeholder.avif" : item.image_desktop}
                   alt={item.title}
                   fill
                   priority
-            onLoad={onImageLoad}
+                  onLoad={onImageLoad}
                   sizes="100%"
                 />
               </Box>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",lg:"none"}}>
               <Image
-                  src={item.image_mobile}
+                  src={loading  ? "/banner-placeholder.avif" : item.image_mobile}
                   alt={item.title}
                   fill
                   priority
+                  onLoad={onImageLoad}
                   sizes="100%"
                 />
               </Box>
+              {loading && <Spinner position={'absolute'} top={'50%'} left={'50%'} transform={'translate(-50%,-50%)'} zIndex={2} color={'#ff8341'} size={'xl'} />}
               <Link href={item.link} style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, width: "100%", height: "100%" }} />
        
               </Box>

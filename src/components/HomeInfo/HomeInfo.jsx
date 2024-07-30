@@ -22,7 +22,7 @@ const HomeInfo = ({ info }) => {
       initial={{opacity:0,y:30}}
       transition={{duration:1.8,ease:"linear"}}
       whileInView={{opacity:1,y:0}}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: { base: 0.8, lg: 0.3 } }}
     >
       <Flex
         flexDir={"column"}

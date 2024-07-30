@@ -16,6 +16,7 @@ const headingStyles = {
 
 const getProducts = async(params) =>{
   const data = await fetch(`${ENDPOINTS.getCategoryData(params.category)}`, {
+    cache: 'no-store',
     headers:{
       'Accept-Language': `${params.locale}`,
     }

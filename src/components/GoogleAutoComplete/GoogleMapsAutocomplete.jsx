@@ -33,13 +33,12 @@ const GoogleMapsAutocomplete = ({ city,setCity }) => {
 
           if (autocompleteService) {
             autocompleteService.getPlacePredictions(
-              { input: value },
+              { input: value ,componentRestrictions: {country: "kg"}},
               (predictions, status) => {
                 if (
                   status === window.google.maps.places.PlacesServiceStatus.OK &&
                   predictions
                 ) {
-                  console.log("Predictions:", predictions);
                   setAddresses(predictions);
                 }
               }
@@ -73,8 +72,6 @@ const GoogleMapsAutocomplete = ({ city,setCity }) => {
     inputRef.current.value = address;
     setAddresses([]);
   }
-
-  console.log(addresses, selectedAdress);
   return (
     <Flex position={"relative"} flexDir={"column"} gap={"8px"}>
       <label
@@ -113,11 +110,12 @@ const GoogleMapsAutocomplete = ({ city,setCity }) => {
           top={"100%"}
           left={0}
           width={"100%"}
-          maxH={"200px"}
+          maxH={"240px"}
           overflowY={"auto"}
           flexDir={"column"}
           bg={"#fff"}
           zIndex={10}
+          boxShadow={"0px 0px 4px 0px rgba(151, 151, 151, 0.25)"}
         >
           {addresses.map((address, index, array) => (
             <Box

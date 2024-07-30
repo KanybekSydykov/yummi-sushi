@@ -40,11 +40,9 @@ function countCashback(val) {
 }
 
 const getAdressString = (item) => {
-  return `${item.city}, ${
-    item.entrance ? `, подъезд ${item.entrance}` : ""
-  } ${item.floor ? `, этаж ${item.floor}` : ""} ${
-    item.intercom ? `, домофон ${item.intercom}` : ""
-  } `;
+  return `${item.city}, ${item.entrance ? `, подъезд ${item.entrance}` : ""} ${
+    item.floor ? `, этаж ${item.floor}` : ""
+  } ${item.intercom ? `, домофон ${item.intercom}` : ""} `;
 };
 
 const Checkout = ({ defaultAddress, token, branches }) => {
@@ -63,7 +61,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [selectedAdressId, setSelectedAdressId] = useState(
     defaultAddress ? defaultAddress.id : null
   );
-  const [scope,animate] = useAnimate()
+  const [scope, animate] = useAnimate();
   const [deliveryPrice, setDeliveryPrice] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [selectedAdress, setSelectedAdress] = useState(
@@ -80,8 +78,6 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [isAdressError, setIsAdressError] = useState(false);
 
-
-
   function openDeliveryModal(change = false) {
     if (change === false) {
       if (deliveryMethod === "Самовывоз") {
@@ -93,35 +89,36 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     onOpen();
   }
 
-  console.log(selectedRestaurant, 'in checkout jsx');
-
   function handleAdressSelect(id, address) {
     setSelectedAdressId(id);
     setSelectedAdress(address);
   }
 
   async function createOrder() {
-    if(!selectedAdress && scope.current && deliveryMethod === "Доставку"){
-      await animate(scope.current, {  x:[-20,15,-10,5,0],border:'1px solid red' }, { duration: 0.3 });
+    if (!selectedAdress && scope.current && deliveryMethod === "Доставку") {
+      await animate(
+        scope.current,
+        { x: [-20, 15, -10, 5, 0], border: "1px solid red" },
+        { duration: 0.3 }
+      );
       toast({
         title: "Адрес доставки не указан",
         status: "error",
         duration: 3000,
         isClosable: true,
         position: "top-right",
-      })
+      });
       return;
     }
 
-    if(!deliveryPrice && deliveryMethod === "Доставку"){
-
+    if (!deliveryPrice && deliveryMethod === "Доставку") {
       toast({
         title: "Адрес указан не верно",
         status: "error",
         duration: 3000,
         isClosable: true,
         position: "top-right",
-      })
+      });
       return;
     }
 
@@ -157,7 +154,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     };
 
     try {
-    setIsOrdering(true);
+      setIsOrdering(true);
 
       const res = await fetch(ENDPOINTS.postCreateOrder(), {
         method: "POST",
@@ -185,16 +182,14 @@ const Checkout = ({ defaultAddress, token, branches }) => {
       setIsOrdering(false);
       throw new Error({ status: error.status || 500 });
     }
-
-
   }
   return (
     <Flex
       position={"relative"}
       flexDir={{ base: "column", lg: "row" }}
       flexWrap={"wrap"}
-      mt={"60px"}
-      mb={"100px"}
+      mt={{ base: "16px", lg: "60px" }}
+      mb={{ base: "20px", lg: "100px" }}
       justifyContent={{ base: "flex-start", lg: "space-between" }}
       gap={{ base: "20px", lg: "0px" }}
       fontFamily={"roboto"}
@@ -206,6 +201,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         border={"1px solid #EAEAEA"}
         p={"30px"}
         height={"fit-content"}
+        display={{ base: "none", lg: "flex" }}
       >
         <Text
           textAlign={"center"}
@@ -218,17 +214,6 @@ const Checkout = ({ defaultAddress, token, branches }) => {
 
         {cart.length > 0 ? (
           <Flex flexDir={"column"} gap={"30px"} mt={"30px"}>
-            {cart.map((item, index, arr) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                deleteItem={deleteItem}
-                increaseQuantity={increaseQuantity}
-                decreaseQuantity={decreaseQuantity}
-                isLast={index === arr.length - 1}
-              />
-            ))}
-
             {bonusCart.length > 0 && (
               <Flex
                 flexDir={"column"}
@@ -245,6 +230,16 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                 ))}
               </Flex>
             )}
+            {cart.map((item, index, arr) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                deleteItem={deleteItem}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                isLast={index === arr.length - 1}
+              />
+            ))}
           </Flex>
         ) : (
           <Text
@@ -274,8 +269,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         <Text
           textAlign={"center"}
           fontFamily={"roboto"}
-          fontWeight={"700"}
-          fontSize={"22px"}
+          fontWeight={{ base: "500", lg: "700" }}
+          fontSize={{ base: "18px", lg: "22px" }}
           color={"#000"}
         >
           Заказ на {deliveryMethod}
@@ -283,19 +278,19 @@ const Checkout = ({ defaultAddress, token, branches }) => {
 
         <Flex
           flexDir={{ base: "column", lg: "row" }}
-          gap={{ base: "20px", lg: "40px" }}
-          mt={"20px"}
+          gap={{ base: "8px", lg: "40px" }}
+          mt={{ base: "10px", lg: "20px" }}
         >
           <Text
             width={{ base: "100%", lg: "140px" }}
             flexShrink={0}
-            fontSize={"18px"}
-            fontWeight={"700"}
+            fontSize={{ base: "16px", lg: "18px" }}
+            fontWeight={{ base: "500", lg: "600" }}
           >
             Адрес {deliveryMethod === "Самовывоз" ? "пицерии" : "доставки"}
           </Text>
           <Flex
-          ref={scope}
+            ref={scope}
             flexDir={"row"}
             flexWrap={"wrap"}
             borderRadius={"10px"}
@@ -308,8 +303,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                 {selectedAdress ? (
                   <Text
                     fontFamily={"roboto"}
-                    fontSize={"16px"}
-                    fontWeight={"400"}
+                    fontSize={{ base: "12px", lg: "16px" }}
+                    fontWeight={{ base: "400", lg: "400" }}
                     width={"75%"}
                   >
                     {getAdressString(selectedAdress)}
@@ -317,8 +312,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                 ) : (
                   <Text
                     fontFamily={"roboto"}
-                    fontSize={"16px"}
-                    fontWeight={"400"}
+                    fontSize={{ base: "12px", lg: "16px" }}
+                    fontWeight={{ base: "400", lg: "400" }}
                     width={"75%"}
                     cursor={"pointer"}
                     onClick={() => openDeliveryModal(true)}
@@ -330,14 +325,13 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             ) : (
               <>
                 <Text
-                    fontFamily={"roboto"}
-                    fontSize={"16px"}
-                    fontWeight={"400"}
-                    width={"75%"}
-                  >
-
-              {selectedRestaurant.address}
-                  </Text>
+                  fontFamily={"roboto"}
+                  fontSize={{ base: "12px", lg: "16px" }}
+                  fontWeight={{ base: "400", lg: "400" }}
+                  width={"75%"}
+                >
+                  {selectedRestaurant.address}
+                </Text>
               </>
             )}
             <Text
@@ -373,14 +367,14 @@ const Checkout = ({ defaultAddress, token, branches }) => {
 
         <Flex
           flexDir={{ base: "column", lg: "row" }}
-          gap={{ base: "20px", lg: "40px" }}
-          mt={"20px"}
+          gap={{ base: "8px", lg: "40px" }}
+          mt={{ base: "10px", lg: "20px" }}
         >
           <Text
             width={{ base: "100%", lg: "140px" }}
             flexShrink={0}
-            fontSize={"18px"}
-            fontWeight={"700"}
+            fontSize={{ base: "16px", lg: "18px" }}
+            fontWeight={{ base: "500", lg: "600" }}
           >
             Способ оплаты
           </Text>
@@ -396,10 +390,22 @@ const Checkout = ({ defaultAddress, token, branches }) => {
           >
             <Stack>
               <Radio size="md" value="cash" colorScheme="orange">
-                Наличными курьеру
+                <Text
+                  fontFamily={"roboto"}
+                  fontSize={{ base: "12px", lg: "16px" }}
+                  fontWeight={{ base: "400", lg: "400" }}
+                >
+                  Наличными курьеру
+                </Text>
               </Radio>
               <Radio size="md" value="card" colorScheme="orange">
-                mBank перевод курьеру
+                <Text
+                  fontFamily={"roboto"}
+                  fontSize={{ base: "12px", lg: "16px" }}
+                  fontWeight={{ base: "400", lg: "400" }}
+                >
+                  mBank перевод курьеру
+                </Text>
               </Radio>
             </Stack>
           </RadioGroup>
@@ -407,9 +413,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
 
         <Flex
           flexDir={"column"}
-          py={"16px"}
+          py={{base:'12px',lg:"16px"}}
           borderBottom={"1px solid #E2E2E2"}
-          gap={"8px"}
+          gap={{base:'4px',lg:"8px"}}
           fontFamily={"roboto"}
           fontWeight={"600"}
           fontSize={"12px"}
@@ -442,15 +448,16 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               <Text>Доставка</Text>
               <DeliveryPrice
                 id={selectedAdressId}
+                adress={selectedAdress}
                 token={token}
                 setDeliveryPrice={setDeliveryPrice}
               />
             </Flex>
           ) : null}
         </Flex>
-        <Flex flexDir={"column"} mb={"16px"}>
+        <Flex flexDir={"column"} mb={{base:'0px',lg:"16px"}}>
           <Flex
-            py={"16px"}
+            py={{base:'12px',lg:"16px"}}
             flexDir={"row"}
             alignItems={"center"}
             justifyContent={"space-between"}
@@ -477,7 +484,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
           </Flex>
         )}
 
-        <Flex mt={"20px"}>
+        <Flex mt={{base:'8px',lg:"20px"}}>
           <FormInput
             type={"text"}
             title={"Комментарии к заказу?"}
@@ -486,11 +493,21 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             setValue={setComment}
           />
         </Flex>
-        <Tooltip hasArrow label='Минимальная сумма заказа 1000 сом' isDisabled={getTotalPrice() >= 1000} bg='red.600'>
-        <Box mx={"auto"} maxW={"350px"} width={"100%"} mt={"55px"}>
-          <CustomButton isDisabled={cart.length === 0 || getTotalPrice() < 1000} isRequesting={isOrdering} text={"Подтвердить заказ"} fn={createOrder} />
-        </Box>
-</Tooltip>
+        <Tooltip
+          hasArrow
+          label="Минимальная сумма заказа 1000 сом"
+          isDisabled={getTotalPrice() >= 1000}
+          bg="red.600"
+        >
+          <Box position={{base:'sticky',lg:'relative'}} bottom={{base:'20px',lg:'unset'}}  mx={"auto"} maxW={"350px"} width={"100%"} mt={{base:'16px',lg:"55px"}}>
+            <CustomButton
+              isDisabled={cart.length === 0 || getTotalPrice() < 1000}
+              isRequesting={isOrdering}
+              text={"Подтвердить заказ"}
+              fn={createOrder}
+            />
+          </Box>
+        </Tooltip>
       </Flex>
 
       <DeliveryMethod

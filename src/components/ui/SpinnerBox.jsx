@@ -6,7 +6,6 @@ const SpinnerBox = ({size='xl'}) => {
     <Box
       zIndex={999}
       position={"absolute"}
-      bg={"rgba(0,0,0,0.5)"}
       w={"100%"}
       h={"100%"}
       display={"flex"}

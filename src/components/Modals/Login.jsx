@@ -52,7 +52,7 @@ const inputStyles = {
   },
 };
 
-function LoginModal({ textBlack ,closeMenu }) {
+function LoginModal({ textBlack ,closeMenu,children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { setAuth,isAuthenticated } = useCart();
   const [number, setNumber] = useState("");
@@ -72,7 +72,6 @@ function LoginModal({ textBlack ,closeMenu }) {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("loggin successfull",data);
         login(data);
         setAuth(true);
         onClose();
@@ -96,7 +95,9 @@ function LoginModal({ textBlack ,closeMenu }) {
 
   return (
     <>
+    {children ? children :
       <ProfileBtn fn={() => handleModal()} textBlack={textBlack} isAuthenticated={isAuthenticated} />
+    }
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
@@ -242,8 +243,6 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
       }
 
       const data = await res.json();
-
-      console.log(data);
     } catch (error) {
       setIsRequesting(false);
     }

@@ -41,7 +41,7 @@ export default function FormInput({
         border={"1px solid rgba(160, 160, 160, 1)"}
         borderRadius={"10px"}
         isReadOnly={isReadOnly}
-        h={"56px"}
+        h={{base:'38px',lg:"56px"}}
         _placeholder={{
           color: "rgba(160, 160, 160, 1)",
         }}

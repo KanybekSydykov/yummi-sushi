@@ -23,8 +23,6 @@ const Search = () => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const ref = useRef(null);
 
-  console.log(searchResults);
-
   function handleInputFocus(e, show = false) {
     window.scrollTo(0, 0);
     e.stopPropagation();
@@ -109,7 +107,7 @@ const Search = () => {
           outline={"none"}
           onClick={(e) => handleInputFocus(e, true)}
           onChange={handleSearchChange}
-          onBlur={handleInputBlur}
+          // onBlur={handleInputBlur}
           ps={isFocused ? "16px" : "54px"}
           transition={"all 0.15s linear"}
           zIndex={isFocused ? "3010" : "10"}
@@ -205,9 +203,7 @@ const Search = () => {
                         _hover={{ bg: "#f5f5f5" }}
                       >
                         <Image
-                          src={
-                            result.photo
-                          }
+                          src={result.photo}
                           alt={result.name}
                           width={50}
                           height={50}
@@ -215,14 +211,16 @@ const Search = () => {
                         <Text fontSize="16px">{result.name}</Text>
 
                         <Link
-                          prefetch={true}
-                          href={`/${locale}/product/${result.id}`}
+                          prefetch={false}
+                          scroll={false}
+                          href={`/category/${result.category_slug}?product=${result.id}`}
                           style={{
                             position: "absolute",
                             top: "0px",
                             left: "0px",
                             width: "100%",
                             height: "100%",
+                            zIndex: "10",
                           }}
                         />
                       </ListItem>
@@ -251,9 +249,7 @@ const Search = () => {
                         </Text>
                       ) : (
                         <Text textAlign={"center"}>
-                          {locale === "ru"
-                            ? "Ничего не найдено"
-                            : "Nothing found"}
+                            Ничего не найдено
                         </Text>
                       )}
                     </Box>

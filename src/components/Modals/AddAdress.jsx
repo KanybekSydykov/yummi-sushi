@@ -32,8 +32,6 @@ export default function AdressModal({
   handleAdressSelect,
   deleteUserAdress,
 }) {
-
-  console.log(data);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isRequesting, setIsRequesting] = useState(false);

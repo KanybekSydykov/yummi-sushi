@@ -4,12 +4,20 @@ import { ENDPOINTS } from "@/api/endpoints";
 
 async function getCategories() {
   try {
-    const res = await fetch(`${ENDPOINTS.getCategories()}`);
+    const res = await fetch(`${ENDPOINTS.getCategories()}`,{
+      cache: 'no-store',
+    });
     const data = await res.json();
     return data;
   } catch (error) {
     throw new Error(error);
   }
+}
+
+const homeLink = {
+  image:"/logo.png",
+  slug:'/',
+  name:"Главная"
 }
 
 const CategoriesNavbar = async () => {
@@ -18,7 +26,8 @@ const CategoriesNavbar = async () => {
   return (
     <Container
       maxW={{ base: "container.xl", xl: "1296px" }}
-      pt={"16px"}
+      py={"16px"}
+      mt={'16px'}
       px={{ base: "16px", xl: "0px" }}
       width={"100%"}
       position={"sticky"}
@@ -32,6 +41,7 @@ const CategoriesNavbar = async () => {
       overflowX={"auto"}
       display={"flex"}
     >
+      <CategoryNavItem data={homeLink} isMain={true} />
       {categories.map((category) => (
         <CategoryNavItem key={category.id} data={category} />
       ))}

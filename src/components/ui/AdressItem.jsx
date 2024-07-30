@@ -6,10 +6,7 @@ import React, { useState } from "react";
 import AdressModal from "../Modals/AddAdress";
 
 const AdressItem = ({ address,selectedAdressId,handleAdressSelect,deleteUserAdress }) => {
-
   const [addresInfo, setAddressInfo] = useState(address);
-
-  console.log(addresInfo);
 
   const getAdressString = (item) => {
     return `${item.city}, ${

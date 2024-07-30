@@ -5,34 +5,41 @@ import { Box, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import SpinnerBox from "../ui/SpinnerBox";
 
-const DeliveryPrice = ({ id,token , setDeliveryPrice}) => {
+const DeliveryPrice = ({ id,token , setDeliveryPrice,adress}) => {
   const [price, setPrice] = useState('');
   const [isRequesting, setIsRequesting] = useState(false);
 
   async function getDeliveryPrice() {
     setIsRequesting(true);
-    const res = await fetch(ENDPOINTS.getDeliveryPrice(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        user_address_id: id,
-      }),
-    });
 
-    const data = await res.json();
-    if (res.ok) {
-      setPrice(data.delivery_info.delivery_fee);
-      setDeliveryPrice(data.delivery_info.delivery_fee);
+    try {
+      const res = await fetch(ENDPOINTS.getDeliveryPrice(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          user_address_id: id,
+        }),
+      });
+  
+      const data = await res.json();
+      if (res.ok) {
+        setPrice(data.delivery_info.delivery_fee);
+        setDeliveryPrice(data.delivery_info.delivery_fee);
+        setIsRequesting(false);
+      }
+    } catch (error) {
+      setPrice('Неверный адрес');
       setIsRequesting(false);
     }
+
   }
 
   useEffect(() => {
     getDeliveryPrice();
-  }, [id]);
+  }, [adress.city]);
 
   return (
     <Box position={"relative"}>

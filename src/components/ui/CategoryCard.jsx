@@ -22,11 +22,11 @@ const CategoryCard = ({ item }) => {
     <Flex
       role="group"
       _hover={{
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+      boxShadow: "0px 0px 5px 5px rgba(0, 0, 0, 0.1)",
         transform: "scale3d(1.02, 1.02, 1.01)",
       }}
+      boxShadow={ "0px 0px 5px rgba(0, 0, 0, 0.1)"}
       flexDir={"column"}
-      gap={"20px"}
       borderRadius={"20px"}
       transition={"all 0.3s ease"}
       alignItems={"center"}
@@ -37,16 +37,18 @@ const CategoryCard = ({ item }) => {
         lg: "calc(25% - 15px)",
         xl: "calc(20% - 16px)",
       }}
+      p={'8px'}
+      pb={'16px'}
     >
       <AspectRatio
         ratio={1}
         width={"100%"}
         height={"100%"}
-        borderRadius={"30px"}
+        borderRadius={{ base: "20px", lg: "30px" }}
         overflow={"hidden"}
         transition={"all 0.3s ease"}
       >
-        <Image src={item?.image} fill sizes="100%" />
+        <Image src={item?.image ? item?.image : "/category-ph.png"} fill sizes="100%" />
         {/* <Image src={'/category-img.png'} fill/> */}
       </AspectRatio>
       <Text {...categoryTextStyles}>{item?.name}</Text>

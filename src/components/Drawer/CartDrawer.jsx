@@ -101,6 +101,7 @@ const CartDrawer = ({ textBlack, fixed }) => {
                     />
                   ))}
                 </Flex>
+                  <Flex flexDir={'column'} position={cart.length + bonusCart.length > 4 ? 'sticky' : 'absolute'} width={'auto'} left={'24px'} right={'24px'} bottom={'0px'} bg={'rgba(255,255,255,0.9)'}>
 
                 <Flex
                   flexDir={"column"}
@@ -163,10 +164,13 @@ const CartDrawer = ({ textBlack, fixed }) => {
                       <Text color={"#475467"} fontFamily={"roboto"} fontSize={"16px"} fontWeight={"400"}>
                         Войдите в аккаунт, чтобы оформить заказ
                       </Text>
-                      <LoginModal textBlack={true} />
+                    <CustomButton text={"Войти"} />
+                      
                     </Flex>
                   )}
                 </Flex>
+                </Flex>
+
               </>
             ) : (
               <EmptyCart onClose={onClose} />

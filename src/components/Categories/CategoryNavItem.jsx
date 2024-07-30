@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 
-const CategoryNavItem = ({ data }) => {
+const CategoryNavItem = ({ data ,isMain = false}) => {
   const { category } = useParams();
 
   return (
@@ -19,11 +19,14 @@ const CategoryNavItem = ({ data }) => {
       cursor={"pointer"}
       borderRadius={"10px"}
       _hover={{
-        bg: "rgba(0,0,0,0.05)",
         transform: "scale3d(1.02, 1.02, 1.01)",
+        boxShadow:'0px 0px 3px 3px rgba(0,0,0,0.3)'
       }}
-      transition={"all 0.3s ease-in"}
+      transition={"all 0.5s ease"}
       role="group"
+      boxShadow={'0px 0px 5px 0px rgba(0,0,0,0.3)'}
+      p={'2px'}
+      flexShrink={0}
     >
       <AspectRatio
         ratio={1}
@@ -34,8 +37,8 @@ const CategoryNavItem = ({ data }) => {
 
       <Text
         fontFamily={"roboto"}
-        fontWeight={"600"}
-        fontSize={"18px"}
+        fontWeight={"400"}
+        fontSize={"16px"}
         transition={"all 0.3s ease"}
         color={category === data.slug ? "main" : "#000"}
         _groupHover={{
@@ -46,7 +49,7 @@ const CategoryNavItem = ({ data }) => {
       </Text>
 
       <Link
-        href={`/category/${data.slug}`}
+        href={isMain ? "/" : `/category/${data.slug}`}
         style={{
           position: "absolute",
           top: 0,

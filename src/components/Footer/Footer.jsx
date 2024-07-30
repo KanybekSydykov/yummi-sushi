@@ -9,15 +9,16 @@ import { ENDPOINTS } from "@/api/endpoints";
 
 const getFooterData = async(locale) =>{
   const res = await fetch(`${ENDPOINTS.getContacts()}`, {
-    cache: 'no-cache',
+    cache: 'no-store',
     headers: {
         'Accept-Language': `${locale}`,
     }
 })
 const data = await res.json()
-const footerData = { phones: data.phones, emails: data.emails, socials: data.social_links, payment: data.payment_methods }
+const footerData = { phones: data.phones, emails: data.emails, socials: data.social_links, payment: data.payment_methods,static_pages: data.static_pages}
 
 return footerData 
+
 }
 
 const Footer = async({  locale }) => {
@@ -55,33 +56,13 @@ const Footer = async({  locale }) => {
             color={"rgba(249, 249, 249, 1)"}
             flexDir={"column"}
           >
-            <ListItem>
-              <Link href={`/`}>
-                {locale === "ru" ? "О нас" : "About us"}
+              {data.static_pages.map((item) => (
+            <ListItem key={item.slug}>
+              <Link href={`/info/${item.slug}`}>
+                {item.title}
               </Link>
             </ListItem>
-            <ListItem>
-              <Link href={`/`}>
-                {locale === "ru" ? "Доставка" : "Delivery"}
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href={`/`}>
-                {locale === "ru"
-                  ? "Политика конфиденциальности"
-                  : "Privacy policy"}
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href={`/`}>
-                {locale === "ru" ? "Возврат средств" : "Refund"}
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href={`/`}>
-                {locale === "ru" ? "Процесс оплаты" : "Payment process"}
-              </Link>
-            </ListItem>
+              ))}
           </List>
 
           <List

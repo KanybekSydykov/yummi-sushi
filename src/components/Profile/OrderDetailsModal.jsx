@@ -60,9 +60,9 @@ const OrderDetailsModal = ({ isOpen, onClose, onOpen, order }) => {
               Детали заказа №1
             </Text>
 
-            <Flex flexDir={"row"} w={"100%"}>
+            <Flex flexDir={"column"} w={"100%"} gap={'16px'}>
               {order?.order_items?.map((item) => (
-                <Flex flexDir={"row"} gap={"16px"} alignItems={"center"}>
+                <Flex flexDir={"row"} gap={"16px"} alignItems={"center"} boxShadow={"0px 0px 2px 1px #87878740"} borderRadius={"10px"} p={"16px"} key={item.id}>
                   <AspectRatio
                     ratio={1}
                     w={{ base: "100px", lg: "150px" }}
@@ -73,10 +73,7 @@ const OrderDetailsModal = ({ isOpen, onClose, onOpen, order }) => {
                       src={item.product.image}
                       fill
                       alt={"pizza"}
-                      style={{
-                        borderRadius: "10px",
-                        boxShadow: " 0px 0px 1px 0px #87878740",
-                      }}
+                      sizes="100%"
                     />
                   </AspectRatio>
                   <Flex flexDir={"column"} gap={"8px"} >
@@ -117,6 +114,8 @@ const OrderDetailsModal = ({ isOpen, onClose, onOpen, order }) => {
               color={"main"}
               mr={3}
               p={0}
+              maxW={'390px'}
+              mx={'auto'}
               fontFamily={"roboto"}
               fontWeight={"400"}
               fontSize={"20px"}

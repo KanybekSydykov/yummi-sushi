@@ -60,9 +60,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const addBonusItem = (item) => {
-
-    console.log(item);
-
     setBonusAmount((prevCart) => prevCart - item.bonus_price);
     setBonusCart((prevCart) =>  {
       const existingItemIndex = prevCart.findIndex(cartItem =>

@@ -17,6 +17,7 @@ const CallBox = ({ inMenu = false }) => {
       pos={"relative"}
       fontFamily={"roboto"}
       h={"max-content"}
+      flexShrink={0}
     >
       <Text
         fontWeight={"300"}

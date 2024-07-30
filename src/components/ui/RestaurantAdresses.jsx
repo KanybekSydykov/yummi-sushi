@@ -48,9 +48,6 @@ function RestoranAdressItem({
   
 }) {
 
-
-  console.log(address,selectedAdressId,selectedRestaurant);
-
   return (
     <Flex
       flexDir={"row"}

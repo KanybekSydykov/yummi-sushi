@@ -19,6 +19,8 @@ import React, { useEffect, useState } from "react";
 import Addon from "../ui/Addon";
 import CustomButton from "../ui/CustomButton";
 import { useCart } from "@/lib/context-api";
+import { useRouter } from "next/navigation";
+import { usePathname } from "@/lib/navigation";
 
 const productNameStyles = {
   fontFamily: "roboto",
@@ -47,6 +49,7 @@ const descriptionStyles = {
   fontWeight: "400",
   fontSize: { base: "14px", lg: "16px" },
   color: "fontgray",
+  whiteSpace: "pre-wrap",
 };
 
 const imageStyles = {
@@ -71,6 +74,7 @@ function ProductDetails({
   const [addons, setAddons] = useState([]);
   const { addItem, editItem } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
+  const router = useRouter();
 
   const toast = useToast();
   useEffect(() => {
@@ -101,6 +105,9 @@ function ProductDetails({
     );
     setTotalPrice(price + addonsTotalPrice);
   }, [selectedSize,addons]);
+
+  const path = usePathname();
+
 
 
 
@@ -158,7 +165,9 @@ function ProductDetails({
         </Flex>
       ),
     });
+
     onClose();
+    router.push(path);
   };
 
   if (!product) return null;
@@ -171,11 +180,12 @@ function ProductDetails({
         onClose={onClose}
         size={"xl"}
         scrollBehavior="inside"
+        onOverlayClick={() => {router.push(path,{scroll: false})}}
       >
         <ModalOverlay
-          bg="none"
+          bg="rgba(0,0,0,0.2)"
           backdropFilter="auto"
-          backdropInvert="80%"
+          backdropInvert="1%"
           backdropBlur="10px"
         />
         <ModalContent
@@ -192,8 +202,11 @@ function ProductDetails({
             borderRadius={"50%"}
             _focusVisible={{ boxShadow: "none" }}
             zIndex={10}
+            onClick={() => {router.replace(path,{scroll: false})}}
           />
-          <ModalBody p={{ base: "16px", lg: "30px" }} position={'relative'} >
+          <ModalBody p={{ base: "16px", lg: "30px" }} position={'relative'} userSelect={'none'} 
+          maxW={{ base: "95vw", lg: "90vw" }}
+          >
             <Flex
               flexDir={{ base: "column", lg: "row" }}
               gap={{ base: "20px", lg: "40px" }}
@@ -258,7 +271,6 @@ function ProductDetails({
                 </Flex>
 
                 <Text {...descriptionStyles}>{product.description}</Text>
-
                 <Flex flexDir={"column"}>
                   <Text
                     fontFamily={"roboto"}

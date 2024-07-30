@@ -20,7 +20,7 @@ const Categories = ({categories}) => {
         justifyContent={{ base: "center", lg: "flex-start" }}
         flexWrap={"wrap"}
         columnGap={{ base: "10px", lg: "20px" }}
-        rowGap={{ base: "30px", lg: "50px" }}
+        rowGap={{ base: "30px", lg: "20px" }}
         mt={'30px'}
       >
         {categories?.map((category) => (
