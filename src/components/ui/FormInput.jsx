@@ -9,7 +9,6 @@ import {
 import { useParams } from "next/navigation";
 export default function FormInput({
   title,
-  title_en,
   type,
   required,
   value,
@@ -31,13 +30,13 @@ export default function FormInput({
         lineHeight={"24px"}
         color={"rgba(54, 54, 54, 1)"}
       >
-        {params.locale === "ru" ? title : title_en}
+        {title}
       </FormLabel>
       <Input
         type={type}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={params.locale === 'ru' ? title : title_en}
+        placeholder={title}
         border={"1px solid rgba(160, 160, 160, 1)"}
         borderRadius={"10px"}
         isReadOnly={isReadOnly}
@@ -52,8 +51,8 @@ export default function FormInput({
       />
       {isError && (
         <FormErrorMessage fontWeight={"400"} fontSize={"12px"}>
-          {params.locale === "ru" ? title : title_en}{" "}
-          {params.locale === "ru" ? "обязательное поле." : "is required."}
+          {title}{" "}
+          {params.locale === "ru" ? "обязательное поле." : "милдеттүү талаа.."}
         </FormErrorMessage>
       )}
     </FormControl>

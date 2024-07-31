@@ -76,6 +76,7 @@ const page = async () => {
 
     const defaultAddress = getPrimaryAdress(addresses)
     const restaurants = await getRestaurantAdresses();
+
     return (
         <Container maxW={{ base: 'container.xl', xl: '1296px' }} pt={{base:'0px',lg:'50px'}} px={{ base: '20px', xl: '0px' }}>
 

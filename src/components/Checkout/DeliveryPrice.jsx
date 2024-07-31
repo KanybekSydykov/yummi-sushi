@@ -4,10 +4,12 @@ import { ENDPOINTS } from "@/api/endpoints";
 import { Box, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import SpinnerBox from "../ui/SpinnerBox";
+import { useTranslations } from "next-intl";
 
 const DeliveryPrice = ({ id,token , setDeliveryPrice,adress}) => {
   const [price, setPrice] = useState('');
   const [isRequesting, setIsRequesting] = useState(false);
+  const t = useTranslations("Common");
 
   async function getDeliveryPrice() {
     setIsRequesting(true);
@@ -48,7 +50,7 @@ const DeliveryPrice = ({ id,token , setDeliveryPrice,adress}) => {
       {id ? (
         <>{isRequesting ? <SpinnerBox size="sm" /> : <Text>{price} сом</Text>}</>
       ) : (
-        <Text>адрес доставки не указан</Text>
+        <Text>{t('noAdress')}</Text>
       )}
     </Box>
   );

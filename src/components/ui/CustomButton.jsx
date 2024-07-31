@@ -1,4 +1,5 @@
 import { Button, Text } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
 import React from 'react'
 
 
@@ -23,11 +24,12 @@ const buttonStyles = {
 
 
 const CustomButton = ({fn,text,isDisabled,isRequesting}) => {
+  const t=useTranslations("Common")
   return (
     <Button onClick={fn} {...buttonStyles}
     isDisabled={isDisabled}
     isLoading={isRequesting}
-    loadingText="Отправка..."
+    loadingText={t('sending')}
     >
     <Text>{text}</Text>
   </Button>

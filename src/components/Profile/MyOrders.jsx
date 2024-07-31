@@ -24,6 +24,7 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 import OrderDetailsModal from "./OrderDetailsModal";
 import { ENDPOINTS } from "@/api/endpoints";
 import SpinnerBox from "../ui/SpinnerBox";
+import { useTranslations } from "next-intl";
 
 const MyOrders = ({ token }) => {
   const searchParams = useSearchParams();
@@ -32,7 +33,7 @@ const MyOrders = ({ token }) => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [requesting, setRequesting] = useState(true);
-
+  const t = useTranslations("OrdersHistory");
   useEffect(() => {
     getOrders();
   }, []);
@@ -59,6 +60,8 @@ const MyOrders = ({ token }) => {
       throw new Error({ status: error.status || 500 });
     }
   }
+
+  console.log(orders);
 
   function handleOrderDetails(order) {
     setSelectedOrder(order);
@@ -102,7 +105,7 @@ const MyOrders = ({ token }) => {
             <ChevronLeftIcon width={"32px"} h={"32px"} />
           </Button>
           <Text fontFamily={"roboto"} fontSize={"18px"} fontWeight={"400"}>
-            История заказов
+           {t('history')}
           </Text>
         </Flex>
         {requesting ? (
@@ -113,8 +116,8 @@ const MyOrders = ({ token }) => {
               <Flex h={"450px"} overflowY={"auto"}>
                 <TableContainer overflowX={"scroll"} h={"fit-content"}>
                   <Table variant="striped" colorScheme="gray">
-                    <TableCaption textAlign={{ base: "left", md: "center" }}>
-                      Нажмите на заказ чтобы посмотреть подробную информацию
+                    <TableCaption textAlign={{ base: "left", md: "left" }}>
+                      {t("seeMore")}
                     </TableCaption>
                     <Thead>
                       <Tr>
@@ -144,9 +147,9 @@ const MyOrders = ({ token }) => {
                               : "-"}
                           </Td>
                           <Td isNumeric>{order.order_items.length}</Td>
+                          <Td>{order.user_address}</Td>
                           <Td>{order.order_time}</Td>
-                          <Td>{order.order_time}</Td>
-                          <Td>Доставлен</Td>
+                          <Td>{t(order.order_status)}</Td>
                         </Tr>
                       ))}
                     </Tbody>
@@ -173,7 +176,7 @@ const MyOrders = ({ token }) => {
                 fontFamily={"roboto"}
                 color={"fontgray"}
               >
-                У вас пока нет заказов
+                {t("noOrders")}
               </Text>
             )}
           </>

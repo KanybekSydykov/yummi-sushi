@@ -23,20 +23,14 @@ export default async function LocaleLayout({
       <body>
         <Providers>
           <CartProvider >
-
-
-            <CartDrawer fixed={true} />
-
-
             <NextIntlClientProvider messages={messages}>
+              <CartDrawer fixed={true} />
               <Header locale={locale} />
               {children}
               <Footer locale={locale} />
             </NextIntlClientProvider>
           </CartProvider>
-
         </Providers>
-
       </body>
     </html>
   );

@@ -9,6 +9,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -40,14 +41,25 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
             alignItems={"center"}
             justifyContent={"center"}
             display={"flex"}
+            py={'60px'}
+            minH={'400px'}
+            minWidth={"600px"}
+            pos={'relative'}
           >
-            <CheckIcon boxSize={50} color="green.500" />
+            {/* <CheckIcon boxSize={50} color="green.500" /> */}
+            <Image src={'/animated-checkmark.gif'} fill sizes="100%" />
             <Text
               fontFamily={"roboto"}
               fontWeight={"700"}
               fontSize={"20px"}
               lineHeight={"22px"}
-              color={"#37a169"}
+              color={"#FFF"}
+              position={'absolute'}
+              bottom={'50px'}
+              left={'0px'}
+              right={'0px'}
+              textAlign={'center'}
+              w={'100%'}
             >
               Заказ успешно оформлен
             </Text>
@@ -57,8 +69,13 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
               fontWeight={"400"}
               fontSize={"16px"}
               lineHeight={"22px"}
-              color={"rgba(54, 54, 54, 1)"}
               textAlign={"center"}
+              color={"#FFF"}
+              position={'absolute'}
+              bottom={'20px'}
+              left={'0px'}
+              right={'0px'}
+              w={'100%'}
             >
               Вы будете перенаправлены на главную страницу через {delay}
             </Text>

@@ -21,6 +21,7 @@ import CustomButton from "../ui/CustomButton";
 import { useCart } from "@/lib/context-api";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/lib/navigation";
+import { useTranslations } from "next-intl";
 
 const productNameStyles = {
   fontFamily: "roboto",
@@ -75,7 +76,8 @@ function ProductDetails({
   const { addItem, editItem } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const router = useRouter();
-
+  const t = useTranslations('ProductDetails');
+  const tCommon = useTranslations('Common');
   const toast = useToast();
   useEffect(() => {
     if (!product) return;
@@ -158,7 +160,7 @@ function ProductDetails({
           fontWeight={"400"}
           onClick={onClose}
         >
-          <Text fontSize={"14px"}>Добавлено:</Text>
+          <Text fontSize={"14px"}>{tCommon('added')} :</Text>
           <Text fontSize={"16px"}>
             {product.name} {selectedSize.size}
           </Text>
@@ -271,14 +273,15 @@ function ProductDetails({
                 </Flex>
 
                 <Text {...descriptionStyles}>{product.description}</Text>
-                <Flex flexDir={"column"}>
+          <Flex flexDir={"column"}>
                   <Text
+                    opacity={product.toppings.length ? 1 : 0}
                     fontFamily={"roboto"}
                     fontWeight={"700"}
                     fontSize={"20px"}
                     color={"fontgray"}
                   >
-                    Добавки
+                    {t('adddons')}
                   </Text>
 
                   <Flex
@@ -301,8 +304,8 @@ function ProductDetails({
                 <CustomButton
                   text={
                     isEdit
-                      ? `Сохранить ${totalPrice} сом`
-                      : `В корзину за ${totalPrice} сом`
+                      ? `${tCommon('save')} ${totalPrice} сом`
+                      : `${t('addToCart')} ${totalPrice} сом`
                   }
                   fn={handleAddToCart}
                 />

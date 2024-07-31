@@ -7,12 +7,13 @@ import { ENDPOINTS } from "@/api/endpoints";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import SpinnerBox from "../ui/SpinnerBox";
+import { useTranslations } from "next-intl";
 
 const Cashback = ({ token }) => {
   const [bonus, setBonus] = useState(null);
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-
+  const t = useTranslations("Bonus");
   async function getBonusAmount(token) {
     setIsLoading(true);
     try {
@@ -65,7 +66,7 @@ const Cashback = ({ token }) => {
             >
               <GoBack />
               <Text fontFamily={"roboto"} fontSize={"18px"} fontWeight={"400"}>
-                Ваши баллы
+                {t("yourBonus")}
               </Text>
             </Flex>
 
@@ -76,7 +77,7 @@ const Cashback = ({ token }) => {
                 fontWeight={"500"}
                 color={"fontgray"}
               >
-                Накоплено баллов :
+                {t("earnedBonus")}
               </Text>
               <Text
                 fontSize={"22px"}
@@ -85,7 +86,7 @@ const Cashback = ({ token }) => {
                 fontWeight={"700"}
                 ml={"5px"}
               >
-                {bonus}
+                {bonus ? bonus : 0}
               </Text>
             </Flex>
 
@@ -99,7 +100,7 @@ const Cashback = ({ token }) => {
                 fontFamily: "var(--chakra-fonts-roboto)",
               }}
             >
-              История начисления баллов
+              {t("history")}
             </Link>
 
             <Flex flexDir={"column"} mt={"40px"}>
@@ -109,7 +110,7 @@ const Cashback = ({ token }) => {
                 fontWeight={"700"}
                 fontSize={"22px"}
               >
-                Повышенный кэшбек в нашем приложении
+                {t("appDownload")}
               </Text>
 
               <Flex

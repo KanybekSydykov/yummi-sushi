@@ -2,10 +2,13 @@ import { Container, Flex } from "@chakra-ui/react";
 import CategoryNavItem from "./CategoryNavItem";
 import { ENDPOINTS } from "@/api/endpoints";
 
-async function getCategories() {
+async function getCategories(locale) {
   try {
     const res = await fetch(`${ENDPOINTS.getCategories()}`,{
       cache: 'no-store',
+      headers: {
+        'Accept-Language': `${locale}`,
+      }
     });
     const data = await res.json();
     return data;
@@ -20,8 +23,8 @@ const homeLink = {
   name:"Главная"
 }
 
-const CategoriesNavbar = async () => {
-  const categories = await getCategories();
+const CategoriesNavbar = async ({ locale }) => {
+  const categories = await getCategories(locale);
 
   return (
     <Container

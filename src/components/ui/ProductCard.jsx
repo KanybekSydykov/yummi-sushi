@@ -1,19 +1,15 @@
+'use client';
 import {
   AspectRatio,
-  Button,
   Flex,
   Heading,
-  position,
   Text,
-  textDecoration,
-  transition,
-  Image as ChakraImage,
   Box,
 } from "@chakra-ui/react";
-import { color } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import CustomButton from "./CustomButton";
+import { useTranslations } from "next-intl";
 
 const productNameStyles = {
   fontFamily: "roboto",
@@ -73,6 +69,9 @@ const imageStyles = {
 };
 
 const ProductCard = ({ onButtonClick, product }) => {
+
+  console.log(product);
+  const t = useTranslations("Common");
   return (
     <Flex {...cardStyles} onClick={() => onButtonClick(product)}>
       <Box
@@ -109,8 +108,8 @@ const ProductCard = ({ onButtonClick, product }) => {
           gap={"16px"}
           display={{ base: "none", lg: "flex" }}
         >
-          <Text {...priceStyles}>{product?.product_sizes[0].price}</Text>
-          <Text {...discountStyles}>{product?.product_sizes[0].price}</Text>
+          <Text {...priceStyles}>{product?.product_sizes[0].discount_price ? product?.product_sizes[0].discount_price : product?.product_sizes[0].price} сом</Text>
+          <Text {...discountStyles} display={product?.product_sizes[0].discount_price ? "block":"none"}>{product?.product_sizes[0].price} сом</Text>
         </Flex>
 
         <Text noOfLines={{ base: 3, lg: 2 }} {...descriptionStyles}>
@@ -118,7 +117,7 @@ const ProductCard = ({ onButtonClick, product }) => {
         </Text>
 
         <Flex display={{ base: "none", lg: "flex" }}>
-        <CustomButton text={"Выбрать"} />
+        <CustomButton text={t("choose")} />
        </Flex>
       </Flex>
       <Flex
@@ -140,7 +139,7 @@ const ProductCard = ({ onButtonClick, product }) => {
           <Text {...discountStyles}>{product?.product_sizes[0].price}</Text>
         </Flex>
        <Flex display={{ base: "flex", lg: "none" }}>
-        <CustomButton text={"Выбрать"} />
+        <CustomButton text={t("choose")} />
        </Flex>
       </Flex>
     </Flex>

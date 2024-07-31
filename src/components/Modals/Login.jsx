@@ -18,6 +18,7 @@ import {
   Text,
   Flex,
   Spinner,
+  Box,
 } from "@chakra-ui/react";
 import ProfileBtn from "../ui/ProfileBtn";
 import CustomButton from "../ui/CustomButton";
@@ -26,6 +27,7 @@ import { ENDPOINTS } from "@/api/endpoints";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/auth";
 import { useCart } from "@/lib/context-api";
+import { useTranslations } from "next-intl";
 
 const headingStyles = {
   fontWeight: "700",
@@ -52,13 +54,14 @@ const inputStyles = {
   },
 };
 
-function LoginModal({ textBlack ,closeMenu,children }) {
+function LoginModal({ textBlack, closeMenu, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { setAuth,isAuthenticated } = useCart();
+  const { setAuth, isAuthenticated } = useCart();
   const [number, setNumber] = useState("");
   const [isNumberSent, setIsNumberSent] = useState(false);
   const [isOtpConfirming, setIsOtpConfirming] = useState(false);
   const router = useRouter();
+  const t = useTranslations("Common");
   async function handleOtp(otp) {
     setIsOtpConfirming(true);
     try {
@@ -84,20 +87,27 @@ function LoginModal({ textBlack ,closeMenu,children }) {
   }
 
   function handleModal() {
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       onOpen();
-    }else {
+    } else {
       closeMenu();
-      router.push('/profile?tab=profile')
+      router.push("/profile?tab=profile");
     }
-   
   }
 
   return (
     <>
-    {children ? children :
-      <ProfileBtn fn={() => handleModal()} textBlack={textBlack} isAuthenticated={isAuthenticated} />
-    }
+      {children ? (
+        <Box w={"100%"} onClick={handleModal}>
+          {children}
+        </Box>
+      ) : (
+        <ProfileBtn
+          fn={() => handleModal()}
+          textBlack={textBlack}
+          isAuthenticated={isAuthenticated}
+        />
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
@@ -110,7 +120,7 @@ function LoginModal({ textBlack ,closeMenu,children }) {
             flexDir={"column"}
             gap={"20px"}
           >
-            <Heading {...headingStyles}>Вход на сайт</Heading>
+            <Heading {...headingStyles}>{t("loginTitle")}</Heading>
 
             {!isNumberSent ? (
               <LoginBox
@@ -135,7 +145,10 @@ function LoginModal({ textBlack ,closeMenu,children }) {
 
 export default LoginModal;
 
-function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
+function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming, number }) {
+  const common = useTranslations("Common");
+  const login = useTranslations("Login");
+
   return (
     <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"}>
       <Text
@@ -144,7 +157,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
         fontSize={"16px"}
         color={"lightgray"}
       >
-        Код отправлен на номер
+        {login("codeSent")}
       </Text>
 
       <Flex
@@ -168,7 +181,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
           color={"main"}
           onClick={() => setIsNumberSent(false)}
         >
-          Изменить
+          {common('edit')}
         </Button>
       </Flex>
 
@@ -193,7 +206,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
         color={"#475467"}
         mt={"18px"}
       >
-        Не получили код?
+        {login("noCode")}
       </Text>
       <Button
         fontFamily={"roboto"}
@@ -208,7 +221,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
         minW={"unset"}
         minH={"unset"}
       >
-        Нажмите для повторной отправки
+        {login("resendCode")}
       </Button>
     </Flex>
   );
@@ -217,6 +230,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming ,number}) {
 function LoginBox({ number, setNumber, setIsNumberSent }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isRequesting, setIsRequesting] = useState(false);
+  const t = useTranslations("Common");
 
   useEffect(() => {
     if (number.length < 13 || number.length > 13) {
@@ -251,7 +265,7 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
   return (
     <>
       <FormControl>
-        <FormLabel {...labelStyles}>Введите номер</FormLabel>
+        <FormLabel {...labelStyles}>{t("loginNumber")}</FormLabel>
         <Input
           {...inputStyles}
           type="tel"
@@ -268,7 +282,7 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
       </FormControl>
 
       <CustomButton
-        text={"Войти"}
+        text={t("login")}
         fn={handleLogin}
         isDisabled={isDisabled}
         isRequesting={isRequesting}

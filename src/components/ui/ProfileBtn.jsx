@@ -1,10 +1,11 @@
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const ProfileBtn = ({ fn ,textBlack = false,isAuthenticated}) => {
 
+  const t = useTranslations("Common");
 
   return (
     <Flex
@@ -35,7 +36,7 @@ const ProfileBtn = ({ fn ,textBlack = false,isAuthenticated}) => {
       textAlign={'center'}
       color={textBlack ? 'fontgray' : '#fff'}
       >{
-        isAuthenticated ? 'Профиль' : 'Войти'
+        isAuthenticated ? t('profile') : t('login')
       }
         </Text>
 

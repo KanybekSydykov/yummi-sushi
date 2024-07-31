@@ -3,13 +3,10 @@ import React from "react";
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  Button,
   Box,
   Flex,
   Text,
@@ -22,6 +19,7 @@ import { useCart } from "@/lib/context-api";
 import EmptyCart from "../ui/EmptyCart";
 import LoginModal from "../Modals/Login";
 import BonusCartItem from "../Bonus/BonusCartItem";
+import { useTranslations } from "next-intl";
 
 const formatToTwoDecimalPlaces = (num) => {
   // Convert to string with a fixed number of decimal places, then truncate
@@ -36,6 +34,7 @@ const priceStyles = {
 };
 
 const CartDrawer = ({ textBlack, fixed }) => {
+  const t=useTranslations("Common")
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const path = usePathname();
@@ -50,8 +49,8 @@ const CartDrawer = ({ textBlack, fixed }) => {
     bonusCart
   } = useCart();
   function handleCheckout() {
-    router.push("/checkout");
     onClose();
+    router.push("/checkout");
   }
 
   if (path.includes("checkout") && fixed) {
@@ -62,6 +61,7 @@ const CartDrawer = ({ textBlack, fixed }) => {
     let cashbackValue = 2.5 / 100;
     return formatToTwoDecimalPlaces(getTotalPrice() * cashbackValue);
   }
+
 
   return (
     <Box>
@@ -120,14 +120,14 @@ const CartDrawer = ({ textBlack, fixed }) => {
                   >
                     <Text>{getTotalQuantity()} товаров</Text>
 
-                    <Text>{getTotalPrice()} сум</Text>
+                    <Text>{getTotalPrice()} сом</Text>
                   </Flex>
                   <Flex
                     flexDir={"row"}
                     alignItems={"center"}
                     justifyContent={"space-between"}
                   >
-                    <Text>Начислим баллов</Text>
+                    <Text>{t('bonusAdded')}</Text>
 
                     <Text>+{countCashback()} </Text>
                   </Flex>
@@ -136,9 +136,9 @@ const CartDrawer = ({ textBlack, fixed }) => {
                     alignItems={"center"}
                     justifyContent={"space-between"}
                   >
-                    <Text>Доставка</Text>
+                    <Text>{t('delivery')}</Text>
 
-                    <Text>адрес доставки не указан</Text>
+                    <Text>{t('noAdress')}</Text>
                   </Flex>
                 </Flex>
                 <Flex flexDir={"column"} mb={"16px"}>
@@ -152,19 +152,21 @@ const CartDrawer = ({ textBlack, fixed }) => {
                     fontWeight={"600"}
                     color={"#000"}
                   >
-                    <Text>Сумма заказа</Text>
+                    <Text>{t('totalAmount')}</Text>
 
                     <Text>{getTotalPrice()} сом</Text>
                   </Flex>
 
                   {isAuthenticated ? (
-                    <CustomButton text={"Оформить заказ"} fn={handleCheckout} />
+                    <CustomButton text={t('checkout')} fn={handleCheckout} />
                   ) : (
                     <Flex flexDir={'column'} justifyContent={"center"} alignItems={'center'} gap={'16px'} mt={'30px'} width={"100%"}>
                       <Text color={"#475467"} fontFamily={"roboto"} fontSize={"16px"} fontWeight={"400"}>
-                        Войдите в аккаунт, чтобы оформить заказ
+                       {t('authRequired')}
                       </Text>
-                    <CustomButton text={"Войти"} />
+                      <LoginModal>
+                    <CustomButton text={t('login')} />
+                      </LoginModal>
                       
                     </Flex>
                   )}

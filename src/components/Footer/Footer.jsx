@@ -174,25 +174,22 @@ const Footer = async({  locale }) => {
             >
               {t('payment')}
             </Text>
-            <Flex flexDir={"row"} flexWrap={"wrap"} gap={"12px"}>
+            <Flex flexDir={"row"} maxW={'300px'} flexWrap={"wrap"} gap={"12px"}>
               {data.payment?.map((item) => (
                 <Flex
                   justifyContent={"center"}
                   alignItems={"center"}
-                  bg={"#fff"}
-                  w={"40px"}
-                  h={"40px"}
-                  borderRadius={"10px"}
+                  w={"fit-content"}
+                  h={"auto"}
                   key={item.link}
                   cursor={"pointer"}
                   position={"relative"}
-                  p={"0 2px"}
                 >
                   <Image
                     src={item.icon}
                     alt="vk icon"
-                    width={36}
-                    height={12}
+                    width={100}
+                    height={100}
                     style={{
                       width: "100%",
                       height: "auto",

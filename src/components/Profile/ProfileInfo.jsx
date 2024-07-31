@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import CustomButton from "../ui/CustomButton";
 import { ENDPOINTS } from "@/api/endpoints";
 import GoBack from "../ui/GoBack";
+import { useTranslations } from "next-intl";
 
 const ProfileInfo = ({ data, token }) => {
   const [name, setName] = useState(data.full_name);
@@ -16,6 +17,7 @@ const ProfileInfo = ({ data, token }) => {
   const [isRequesting, setIsRequesting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const searchParams = useSearchParams();
+  const t = useTranslations("Profile")
 
   useEffect(() => {
     if (name && email && phone && dob) {
@@ -70,12 +72,11 @@ const ProfileInfo = ({ data, token }) => {
         <Flex mb={"20px"} flexDir={"row"} gap={"30px"} alignItems={"center"}>
           <GoBack />
           <Text fontFamily={"roboto"} fontSize={"18px"} fontWeight={"400"}>
-            Личные данные
+            {t('info')}
           </Text>
         </Flex>
         <FormInput
-          title={"Ваше ФИО *"}
-          title_en={"Your name *"}
+          title={t('name')}
           type={"text"}
           required={true}
           value={name}
@@ -83,8 +84,7 @@ const ProfileInfo = ({ data, token }) => {
         />
 
         <FormInput
-          title={"Email"}
-          title_en={"Email"}
+          title={t('email')}
           type={"email"}
           required={true}
           value={email}
@@ -92,8 +92,7 @@ const ProfileInfo = ({ data, token }) => {
         />
 
         <FormInput
-          title={"Телефон"}
-          title_en={"Phone"}
+          title={t('phone')}
           type={"text"}
           required={true}
           value={phone}
@@ -101,8 +100,7 @@ const ProfileInfo = ({ data, token }) => {
           setValue={setPhone}
         />
         <FormInput
-          title={"Дата рождения"}
-          title_en={"Date of birth"}
+          title={t('dob')}
           type={"date"}
           required={true}
           value={dob}
@@ -111,7 +109,7 @@ const ProfileInfo = ({ data, token }) => {
 
         <CustomButton
           fn={handleUserInfo}
-          text={"Сохранить"}
+          text={t('save')}
           isDisabled={isDisabled}
           isRequesting={isRequesting}
         />

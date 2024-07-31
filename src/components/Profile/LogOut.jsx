@@ -15,6 +15,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -24,6 +25,7 @@ const LogOut = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { setAuth } = useCart();
+  const t = useTranslations("Logout");
 
   useEffect(() => {
     if (searchParams.get('tab') === "logout") {
@@ -49,7 +51,7 @@ const LogOut = () => {
               textAlign={"center"}
               p={'16px'}
             >
-              Вы действительно хотите выйти из аккаунта?
+{t('logout')}
             </Text>
           </ModalBody>
 
@@ -73,7 +75,7 @@ const LogOut = () => {
                 router.push("/profile");
               }}
             >
-              Отмена
+              {t('no')}
             </Button>
             <Button
               bg={"rgba(255,30,30,0.75)"}
@@ -91,7 +93,7 @@ const LogOut = () => {
               borderRadius={"10px"}
               onClick={handleLogout}
             >
-              Выйти
+              {t('yes')}
             </Button>
             {/* <Link
               href="/logout"

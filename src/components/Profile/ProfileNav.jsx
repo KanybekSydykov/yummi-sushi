@@ -2,6 +2,7 @@
 import { usePathname } from "@/lib/navigation";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Flex, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +11,7 @@ import React from "react";
 const ProfileNav = () => {
   const path = usePathname();
   const searchParams = useSearchParams();
-
+ const t = useTranslations("Profile")
   return (
     <Flex
       flexDir={"column"}
@@ -40,7 +41,7 @@ const ProfileNav = () => {
           }}
         />
         <Image src={"/profile-icon.svg"} alt="profile" width={20} height={20} />
-        <Text>Личные данные</Text>
+        <Text>{t('info')}</Text>
       </Flex>
       <Flex
         flexDir={"row"}
@@ -63,7 +64,7 @@ const ProfileNav = () => {
           }}
         />
         <Image src={"/cashback.svg"} alt="profile" width={20} height={20} />
-        <Text>Баллы</Text>
+        <Text>{t('bonuses')}</Text>
       </Flex>
       <Flex
         flexDir={"row"}
@@ -86,7 +87,7 @@ const ProfileNav = () => {
           }}
         />
         <Image src={"/orders-icon.svg"} alt="profile" width={20} height={20} />
-        <Text>Мои заказы</Text>
+        <Text>{t('myOrders')}</Text>
       </Flex>
       <Flex
         flexDir={"row"}
@@ -109,7 +110,7 @@ const ProfileNav = () => {
           }}
         />
         <Image src={"/log-out-icon.svg"} alt="profile" width={20} height={20} />
-        <Text>Выйти</Text>
+        <Text>{t('logout')}</Text>
       </Flex>
     </Flex>
   );

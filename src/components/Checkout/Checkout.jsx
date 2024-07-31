@@ -22,10 +22,11 @@ import DeliveryPrice from "./DeliveryPrice";
 import AdressModal from "../Modals/AddAdress";
 import { ENDPOINTS } from "@/api/endpoints";
 import FormInput from "../ui/FormInput";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import BonusCartItem from "../Bonus/BonusCartItem";
 import { motion, useAnimate } from "framer-motion";
 import OrderSuccess from "../Modals/OrderSuccess";
+import { useTranslations } from "next-intl";
 
 const DELIVERY_OPTIONS = ["Самовывоз", "Доставка"];
 
@@ -77,6 +78,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [isOrdering, setIsOrdering] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [isAdressError, setIsAdressError] = useState(false);
+  const t = useTranslations("Common");
+  const tCart = useTranslations("Cart");
+  const { locale } = useParams();
 
   function openDeliveryModal(change = false) {
     if (change === false) {
@@ -209,7 +213,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
           fontSize={"22px"}
           color={"#000"}
         >
-          Состав заказа
+          {t("order")}
         </Text>
 
         {cart.length > 0 ? (
@@ -250,7 +254,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontSize={"18px"}
             flexGrow={1}
           >
-            Корзина пуста
+            {tCart("empty")}
           </Text>
         )}
       </Flex>
@@ -266,15 +270,26 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         position={{ base: "relative", lg: "sticky" }}
         top={{ base: "unset", lg: "16px" }}
       >
-        <Text
-          textAlign={"center"}
-          fontFamily={"roboto"}
-          fontWeight={{ base: "500", lg: "700" }}
-          fontSize={{ base: "18px", lg: "22px" }}
-          color={"#000"}
-        >
-          Заказ на {deliveryMethod}
-        </Text>
+        <Flex flexDir={locale === "ru" ? "row" : "row-reverse"} gap={'6px'} justifyContent={'center'}>
+          <Text
+            textAlign={"center"}
+            fontFamily={"roboto"}
+            fontWeight={{ base: "500", lg: "700" }}
+            fontSize={{ base: "18px", lg: "22px" }}
+            color={"#000"}
+          >
+            {t("orderTo")}
+          </Text>
+          <Text
+            textAlign={"center"}
+            fontFamily={"roboto"}
+            fontWeight={{ base: "500", lg: "700" }}
+            fontSize={{ base: "18px", lg: "22px" }}
+            color={"#000"}
+          >
+            {deliveryMethod === 'Самовывоз' ? t('pickup') : t('delivery')}
+          </Text>
+        </Flex>
 
         <Flex
           flexDir={{ base: "column", lg: "row" }}
@@ -287,7 +302,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontSize={{ base: "16px", lg: "18px" }}
             fontWeight={{ base: "500", lg: "600" }}
           >
-            Адрес {deliveryMethod === "Самовывоз" ? "пицерии" : "доставки"}
+            {deliveryMethod === "Самовывоз" ? t('restoranAdress') : t('deliveryAdress')}
           </Text>
           <Flex
             ref={scope}
@@ -318,7 +333,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                     cursor={"pointer"}
                     onClick={() => openDeliveryModal(true)}
                   >
-                    Добавьте адрес для доставки
+                    {t("addAdress")}
                   </Text>
                 )}
               </>
@@ -345,7 +360,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               fontWeight={"600"}
               cursor={"pointer"}
             >
-              Изменить
+              {t('edit')}
             </Text>
 
             <Text
@@ -357,9 +372,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               fontWeight={"600"}
               cursor={"pointer"}
             >
-              Выбрать{" "}
               <span style={{ textTransform: "lowercase" }}>
-                {deliveryMethod !== "Доставку" ? "Доставку" : "Самовывоз"}
+                {deliveryMethod !== "Доставку" ? t('chooseDelivery') : t('choosePickup')}
               </span>
             </Text>
           </Flex>
@@ -376,7 +390,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontSize={{ base: "16px", lg: "18px" }}
             fontWeight={{ base: "500", lg: "600" }}
           >
-            Способ оплаты
+            {t("payment")}
           </Text>
           <RadioGroup
             defaultValue={paymentMethod}
@@ -395,7 +409,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                   fontSize={{ base: "12px", lg: "16px" }}
                   fontWeight={{ base: "400", lg: "400" }}
                 >
-                  Наличными курьеру
+                 {t('cash')}
                 </Text>
               </Radio>
               <Radio size="md" value="card" colorScheme="orange">
@@ -404,7 +418,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                   fontSize={{ base: "12px", lg: "16px" }}
                   fontWeight={{ base: "400", lg: "400" }}
                 >
-                  mBank перевод курьеру
+                 {t('mbank')}
                 </Text>
               </Radio>
             </Stack>
@@ -413,9 +427,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
 
         <Flex
           flexDir={"column"}
-          py={{base:'12px',lg:"16px"}}
+          py={{ base: "12px", lg: "16px" }}
           borderBottom={"1px solid #E2E2E2"}
-          gap={{base:'4px',lg:"8px"}}
+          gap={{ base: "4px", lg: "8px" }}
           fontFamily={"roboto"}
           fontWeight={"600"}
           fontSize={"12px"}
@@ -428,14 +442,14 @@ const Checkout = ({ defaultAddress, token, branches }) => {
           >
             <Text>{getTotalQuantity()} товаров</Text>
 
-            <Text>{getTotalPrice()} сум</Text>
+            <Text>{getTotalPrice()} сом</Text>
           </Flex>
           <Flex
             flexDir={"row"}
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            <Text>Начислим баллов</Text>
+            <Text>{t('bonusAdded')}</Text>
 
             <Text>+{countCashback(getTotalPrice())} </Text>
           </Flex>
@@ -445,7 +459,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               alignItems={"center"}
               justifyContent={"space-between"}
             >
-              <Text>Доставка</Text>
+              <Text>{t('delivery')}</Text>
               <DeliveryPrice
                 id={selectedAdressId}
                 adress={selectedAdress}
@@ -455,9 +469,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             </Flex>
           ) : null}
         </Flex>
-        <Flex flexDir={"column"} mb={{base:'0px',lg:"16px"}}>
+        <Flex flexDir={"column"} mb={{ base: "0px", lg: "16px" }}>
           <Flex
-            py={{base:'12px',lg:"16px"}}
+            py={{ base: "12px", lg: "16px" }}
             flexDir={"row"}
             alignItems={"center"}
             justifyContent={"space-between"}
@@ -466,7 +480,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontWeight={"600"}
             color={"#000"}
           >
-            <Text>Сумма заказа</Text>
+            <Text>{t('totalAmount')}</Text>
 
             <Text>{+getTotalPrice() + deliveryPrice} сом</Text>
           </Flex>
@@ -477,33 +491,40 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             <FormInput
               type={"number"}
               title={"С какой суммы подготовить сдачу?"}
-              title_en={"How much do you want to give as change?"}
+              title_en={"Өзгөртүүнү канчага даярдашым керек?"}
               value={change}
               setValue={setChange}
             />
           </Flex>
         )}
 
-        <Flex mt={{base:'8px',lg:"20px"}}>
+        <Flex mt={{ base: "8px", lg: "20px" }}>
           <FormInput
             type={"text"}
             title={"Комментарии к заказу?"}
-            title_en={"Order comments?"}
+            title_en={"Буйрутма боюнча комментарийлер?"}
             value={comment}
             setValue={setComment}
           />
         </Flex>
         <Tooltip
           hasArrow
-          label="Минимальная сумма заказа 1000 сом"
+          label=""
           isDisabled={getTotalPrice() >= 1000}
           bg="red.600"
         >
-          <Box position={{base:'sticky',lg:'relative'}} bottom={{base:'20px',lg:'unset'}}  mx={"auto"} maxW={"350px"} width={"100%"} mt={{base:'16px',lg:"55px"}}>
+          <Box
+            position={{ base: "sticky", lg: "relative" }}
+            bottom={{ base: "20px", lg: "unset" }}
+            mx={"auto"}
+            maxW={"350px"}
+            width={"100%"}
+            mt={{ base: "16px", lg: "55px" }}
+          >
             <CustomButton
               isDisabled={cart.length === 0 || getTotalPrice() < 1000}
               isRequesting={isOrdering}
-              text={"Подтвердить заказ"}
+              text={t('confirm')}
               fn={createOrder}
             />
           </Box>

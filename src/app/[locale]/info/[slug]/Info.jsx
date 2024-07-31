@@ -30,6 +30,7 @@ const Info = ({ data }) => {
             fontSize={"16px"}
             lineHeight={"24px"}
             color={"rgba(118, 118, 118, 1)"}
+            whiteSpace={'pre-wrap'}
           >
             {data.description}
           </Text>
