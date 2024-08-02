@@ -6,6 +6,8 @@ import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import CartDrawer from '@/components/Drawer/CartDrawer';
 import { CartProvider } from '@/lib/context-api';
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
+import Error from './error';
 
 export default async function LocaleLayout({
   children,
@@ -23,7 +25,9 @@ export default async function LocaleLayout({
             <NextIntlClientProvider messages={messages}>
               <CartDrawer fixed={true} />
               <Header locale={locale} />
+              <ErrorBoundary fallback={<Error />}>
               {children}
+              </ErrorBoundary>
               <Footer locale={locale} />
             </NextIntlClientProvider>
           </CartProvider>

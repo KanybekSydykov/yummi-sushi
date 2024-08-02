@@ -32,7 +32,7 @@ const CategoryNavItem = ({ data ,isMain = false,onMainPage=false}) => {
         ratio={1}
         width={{ base: "40px", lg: "60px" }}
       >
-        <Image src={data?.image} fill sizes="100%" objectFit="contain" alt={data.name} />
+        <Image src={data?.image} fill sizes="100%" alt={data.name} style={{ objectFit: "contain" }} />
       </AspectRatio>
 
       <Text

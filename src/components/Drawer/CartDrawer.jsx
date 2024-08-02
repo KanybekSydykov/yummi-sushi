@@ -20,6 +20,7 @@ import EmptyCart from "../ui/EmptyCart";
 import LoginModal from "../Modals/Login";
 import BonusCartItem from "../Bonus/BonusCartItem";
 import { useTranslations } from "next-intl";
+import { getCashback } from "@/lib/auth";
 
 const formatToTwoDecimalPlaces = (num) => {
   // Convert to string with a fixed number of decimal places, then truncate
@@ -46,8 +47,13 @@ const CartDrawer = ({ textBlack, fixed }) => {
     getTotalPrice,
     getTotalQuantity,
     isAuthenticated,
-    bonusCart
+    bonusCart,
+    cashback
   } = useCart();
+
+
+
+
   function handleCheckout() {
     onClose();
     router.push("/checkout");
@@ -57,8 +63,11 @@ const CartDrawer = ({ textBlack, fixed }) => {
     return null;
   }
 
-  function countCashback() {
-    let cashbackValue = 2.5 / 100;
+
+async  function countCashback() {
+
+    const cashbackValue = cashback / 100;
+    console.log(cashbackValue);
     return formatToTwoDecimalPlaces(getTotalPrice() * cashbackValue);
   }
 

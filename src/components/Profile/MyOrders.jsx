@@ -61,8 +61,6 @@ const MyOrders = ({ token }) => {
     }
   }
 
-  console.log(orders);
-
   function handleOrderDetails(order) {
     setSelectedOrder(order);
     onOpen();

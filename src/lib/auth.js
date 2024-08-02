@@ -16,7 +16,6 @@ export async function login({ access_token, refresh_token, first_visit }) {
     path: '/', // Ensure the cookie is accessible across the whole site
   });
 }
-
 export async function logout() {
   // Destroy the session
   cookies().set({

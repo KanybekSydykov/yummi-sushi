@@ -1,9 +1,7 @@
 import { ENDPOINTS } from '@/api/endpoints';
 import BannersCover from '@/components/Banners/BannersCover';
 import BannerSkeleton from '@/components/Banners/BannerSkeleton';
-import Categories from '@/components/Categories/Categories';
 import HomeInfo from '@/components/HomeInfo/HomeInfo';
-import CategoriesSkeleton from '@/components/Skeleton/CategoriesSkeleton';
 import { Container, Flex } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import GetCategoryData from './category/[category]/GetCategoryData';
@@ -11,14 +9,17 @@ import CategoryPageSkeleton from '@/components/Skeleton/CategoryPageSkeleton';
 import CategoriesNavbarSkeleton from '@/components/Categories/CategoriesNavbarSkeleton';
 import CategoriesNavbar from '@/components/Categories/CategoriesNavbar';
 import '../globals.css';
+import { getCashback, setCashback } from '@/lib/cashback';
+import { cookies } from "next/headers";
+import CashbackHandler from '@/components/Bonus/CashbackHandler';
 export async function generateMetadata({ params, searchParams }, parent) {
   // read route params
 
   // fetch data
-  const res = await fetch(`${ENDPOINTS.getHomepage()}`,{
+  const res = await fetch(`${ENDPOINTS.getHomepage()}`, {
     cache: 'no-store'
   })
-  const {main_page} = await res.json()
+  const { main_page } = await res.json()
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []
@@ -34,7 +35,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   }
 }
 const getHomepageData = async (locale) => {
-
+'use server';
   try {
     const res = await fetch(`${ENDPOINTS.getHomepage()}`, {
       cache: 'no-store',
@@ -43,7 +44,6 @@ const getHomepageData = async (locale) => {
       }
     })
     const data = await res.json()
-
     return data
   } catch (error) {
     throw new Error(error)
@@ -54,11 +54,6 @@ const getHomepageData = async (locale) => {
 
 export default async function HomePage({ params }) {
   const data = await getHomepageData(params.locale)
-
-  console.log(data);
-
-
-
 
   return <main>
     <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', xl: '0px' }}>
@@ -85,6 +80,8 @@ export default async function HomePage({ params }) {
 
 
     </Container>
+    
     <HomeInfo info={{ delivery: data.main_page.delivery_conditions, payment: data.main_page.methods_of_payment, order: data.main_page.order_types }} />
+  <CashbackHandler value={data.cash_back.web} />
   </main>;
 }

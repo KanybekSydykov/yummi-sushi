@@ -69,8 +69,6 @@ const imageStyles = {
 };
 
 const ProductCard = ({ onButtonClick, product }) => {
-
-  console.log(product);
   const t = useTranslations("Common");
   return (
     <Flex {...cardStyles} onClick={() => onButtonClick(product)} role="group">
