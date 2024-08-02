@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 
-const CategoryNavItem = ({ data ,isMain = false}) => {
+const CategoryNavItem = ({ data ,isMain = false,onMainPage=false}) => {
   const { category } = useParams();
 
   return (
@@ -32,7 +32,7 @@ const CategoryNavItem = ({ data ,isMain = false}) => {
         ratio={1}
         width={{ base: "40px", lg: "60px" }}
       >
-        <Image src={data?.image} fill sizes="100%" alt={data.name} />
+        <Image src={data?.image} fill sizes="100%" objectFit="contain" alt={data.name} />
       </AspectRatio>
 
       <Text
@@ -49,7 +49,7 @@ const CategoryNavItem = ({ data ,isMain = false}) => {
       </Text>
 
       <Link
-        href={isMain ? "/" : `/category/${data.slug}`}
+        href={isMain ? "/" : `${onMainPage ? '#':'/category/'}${data.slug}`}
         style={{
           position: "absolute",
           top: 0,
@@ -59,6 +59,7 @@ const CategoryNavItem = ({ data ,isMain = false}) => {
           zIndex: 1,
           width: "100%",
           height: "100%",
+          scrollBehavior: "smooth",
         }}
       />
     </Flex>

@@ -1,5 +1,6 @@
 import { AspectRatio, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const headingStyles = {
@@ -122,7 +123,7 @@ const PaymentInfo = ({ item }) => {
       bg={"#F9FAFB"}
       position={"relative"}
       borderRadius={"30px"}
-      h={{ base: "auto", lg: "263px" }}
+      h={"auto"}
       overflowY={"auto"}
       transition={"all 0.3s ease"}
       _hover={{
@@ -152,6 +153,42 @@ const PaymentInfo = ({ item }) => {
         <Heading {...headingStyles}>{item.title}</Heading>
 
         <Text {...textStyles}>{item.description}</Text>
+
+              <Flex
+                flexDir={"row"}
+                width={"100%"}
+                maxW={"350px"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                mt={"30px"}
+                pos={"relative"}
+                mx={"auto"}
+              >
+                <Image
+                  src={"/appstore.svg"}
+                  width={140}
+                  height={41}
+                  alt="app-download-icon"
+                />
+                <Image
+                  src={"/playstore.svg"}
+                  width={140}
+                  height={41}
+                  alt="app-download-icon"
+                />
+
+                <Link
+                  href={"#"}
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    top: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </Flex>
+
       </Flex>
     </Flex>
   );

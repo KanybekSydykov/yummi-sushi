@@ -3,15 +3,7 @@ import ProductList from '@/components/ui/ProductList'
 import { Heading } from '@chakra-ui/react'
 import React from 'react'
 
-const headingStyles = {
-    fontFamily: "roboto",
-    fontWeight: "700",
-    fontSize: { base: "22px", lg: "36px" },
-    textAlign: "center",
-    color: "main",
-    marginBottom: { base: '20px', lg: '40px' },
-    my: { base: "12px", lg: "16px" },
-  }
+
 
 const getProducts = async (params) => {
     const data = await fetch(`${ENDPOINTS.getCategoryData(params.category)}`, {
@@ -24,16 +16,25 @@ const getProducts = async (params) => {
     return products
   }
 
-const GetCategoryData = async({params}) => {
+const GetCategoryData = async({params,start=false}) => {
     const products = await getProducts(params)
-    console.log(products);
+
+    const headingStyles = {
+      fontFamily: "roboto",
+      fontWeight: "700",
+      fontSize: { base: "22px", lg: "36px" },
+      textAlign: start ? "left":"center",
+      color: "main",
+      marginBottom: { base: '20px', lg: '40px' },
+      my: { base: "12px", lg: "16px" },
+    }
   return (
-    <>
+    <div id={params.category} style={{paddingTop: start ? '100px':'0px'}}>
       <Heading {...headingStyles}>{products?.products[0].category_name}</Heading>
 
-      <ProductList products={products ? products : null} />
+      <ProductList products={products ? products : null}  start={start}/>
     
-    </>
+    </div>
   )
 }
 

@@ -17,9 +17,6 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <title>
-        Yummi Sushi
-      </title>
       <body>
         <Providers>
           <CartProvider >

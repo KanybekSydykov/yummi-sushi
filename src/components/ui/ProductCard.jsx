@@ -65,7 +65,7 @@ const imageStyles = {
   width: { base: "158px", lg: "240px" },
   height: { base: "100%", lg: "240px" },
   position: "relative",
-  transition: "transform 0.15s ease-out",
+  transition: "transform 0.3s ease",
 };
 
 const ProductCard = ({ onButtonClick, product }) => {
@@ -73,7 +73,7 @@ const ProductCard = ({ onButtonClick, product }) => {
   console.log(product);
   const t = useTranslations("Common");
   return (
-    <Flex {...cardStyles} onClick={() => onButtonClick(product)}>
+    <Flex {...cardStyles} onClick={() => onButtonClick(product)} role="group">
       <Box
         overflow={"hidden"}
         w={{ base: "158px", lg: "240px" }}
@@ -82,8 +82,8 @@ const ProductCard = ({ onButtonClick, product }) => {
       >
         <AspectRatio
           {...imageStyles}
-          _hover={{
-            transform: "scale(1.1)",
+          _groupHover={{
+            transform: "scale3d(1.1, 1.1, 1.05)",
           }}
         >
           <Image src={product?.photo ? product?.photo : "/category-img.png"} fill alt="product image" priority={true} sizes="100%" />

@@ -1,25 +1,49 @@
 import { ENDPOINTS } from '@/api/endpoints';
-import BannerSlider from '@/components/Banners/Banners';
 import BannersCover from '@/components/Banners/BannersCover';
 import BannerSkeleton from '@/components/Banners/BannerSkeleton';
 import Categories from '@/components/Categories/Categories';
 import HomeInfo from '@/components/HomeInfo/HomeInfo';
 import CategoriesSkeleton from '@/components/Skeleton/CategoriesSkeleton';
-import { AspectRatio, Container, Flex } from '@chakra-ui/react';
-import { useTranslations } from 'next-intl';
+import { Container, Flex } from '@chakra-ui/react';
 import { Suspense } from 'react';
+import GetCategoryData from './category/[category]/GetCategoryData';
+import CategoryPageSkeleton from '@/components/Skeleton/CategoryPageSkeleton';
+import CategoriesNavbarSkeleton from '@/components/Categories/CategoriesNavbarSkeleton';
+import CategoriesNavbar from '@/components/Categories/CategoriesNavbar';
+import '../globals.css';
+export async function generateMetadata({ params, searchParams }, parent) {
+  // read route params
 
-const getHomepageData = async(locale) => {
+  // fetch data
+  const res = await fetch(`${ENDPOINTS.getHomepage()}`,{
+    cache: 'no-store'
+  })
+  const {main_page} = await res.json()
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: main_page.meta_title,
+    description: main_page.meta_description,
+    openGraph: {
+      description: main_page.meta_description,
+      title: main_page.meta_title,
+      images: [{ url: main_page.meta_image }, ...previousImages],
+    },
+  }
+}
+const getHomepageData = async (locale) => {
 
   try {
-    const res = await fetch(`${ENDPOINTS.getHomepage()}`,{
+    const res = await fetch(`${ENDPOINTS.getHomepage()}`, {
       cache: 'no-store',
       headers: {
         "Accept-Language": `${locale}`,
       }
     })
     const data = await res.json()
-  
+
     return data
   } catch (error) {
     throw new Error(error)
@@ -28,26 +52,39 @@ const getHomepageData = async(locale) => {
 
 }
 
-export default async function HomePage({params}) {
+export default async function HomePage({ params }) {
   const data = await getHomepageData(params.locale)
+
+  console.log(data);
 
 
 
 
   return <main>
     <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', xl: '0px' }}>
-  <Suspense fallback={<BannerSkeleton />}>
+      <Suspense fallback={<CategoriesNavbarSkeleton />}>
+        <CategoriesNavbar locale={params.locale} onMainPage={true} />
+      </Suspense>
+      <Suspense fallback={<BannerSkeleton />}>
 
-      <BannersCover />
-  </Suspense>
+        <BannersCover />
+      </Suspense>
 
-<Suspense fallback={<CategoriesSkeleton />}>
-      <Categories locale={params.locale} />
-</Suspense>
+      {/* <Suspense fallback={<CategoriesSkeleton />}>
+        <Categories locale={params.locale} />
+      </Suspense> */}
+      <Flex flexDir={'column'} mt={{ base: '40px', lg: '0px' }}>
+
+        {data?.categories.map((category) => (
+          <Suspense key={category.slug} fallback={<CategoryPageSkeleton />}>
+            <GetCategoryData start={true} params={{ locale: params.locale, category: category.slug }} />
+          </Suspense>
+        ))}
+      </Flex>
 
 
 
     </Container>
-      <HomeInfo info={{delivery:data.main_page.delivery_conditions, payment:data.main_page.methods_of_payment,order:data.main_page.order_types}} />
+    <HomeInfo info={{ delivery: data.main_page.delivery_conditions, payment: data.main_page.methods_of_payment, order: data.main_page.order_types }} />
   </main>;
 }

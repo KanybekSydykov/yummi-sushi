@@ -23,7 +23,7 @@ const homeLink = {
   name:"Главная"
 }
 
-const CategoriesNavbar = async ({ locale }) => {
+const CategoriesNavbar = async ({ locale ,onMainPage = false}) => {
   const categories = await getCategories(locale);
 
   return (
@@ -31,7 +31,7 @@ const CategoriesNavbar = async ({ locale }) => {
       maxW={{ base: "container.xl", xl: "1296px" }}
       py={"16px"}
       mt={'16px'}
-      px={{ base: "16px", xl: "0px" }}
+      px={{ base: "16px", xl: "24px" }}
       width={"100%"}
       position={"sticky"}
       top={"0px"}
@@ -44,9 +44,9 @@ const CategoriesNavbar = async ({ locale }) => {
       overflowX={"auto"}
       display={"flex"}
     >
-      <CategoryNavItem data={homeLink} isMain={true} />
+ {!onMainPage &&  <CategoryNavItem data={homeLink} isMain={true} />}
       {categories.map((category) => (
-        <CategoryNavItem key={category.id} data={category} />
+        <CategoryNavItem key={category.id} data={category} onMainPage={onMainPage} />
       ))}
     </Container>
   );

@@ -7,7 +7,7 @@ import ProductDetails from "../Modals/ProductDetails";
 import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from "@/lib/navigation";
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products ,start=false}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const items = [...products.products];
   const searchParams = useSearchParams();
@@ -39,7 +39,7 @@ const ProductList = ({ products }) => {
       flexWrap={"wrap"}
       columnGap={"20px"}
       rowGap={{ base: "20px", lg: "40px" }}
-      mb={{ base: "111px", lg: "129px" }}
+      mb={{ base: "111px", lg: start ? "0px" : "129px" }}
       pt={"30px"}
     >
       {products?.products?.map((product) => (

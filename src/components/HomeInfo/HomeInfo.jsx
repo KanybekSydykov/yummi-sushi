@@ -64,7 +64,7 @@ const HomeInfo = ({ info }) => {
         </Flex>
       </Flex>
       <Flex flexDir={"column"} py={"40px"} borderRadius={"30px"}>
-        <Text {...titleStyles}>{t('payment')}</Text>
+        <Text {...titleStyles}>Мобильное приложение YummiSushi!</Text>
         <Flex
           flexDir={"row"}
           mt={{ base: "30px", lg: "50px" }}
