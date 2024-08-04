@@ -12,10 +12,8 @@ const ProductCard = ({ product }) => {
   const { setSelectedProduct } = useCart();
   const router = useRouter();
 
-  console.log(product);
 
   function handleProductClick(product) {
-    console.log(product);
     setSelectedProduct(product);
     router.push(`/product/${product.id}`, { scroll: false });
   }

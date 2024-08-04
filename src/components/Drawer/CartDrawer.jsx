@@ -62,7 +62,6 @@ const CartDrawer = ({ textBlack, fixed }) => {
 
   function countCashback() {
     const cashbackValue = cashback / 100;
-    console.log(cashbackValue);
     return formatToTwoDecimalPlaces(getTotalPrice() * cashbackValue);
   }
 

@@ -60,6 +60,7 @@ function LoginModal({ textBlack, closeMenu, children }) {
   const [number, setNumber] = useState("");
   const [isNumberSent, setIsNumberSent] = useState(false);
   const [isOtpConfirming, setIsOtpConfirming] = useState(false);
+  const [otp,setOtp] = useState("");
   const router = useRouter();
   const t = useTranslations("Common");
   async function handleOtp(otp) {
@@ -121,15 +122,20 @@ function LoginModal({ textBlack, closeMenu, children }) {
             gap={"20px"}
           >
             <Heading {...headingStyles}>{t("loginTitle")}</Heading>
+            {otp ? <Text>
+              {otp}
+            </Text> : null}
 
             {!isNumberSent ? (
               <LoginBox
                 number={number}
                 setNumber={setNumber}
                 setIsNumberSent={setIsNumberSent}
+                setOtp = {setOtp}
               />
             ) : (
               <OtpBox
+              
                 handleOtp={handleOtp}
                 setIsNumberSent={setIsNumberSent}
                 isOtpConfirming={isOtpConfirming}
@@ -227,7 +233,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming, number }) {
   );
 }
 
-function LoginBox({ number, setNumber, setIsNumberSent }) {
+function LoginBox({ number, setNumber, setIsNumberSent,setOtp }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isRequesting, setIsRequesting] = useState(false);
   const t = useTranslations("Common");
@@ -257,6 +263,7 @@ function LoginBox({ number, setNumber, setIsNumberSent }) {
       }
 
       const data = await res.json();
+      setOtp(data.code)
     } catch (error) {
       setIsRequesting(false);
     }

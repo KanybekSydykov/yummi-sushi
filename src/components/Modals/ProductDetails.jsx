@@ -133,10 +133,8 @@ function ProductDetails({
     };
 
     if (isEdit) {
-      console.log(item);
       item.id = config.id;
       item.quantity = config.quantity;
-      console.log(item);
       editItem(item);
       onClose();
       return;
