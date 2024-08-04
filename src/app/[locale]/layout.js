@@ -8,9 +8,11 @@ import CartDrawer from '@/components/Drawer/CartDrawer';
 import { CartProvider } from '@/lib/context-api';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import Error from './error';
+import ProductModal from './@modal/(.)product/[id]/ProductModal';
 
 export default async function LocaleLayout({
   children,
+  modal,
   params: { locale }
 }) {
   // Providing all messages to the client
@@ -27,6 +29,10 @@ export default async function LocaleLayout({
               <Header locale={locale} />
               <ErrorBoundary fallback={<Error />}>
               {children}
+              {modal}
+              <div id='modal-root'>
+
+              </div>
               </ErrorBoundary>
               <Footer locale={locale} />
             </NextIntlClientProvider>

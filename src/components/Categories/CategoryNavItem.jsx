@@ -27,6 +27,7 @@ const CategoryNavItem = ({ data ,isMain = false,onMainPage=false}) => {
       boxShadow={'0px 0px 5px 0px rgba(0,0,0,0.3)'}
       p={'2px'}
       flexShrink={0}
+      bg={'#fff'}
     >
       <AspectRatio
         ratio={1}

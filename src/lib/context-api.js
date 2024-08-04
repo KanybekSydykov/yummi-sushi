@@ -11,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [bonusAmount, setBonusAmount] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cashback, setCashback] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     // Load cart from sessionStorage
@@ -236,7 +237,9 @@ export const CartProvider = ({ children }) => {
       decreaseBonusItemQuantity,
       increaseBonusItemQuantity,
       setCashback,
-      cashback
+      cashback,
+      selectedProduct,
+      setSelectedProduct,
     }}>
       {children}
     </CartContext.Provider>

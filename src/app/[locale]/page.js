@@ -9,8 +9,6 @@ import CategoryPageSkeleton from '@/components/Skeleton/CategoryPageSkeleton';
 import CategoriesNavbarSkeleton from '@/components/Categories/CategoriesNavbarSkeleton';
 import CategoriesNavbar from '@/components/Categories/CategoriesNavbar';
 import '../globals.css';
-import { getCashback, setCashback } from '@/lib/cashback';
-import { cookies } from "next/headers";
 import CashbackHandler from '@/components/Bonus/CashbackHandler';
 export async function generateMetadata({ params, searchParams }, parent) {
   // read route params

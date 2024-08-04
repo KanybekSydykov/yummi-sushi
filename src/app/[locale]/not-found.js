@@ -25,7 +25,7 @@ export default function NotFound() {
         Но не расстраивайтесь, мы все починим, а пока закажите себе вкусненького!
         </Text>
         <Link href={'/'} style={{maxWidth:'350px'}}>
-    <CustomButton text={'Смотри что можно поесть'} fn={() => {}} />
+    <CustomButton text={'Смотри что можно поесть'} />
         </Link>
 
         <Image src={'/404.svg'} width={500} height={500} alt={'404'} style={{objectFit:'contain',margin:'0 auto'}} />

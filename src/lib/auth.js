@@ -28,11 +28,15 @@ export async function logout() {
 
 export async function getSession(request) {
   const sessionCookie = cookies(request).get("session");
-  if (!sessionCookie) return undefined;
+  if (!sessionCookie || !sessionCookie.value) return undefined;
 
-  return JSON.parse(sessionCookie.value);
+  try {
+    return JSON.parse(sessionCookie.value);
+  } catch (error) {
+    console.error("Error parsing session cookie:", error);
+    return undefined;
+  }
 }
-
 export async function updateSession(request) {
   const sessionCookie = cookies(request).get("session");
   if (!sessionCookie) return;

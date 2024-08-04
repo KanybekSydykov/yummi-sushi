@@ -36,11 +36,10 @@ const BannerSlider = ({ banners}) => {
               <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,lg:1296/400}} position={'relative'}>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",lg:"block"}}>
               <Image
-                  src={loading ? "/banner-placeholder.avif" : item.image_desktop}
+                  src={ item.image_desktop}
                   alt={item.title}
                   fill
                   priority
-                  onLoad={onImageLoad}
                   sizes="100%"
                 />
               </Box>

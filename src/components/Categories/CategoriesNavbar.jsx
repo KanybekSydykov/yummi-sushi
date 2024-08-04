@@ -37,7 +37,7 @@ const CategoriesNavbar = async ({ locale ,onMainPage = false}) => {
       top={"0px"}
       zIndex={"10"}
       flexDir={"row"}
-      bg={"rgba(255,255,255,0.75)"}
+      bg={"#fff"}
       justifyContent={"flex-start"}
       alignItems={"center"}
       gap={"20px"}

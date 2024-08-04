@@ -133,8 +133,10 @@ function ProductDetails({
     };
 
     if (isEdit) {
+      console.log(item);
       item.id = config.id;
       item.quantity = config.quantity;
+      console.log(item);
       editItem(item);
       onClose();
       return;
@@ -172,6 +174,7 @@ function ProductDetails({
     router.push(path);
   };
 
+
   if (!product) return null;
 
   return (
@@ -182,7 +185,7 @@ function ProductDetails({
         onClose={onClose}
         size={"xl"}
         scrollBehavior="inside"
-        onOverlayClick={() => {router.push(path,{scroll: false})}}
+        onOverlayClick={onClose}
       >
         <ModalOverlay
           bg="rgba(0,0,0,0.2)"
@@ -204,7 +207,7 @@ function ProductDetails({
             borderRadius={"50%"}
             _focusVisible={{ boxShadow: "none" }}
             zIndex={10}
-            onClick={() => {router.replace(path,{scroll: false})}}
+            onClick={onClose}
           />
           <ModalBody p={{ base: "16px", lg: "30px" }} position={'relative'} userSelect={'none'} 
           maxW={{ base: "95vw", lg: "90vw" }}

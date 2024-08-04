@@ -1,10 +1,16 @@
 'use client'
-const CashbackHandler = ({ value }) => {
-    const cashbackValue = sessionStorage.getItem("cashback");
-    if (!cashbackValue) {
-        sessionStorage.setItem("cashback", JSON.stringify(value));
-    }
 
+import { useEffect } from "react";
+
+const CashbackHandler = ({ value }) => {
+    useEffect(() => {
+        const cashbackValue = sessionStorage.getItem("cashback");
+        if (!cashbackValue) {
+            sessionStorage.setItem("cashback", JSON.stringify(value));
+        }
+    
+    },[value])
+ 
 
 
   return null;

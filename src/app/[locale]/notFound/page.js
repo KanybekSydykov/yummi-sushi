@@ -15,6 +15,8 @@ const headingStyles = {
   }
 
 const page = () => {
+
+
   return (
     <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', lg: '50px' }}>
     <Flex flexDir={'column'} gap={'32px'} width={'100%'} pb={'50px'}>
@@ -24,7 +26,7 @@ const page = () => {
       Но не расстраивайтесь, мы все починим, а пока закажите себе вкусненького!
       </Text>
       <Link href={'/'} style={{maxWidth:'350px'}}>
-  <CustomButton text={'Смотри что можно поесть'} />
+  <CustomButton text={'Смотри что можно поесть'}  />
       </Link>
 
       <Image src={'/404.svg'} width={500} height={500} alt={'404'} style={{objectFit:'contain',margin:'0 auto'}} />
