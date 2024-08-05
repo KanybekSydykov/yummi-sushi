@@ -41,7 +41,7 @@ const CategorisNavbarScrollAble = ({
       maxW={"100dvw"}
       bg={"white"}
       gap={"20px"}
-      ps={{ base: "8px", lg: "24px" }}
+      ps={{ base: "1px", lg: "24px" }}
       pe={{ base: "8px", lg: "44px" }}
       sx={{
         "&::-webkit-scrollbar": {

@@ -32,7 +32,7 @@ const CategoriesNavbar = async ({ locale, onMainPage = false }) => {
       maxW={{ base: "container.xl", xl: "1296px" }}
       pt={"0px"}
       pb={"8px"}
-      mx={"0px"}
+      mx={{ base: "0px", xl: "auto" }}
       px={'0'}
       width={"100%"}
       position={"sticky"}

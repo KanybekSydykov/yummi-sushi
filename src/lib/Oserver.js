@@ -1,3 +1,5 @@
+'use client';
+
 import { useMediaQuery } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
@@ -5,26 +7,28 @@ const useIntersectionObserver = (setActiveCategory) => {
   const [isMobile] = useMediaQuery('(max-width: 992px)');
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveCategory(entry.target.id);
-          }
-        });
-      },
-      { root: null, rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -100px 0px', threshold: 0.1 }
-    );
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      let activeSection = null;
 
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = isMobile ? 0 : -100; // Adjust offset for mobile and desktop
+        if (rect.top + offset >= 0 && rect.top + offset < window.innerHeight / 2) {
+          activeSection = section.id;
+        }
+      });
+
+      if (activeSection) {
+        setActiveCategory(activeSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call to set the correct active category on load
 
     return () => {
-      sections.forEach((section) => {
-        observer.unobserve(section);
-      });
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [setActiveCategory, isMobile]);
 };
