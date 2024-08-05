@@ -1,14 +1,15 @@
 import { Container, Flex } from "@chakra-ui/react";
 import CategoryNavItem from "./CategoryNavItem";
 import { ENDPOINTS } from "@/api/endpoints";
+import CategorisNavbarScrollAble from "./CategorisNavbarScrollAble";
 
 async function getCategories(locale) {
   try {
-    const res = await fetch(`${ENDPOINTS.getCategories()}`,{
-      cache: 'no-store',
+    const res = await fetch(`${ENDPOINTS.getCategories()}`, {
+      cache: "no-store",
       headers: {
-        'Accept-Language': `${locale}`,
-      }
+        "Accept-Language": `${locale}`,
+      },
     });
     const data = await res.json();
     return data;
@@ -18,36 +19,30 @@ async function getCategories(locale) {
 }
 
 const homeLink = {
-  image:"/logo.png",
-  slug:'/',
-  name:"Главная"
-}
+  image: "/home-icon.png",
+  slug: "/",
+  name: "Главная",
+};
 
-const CategoriesNavbar = async ({ locale ,onMainPage = false}) => {
+const CategoriesNavbar = async ({ locale, onMainPage = false }) => {
   const categories = await getCategories(locale);
 
   return (
     <Container
       maxW={{ base: "container.xl", xl: "1296px" }}
-      py={"16px"}
-      mt={'16px'}
-      px={{ base: "16px", xl: "24px" }}
+      pt={"0px"}
+      pb={"8px"}
+      mx={"0px"}
+      px={'0'}
       width={"100%"}
       position={"sticky"}
       top={"0px"}
       zIndex={"10"}
-      flexDir={"row"}
-      bg={"#fff"}
-      justifyContent={"flex-start"}
-      alignItems={"center"}
-      gap={"20px"}
-      overflowX={"auto"}
-      display={"flex"}
+      bg={"transparent"}
+      h={"90px"}
+      overflow={"hidden"}
     >
- {!onMainPage &&  <CategoryNavItem data={homeLink} isMain={true} />}
-      {categories.map((category) => (
-        <CategoryNavItem key={category.id} data={category} onMainPage={onMainPage} />
-      ))}
+      <CategorisNavbarScrollAble categories={categories} onMainPage={onMainPage} homeLink={homeLink} locale={locale} />
     </Container>
   );
 };

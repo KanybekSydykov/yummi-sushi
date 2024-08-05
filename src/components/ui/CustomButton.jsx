@@ -15,6 +15,7 @@ const buttonStyles = {
     width: "100%",
     height:'45px',
     outline: "none",
+    maxW :'420px',
     _hover: {
       bg: "#DD5209",
     },

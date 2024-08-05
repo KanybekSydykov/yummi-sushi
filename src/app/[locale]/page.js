@@ -10,30 +10,8 @@ import CategoriesNavbarSkeleton from '@/components/Categories/CategoriesNavbarSk
 import CategoriesNavbar from '@/components/Categories/CategoriesNavbar';
 import '../globals.css';
 import CashbackHandler from '@/components/Bonus/CashbackHandler';
-export async function generateMetadata({ params, searchParams }, parent) {
-  // read route params
 
-  // fetch data
-  const res = await fetch(`${ENDPOINTS.getHomepage()}`, {
-    cache: 'no-store'
-  })
-  const { main_page } = await res.json()
-
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || []
-
-  return {
-    title: main_page.meta_title,
-    description: main_page.meta_description,
-    openGraph: {
-      description: main_page.meta_description,
-      title: main_page.meta_title,
-      images: [{ url: main_page.meta_image }, ...previousImages],
-    },
-  }
-}
 const getHomepageData = async (locale) => {
-'use server';
   try {
     const res = await fetch(`${ENDPOINTS.getHomepage()}`, {
       cache: 'no-store',
@@ -41,32 +19,47 @@ const getHomepageData = async (locale) => {
         "Accept-Language": `${locale}`,
       }
     })
+    if(!res.ok) {
+      throw new Error('Failed to fetch data')}
     const data = await res.json()
     return data
   } catch (error) {
     throw new Error(error)
+  }}
+
+  export async function generateMetadata({ params, searchParams }, parent) {
+    // optionally access and extend (rather than replace) parent metadata
+    const {main_page } = await getHomepageData(params.locale)
+    const previousImages = (await parent).openGraph?.images || []
+  
+    return {
+      title: main_page.meta_title,
+      description: main_page.meta_description,
+      openGraph: {
+        description: main_page.meta_description,
+        title: main_page.meta_title,
+        images: [{ url: main_page.meta_image }, ...previousImages],
+      },
+    }
   }
-
-
-}
 
 export default async function HomePage({ params }) {
   const data = await getHomepageData(params.locale)
 
   return <main>
-    <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '20px', xl: '0px' }}>
       <Suspense fallback={<CategoriesNavbarSkeleton />}>
         <CategoriesNavbar locale={params.locale} onMainPage={true} />
       </Suspense>
-      <Suspense fallback={<BannerSkeleton />}>
+    <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '16px', xl: '0px' }}>
 
+      <Suspense fallback={<BannerSkeleton />}>
         <BannersCover />
       </Suspense>
 
       {/* <Suspense fallback={<CategoriesSkeleton />}>
         <Categories locale={params.locale} />
       </Suspense> */}
-      <Flex flexDir={'column'} mt={{ base: '40px', lg: '0px' }}>
+      <Flex flexDir={'column'} mt={{ base: '0px', lg: '0px' }}>
 
         {data?.categories.map((category) => (
           <Suspense key={category.slug} fallback={<CategoryPageSkeleton />}>

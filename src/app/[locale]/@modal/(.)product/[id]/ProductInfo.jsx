@@ -57,25 +57,28 @@ const imageStyles = {
   overflow: "hidden",
 };
 
-const ProductInfo = () => {
+const ProductInfo = ({fetchedProduct}) => {
   const [selectedSize, setSelectedSize] = useState();
   const [addons, setAddons] = useState([]);
-  const { addItem, editItem, selectedProduct } = useCart();
+  const { addItem, editItem, selectedProduct ,setSelectedProduct} = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const router = useRouter();
   const t = useTranslations("ProductDetails");
   const tCommon = useTranslations("Common");
   const toast = useToast();
 
-  const product = selectedProduct;
+  const product = fetchedProduct || selectedProduct;
+  console.log(product,fetchedProduct);
 
   useEffect(() => {
-    setSelectedSize(product.product_sizes[0]);
-    setTotalPrice(
-      product.product_sizes[0].discounted_price
-        ? product.product_sizes[0].discounted_price
-        : product.product_sizes[0].price
-    );
+    if (product && product.product_sizes) {
+      setSelectedSize(product.product_sizes[0]);
+      setTotalPrice(
+        product.product_sizes[0].discounted_price
+          ? product.product_sizes[0].discounted_price
+          : product.product_sizes[0].price
+      );
+    }
   }, [product]);
 
   const handleAddonClick = (addon) => {
@@ -87,14 +90,16 @@ const ProductInfo = () => {
   };
 
   useEffect(() => {
-    const price = parseFloat(
-      selectedSize?.discounted_price || selectedSize?.price
-    );
-    const addonsTotalPrice = addons.reduce(
-      (sum, addon) => sum + (parseFloat(addon.price) || 0),
-      0
-    );
-    setTotalPrice(price + addonsTotalPrice);
+    if (selectedSize) {
+      const price = parseFloat(
+        selectedSize.discounted_price || selectedSize.price
+      );
+      const addonsTotalPrice = addons.reduce(
+        (sum, addon) => sum + (parseFloat(addon.price) || 0),
+        0
+      );
+      setTotalPrice(price + addonsTotalPrice);
+    }
   }, [selectedSize, addons]);
 
   const handleAddToCart = () => {
@@ -140,12 +145,15 @@ const ProductInfo = () => {
         >
           <Text fontSize={"14px"}>{tCommon("added")} :</Text>
           <Text fontSize={"16px"}>
-            {product.name} {selectedSize.size}
+            {product?.name} {selectedSize.size}
           </Text>
         </Flex>
       ),
     });
 
+    if(fetchedProduct){
+      return;
+    }
     router.back();
   };
   return (
@@ -155,16 +163,16 @@ const ProductInfo = () => {
     >
       <AspectRatio {...imageStyles}>
         <Image
-          src={product.photo ? product.photo : "/category-img.png"}
+          src={product?.photo ? product.photo : "/category-img.png"}
           fill
-          alt="product image"
+          alt={product?.name}
           sizes="100%"
           priority={true}
         />
       </AspectRatio>
 
       <Flex flexDir={"column"} flexGrow={1} maxW={"550px"} gap={"16px"}>
-        <Heading {...productNameStyles}>{product.name}</Heading>
+        <Heading {...productNameStyles}>{product?.name}</Heading>
         <Flex
           bg={"rgb(243, 243, 247)"}
           flexDir={"row"}
@@ -172,7 +180,7 @@ const ProductInfo = () => {
           p={"2px 2.5px"}
           w={"fit-content"}
         >
-          {product.product_sizes.map((size) => (
+          {product?.product_sizes?.map((size) => (
             <Button
               key={size.size}
               onClick={() => setSelectedSize(size)}
@@ -213,10 +221,10 @@ const ProductInfo = () => {
           )}
         </Flex>
 
-        <Text {...descriptionStyles}>{product.description}</Text>
+        <Text {...descriptionStyles}>{product?.description}</Text>
         <Flex flexDir={"column"}>
           <Text
-            opacity={product.toppings.length ? 1 : 0}
+            opacity={product?.toppings?.length ? 1 : 0}
             fontFamily={"roboto"}
             fontWeight={"700"}
             fontSize={"20px"}
@@ -226,7 +234,7 @@ const ProductInfo = () => {
           </Text>
 
           <Flex mt={"20px"} flexDir={"row"} flexWrap={"wrap"} gap={"16px"}>
-            {product.toppings.map((topping) => (
+            {product?.toppings?.map((topping) => (
               <Addon
                 key={topping.name}
                 topping={topping}

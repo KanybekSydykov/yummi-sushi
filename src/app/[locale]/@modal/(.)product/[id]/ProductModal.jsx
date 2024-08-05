@@ -60,8 +60,11 @@ function ProductModal({ children }) {
     }
   }, []);
 
-  function onDismiss(){
-    router.back({scroll: false});
+function onDismiss(){
+    onClose();
+    setTimeout(() => {
+      router.back({scroll: false});
+    },400)
   }
 
   return createPortal(

@@ -68,6 +68,7 @@ const BannerSlider = ({ banners}) => {
           w={"100%"}
           h={{ base: "32px", lg: "0px" }}
           zIndex={3}
+          visibility={banners.length > 1 ? "visible" : "hidden"}
         >
           <Button
             className="splide__arrow splide__arrow--prev"

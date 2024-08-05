@@ -1,12 +1,18 @@
 "use client";
+import useIntersectionObserver from "@/lib/Oserver";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const CategoryNavItem = ({ data ,isMain = false,onMainPage=false}) => {
-  const { category } = useParams();
+const CategoryNavItem = ({
+  data,
+  isMain = false,
+  onMainPage = false,
+  firstSection,
+  activeCategory
+}) => {
 
   return (
     <Flex
@@ -14,43 +20,62 @@ const CategoryNavItem = ({ data ,isMain = false,onMainPage=false}) => {
       alignItems={"center"}
       justifyContent={"flex-start"}
       pos={"relative"}
-      width={"200px"}
-      gap={"16px"}
+      width={"auto"}
       cursor={"pointer"}
-      borderRadius={"10px"}
+      fontWeight={activeCategory === data.slug ? "500" : "400"}
+      color={activeCategory === data.slug ? "main" : "rgba(0,0,0,0.5)"}
+      fontSize={activeCategory === data.slug ? "17px" : "16px"}
       _hover={{
-        transform: "scale3d(1.02, 1.02, 1.01)",
-        boxShadow:'0px 0px 3px 3px rgba(0,0,0,0.3)'
+        transform: "translateY(-5px)",
+        color: "main",
+        borderColor: "#ff8341",
       }}
-      transition={"all 0.5s ease"}
-      role="group"
-      boxShadow={'0px 0px 5px 0px rgba(0,0,0,0.3)'}
-      p={'2px'}
+      _groupHover={{
+        gap: "16px",
+      }}
+      transform={
+        activeCategory === data.slug ? "translateY(-2px)" : "translateY(0px)"
+      }
+      transition={"all 0.3s ease"}
+      p={"6px 12px"}
       flexShrink={0}
-      bg={'#fff'}
+      bg={"#fff"}
+      h="100%"
+      borderBottom={
+        activeCategory === data.slug
+          ? "2px solid #ff8341"
+          : "2px solid transparent"
+      }
     >
       <AspectRatio
         ratio={1}
-        width={{ base: "40px", lg: "60px" }}
+        height={"auto"}
+        maxH={"0px"}
+        maxW={"0px"}
+        opacity={"0"}
+        _groupHover={{
+          maxHeight: "unset",
+          maxWidth: "unset",
+          opacity: "1",
+        }}
+        transition={"all 0.3s ease"}
+        width={{ base: isMain ? "20px" : "40px", lg: isMain ? "24px" : "60px" }}
       >
-        <Image src={data?.image} fill sizes="100%" alt={data.name} style={{ objectFit: "contain" }} />
+        <Image
+          src={data?.image}
+          fill
+          sizes="100%"
+          alt={data.name}
+          style={{ objectFit: "contain" }}
+        />
       </AspectRatio>
 
-      <Text
-        fontFamily={"roboto"}
-        fontWeight={"400"}
-        fontSize={"16px"}
-        transition={"all 0.3s ease"}
-        color={category === data.slug ? "main" : "#000"}
-        _groupHover={{
-          color: "main",
-        }}
-      >
+      <Text fontFamily={"roboto"} transition={"all 0.3s ease"}>
         {data.name}
       </Text>
 
       <Link
-        href={isMain ? "/" : `${onMainPage ? '#':'/category/'}${data.slug}`}
+        href={isMain ? "/" : `${onMainPage ? "#" : "/category/"}${data.slug}`}
         style={{
           position: "absolute",
           top: 0,

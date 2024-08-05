@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 
-const Bonus = () => {
+const Bonus = ({textColor='fontgray'}) => {
     const {isAuthenticated,setBonusAmount,bonusAmount} = useCart()
 
     async function getBonusAmount(){
@@ -85,7 +85,7 @@ const Bonus = () => {
         fontFamily={"roboto"}
         fontWeight={"300"}
         fontSize={"12px"}
-        color={"fonrgray"}
+        color={textColor}
       >
         Бонус
       </Text>

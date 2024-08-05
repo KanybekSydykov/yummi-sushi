@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
         bg: "rgba(249,250,251,1)",
       }}
       cursor="pointer"
-      maxW={{ base: "158px", lg: "240px" }}
+      maxW={{ base: "100%", lg: "240px" }}
       onClick={() => handleProductClick(product)}
       role="group"
     >
@@ -42,6 +42,8 @@ const ProductCard = ({ product }) => {
         w={{ base: "158px", lg: "240px" }}
         h={{ base: "auto", lg: "240px" }}
         flexShrink={0}
+        borderBottomRightRadius={{base:"20px",lg:'unset'}}
+
       >
         <AspectRatio
           ratio={1}
@@ -57,8 +59,7 @@ const ProductCard = ({ product }) => {
             src={product?.photo ? product?.photo : "/category-img.png"}
             fill
             alt="product image"
-            priority={true}
-            sizes="100%"
+            sizes="100% 100%"
           />
           {/* <Image src={"/category-img.png"} fill alt="product image" priority={true} sizes="100%" /> */}
         </AspectRatio>

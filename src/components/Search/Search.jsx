@@ -180,8 +180,8 @@ const Search = () => {
                 <Box
                   position="absolute"
                   top={{ base: "150px", lg: "120px" }}
-                  left="320px"
-                  right="320px"
+                  left={{base:"16px",lg:"320px"}}
+                  right={{base:'16px',lg:"320px"}}
                   width="auto"
                   padding={"20px"}
                   borderRadius={"10px"}
@@ -215,7 +215,7 @@ const Search = () => {
                         <Link
                           prefetch={false}
                           scroll={false}
-                          href={`/category/${result.category_slug}?product=${result.id}`}
+                          href={`/product/${result.id}`}
                           style={{
                             position: "absolute",
                             top: "0px",

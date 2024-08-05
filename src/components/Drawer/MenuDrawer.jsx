@@ -108,7 +108,7 @@ const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
                 alignItems={"flex-start"}
                 justifyContent={"center"}
               >
-                <Bonus />
+                <Bonus textColor="#fff" />
 
                 <LoginModal closeMenu={onClose} />
 
