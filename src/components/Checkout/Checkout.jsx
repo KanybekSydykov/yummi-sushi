@@ -371,6 +371,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               fontSize={"14px"}
               fontWeight={"600"}
               cursor={"pointer"}
+              mt={'20px'}
             >
               <span style={{ textTransform: "lowercase" }}>
                 {deliveryMethod !== "Доставку" ? t('chooseDelivery') : t('choosePickup')}
@@ -412,7 +413,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                  {t('cash')}
                 </Text>
               </Radio>
-              <Radio size="md" value="card" colorScheme="orange">
+              <Radio size="md" value="card" colorScheme="orange" mt={'12px'}>
                 <Text
                   fontFamily={"roboto"}
                   fontSize={{ base: "12px", lg: "16px" }}

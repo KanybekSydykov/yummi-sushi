@@ -15,6 +15,7 @@ import {
 import AdressModal from "./AddAdress";
 import UserAddreses from "../Profile/UserAddreses";
 import RestaurantAdresses from "../ui/RestaurantAdresses";
+import CustomButton from "../ui/CustomButton";
 
 const DELIVERY_OPTIONS = ["Самовывоз", "Доставка"];
 const TITLE = ["Мои адреса", "Адреса филиалов"];
@@ -117,18 +118,8 @@ function DeliveryMethod({
                 </Button>
               </AdressModal>
             )}
-            <Button
-              flexGrow={1}
-              borderRadius={"30px"}
-              bg={"rgb(255 240 230)"}
-              color={"rgb(209, 87, 0)"}
-              _hover={{ bg: "rgb(255, 210, 179)" }}
-              fontSize={"16px"}
-              fontWeight={"500"}
-              onClick={onClose}
-            >
-              Выбрать
-            </Button>
+
+<CustomButton fn={onClose} text={"Выбрать"} />
           </ModalFooter>
         </ModalContent>
       </Modal>

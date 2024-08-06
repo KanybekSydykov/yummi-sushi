@@ -26,10 +26,14 @@ const CategorisNavbarScrollAble = ({
     }
   }, [activeCategory]);
 
+  const handleLinkClick = (slug) => {
+    setActiveCategory(slug);
+  };
+
   return (
     <Flex
-      h={"54px"}
-      _hover={{ height: "90px" }}
+      h={{ base: "auto", lg: "54px" }}
+      _hover={{ height: { base: "auto", lg: "90px" } }}
       flexDir={"row"}
       justifyContent={"flex-start"}
       alignItems={"center"}
@@ -39,8 +43,9 @@ const CategorisNavbarScrollAble = ({
       role="group"
       w={"100%"}
       maxW={"100dvw"}
-      bg={"white"}
+      bg={"#fff"}
       gap={"20px"}
+      pt={{base:'4px',lg:'0px'}}
       ps={{ base: "1px", lg: "24px" }}
       pe={{ base: "8px", lg: "44px" }}
       sx={{
@@ -60,6 +65,7 @@ const CategorisNavbarScrollAble = ({
             data={category}
             onMainPage={onMainPage}
             firstSection={categories[0].slug}
+            onClickLink={handleLinkClick}
           />
         </div>
       ))}

@@ -24,13 +24,12 @@ const GetCategoryData = async ({ params, start = false }) => {
     textAlign: start ? "left" : "center",
     color: "main",
     marginBottom: { base: "20px", lg: "40px" },
-    my: { base: "12px", lg: "16px" },
   };
   return (
     <Box
       as={"section"}
       id={params.category}
-      paddingTop={{ base: start ? "30px" : "0px", lg: start ? "100px" : "0px" }}
+      paddingTop={{ base: start ? "50px" : "0px", lg: start ? "100px" : "0px" }}
     >
       <Heading {...headingStyles}>
         {products?.products[0].category_name}

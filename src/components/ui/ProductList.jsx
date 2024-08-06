@@ -18,7 +18,7 @@ const ProductList = ({ products, start = false }) => {
       flexWrap="wrap"
       columnGap="20px"
       rowGap={{ base: "20px", lg: "40px" }}
-      mb={{ base: "111px", lg: start ? "0px" : "129px" }}
+      mb={{ base: "0px", lg: start ? "0px" : "129px" }}
       pt="30px"
     >
       {products?.products.map((product) => (

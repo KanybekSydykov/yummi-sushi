@@ -1,7 +1,7 @@
 "use client";
 import { ENDPOINTS } from "@/api/endpoints";
 import { getSession } from "@/lib/auth";
-import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdressModal from "../Modals/AddAdress";
 import CustomButton from "../ui/CustomButton";
@@ -81,7 +81,19 @@ const UserAddreses = ({handleAdressSelect,selectedAdressId}) => {
             </Flex>
           )}
           <AdressModal addNewAddres={addNewAddres} handleAdressSelect={handleAdressSelect}>
-            <CustomButton text={"Добавить адрес"} />
+            <Button
+                  w={"100%"}
+                  borderRadius={"30px"}
+                  bg={"rgb(255 240 230)"}
+                  color={"rgb(209, 87, 0)"}
+                  _hover={{ bg: "rgb(255, 210, 179)" }}
+                  fontSize={"18px"}
+                  fontWeight={"500"}
+                  py={'12px'}
+                  h={'auto'}
+                >
+                  Добавить адрес
+                </Button>
           </AdressModal>
         </Flex>
       ) : (

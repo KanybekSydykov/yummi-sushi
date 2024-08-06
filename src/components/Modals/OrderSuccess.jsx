@@ -1,6 +1,7 @@
 "use client";
 import { CheckIcon } from "@chakra-ui/icons";
 import {
+  AspectRatio,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -21,7 +22,7 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
   useEffect(() => {
     if (showModal) {
       if (delay > 0) {
-        setTimeout(() => setDelay(delay - 1), 1000);
+        // setTimeout(() => setDelay(delay - 1), 1000);
       } else {
         router.push("/");
         setShowModal(false);
@@ -31,10 +32,13 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
 
   return (
     <>
-      <Modal isOpen={showModal} onClose={onClose} size={"md"} isCentered>
+      <Modal isOpen={showModal} onClose={onClose} size={{base:'full',lg:"md"}} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton onClick={() => setShowModal(false)} />
+          <ModalCloseButton color={'main'} size={'lg'} _focus={{
+            boxShadow:'none',
+            outline:'none'
+          }} onClick={() => setShowModal(false)} />
           <ModalBody
             flexDir={"column"}
             gap={"16px"}
@@ -42,22 +46,27 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
             justifyContent={"center"}
             display={"flex"}
             py={'60px'}
-            minH={'400px'}
-            minWidth={"600px"}
-            pos={'relative'}
+            bg={'#003241'}
+            overflow={'hidden'}
+          
           >
             {/* <CheckIcon boxSize={50} color="green.500" /> */}
+            <AspectRatio
+              minH={{base:'unset',lg:'400px'}}
+              maxH={{base:'250px',lg:'400px'}}
+              minWidth={{base:'100%',lg:"600px"}}
+              overflow={'hidden'}
+              pos={'relative'}
+            >
+
             <Image src={'/animated-checkmark.gif'} fill sizes="100%" />
+            </AspectRatio>
             <Text
               fontFamily={"roboto"}
               fontWeight={"700"}
               fontSize={"20px"}
               lineHeight={"22px"}
               color={"#FFF"}
-              position={'absolute'}
-              bottom={'50px'}
-              left={'0px'}
-              right={'0px'}
               textAlign={'center'}
               w={'100%'}
             >
@@ -71,10 +80,6 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
               lineHeight={"22px"}
               textAlign={"center"}
               color={"#FFF"}
-              position={'absolute'}
-              bottom={'20px'}
-              left={'0px'}
-              right={'0px'}
               w={'100%'}
             >
               Вы будете перенаправлены на главную страницу через {delay}

@@ -39,7 +39,7 @@ const CategoriesNavbar = async ({ locale, onMainPage = false }) => {
       top={"0px"}
       zIndex={"10"}
       bg={"transparent"}
-      h={"90px"}
+      h={{ base: "auto", lg: "90px" }}
       overflow={"hidden"}
     >
       <CategorisNavbarScrollAble categories={categories} onMainPage={onMainPage} homeLink={homeLink} locale={locale} />

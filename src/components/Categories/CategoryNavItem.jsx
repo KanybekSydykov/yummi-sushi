@@ -1,18 +1,31 @@
 "use client";
+
 import useIntersectionObserver from "@/lib/Oserver";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
 const CategoryNavItem = ({
   data,
   isMain = false,
   onMainPage = false,
   firstSection,
-  activeCategory
+  activeCategory,
+  onClickLink
 }) => {
+
+  const handleLinkClick = (e) => {
+    e.preventDefault();
+    const section = document.getElementById(data.slug);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "instant", // Use smooth behavior for better UX
+        block: "start",
+      });
+    }
+    onClickLink(data.slug);
+  };
+  
 
   return (
     <Flex
@@ -36,7 +49,7 @@ const CategoryNavItem = ({
       transform={
         activeCategory === data.slug ? "translateY(-2px)" : "translateY(0px)"
       }
-      transition={"all 0.3s ease"}
+      transition={"all 0.1s ease"}
       p={"6px 12px"}
       flexShrink={0}
       bg={"#fff"}
@@ -48,6 +61,7 @@ const CategoryNavItem = ({
       }
     >
       <AspectRatio
+      display={{base:'none',lg:'block'}}
         ratio={1}
         height={"auto"}
         maxH={"0px"}
@@ -58,7 +72,7 @@ const CategoryNavItem = ({
           maxWidth: "unset",
           opacity: "1",
         }}
-        transition={"all 0.3s ease"}
+        transition={"all 0.3s linear"}
         width={{ base: isMain ? "20px" : "40px", lg: isMain ? "24px" : "60px" }}
       >
         <Image
@@ -70,12 +84,13 @@ const CategoryNavItem = ({
         />
       </AspectRatio>
 
-      <Text fontFamily={"roboto"} transition={"all 0.3s ease"}>
+      <Text fontFamily={"roboto"} transition={"all 0.1s linear"}>
         {data.name}
       </Text>
 
-      <Link
+      <a
         href={isMain ? "/" : `${onMainPage ? "#" : "/category/"}${data.slug}`}
+        onClick={handleLinkClick}
         style={{
           position: "absolute",
           top: 0,
