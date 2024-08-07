@@ -122,9 +122,16 @@ function LoginModal({ textBlack, closeMenu, children }) {
             gap={"20px"}
           >
             <Heading {...headingStyles}>{t("loginTitle")}</Heading>
-            {otp ? <Text>
+            {otp ? 
+            <Flex>
+              <Text>
+                {t("enterCode")}
+              </Text>
+              <Text textAlign={'center'}>
               {otp}
-            </Text> : null}
+            </Text>
+            </Flex>
+            : null}
 
             {!isNumberSent ? (
               <LoginBox
@@ -135,7 +142,6 @@ function LoginModal({ textBlack, closeMenu, children }) {
               />
             ) : (
               <OtpBox
-              
                 handleOtp={handleOtp}
                 setIsNumberSent={setIsNumberSent}
                 isOtpConfirming={isOtpConfirming}

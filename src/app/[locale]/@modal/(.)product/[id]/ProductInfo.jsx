@@ -19,53 +19,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "@/lib/navigation";
 
-const productNameStyles = {
-  fontFamily: "roboto",
-  fontWeight: "700",
-  fontSize: { base: "18px", lg: "20px" },
-  color: "#0a0a0a",
-};
-
-const priceStyles = {
-  fontFamily: "roboto",
-  fontWeight: "700",
-  fontSize: { base: "20px", lg: "22px" },
-  color: "main",
-};
-
-const discountStyles = {
-  fontFamily: "roboto",
-  fontWeight: "400",
-  fontSize: { base: "18px", lg: "20px" },
-  color: "lightgray",
-  textDecoration: "line-through",
-};
-
-const descriptionStyles = {
-  fontFamily: "roboto",
-  fontWeight: "400",
-  fontSize: { base: "14px", lg: "16px" },
-  color: "fontgray",
-  whiteSpace: "pre-wrap",
-};
-
-const imageStyles = {
-  ratio: 1,
-  width: { base: "100%", lg: "450px" },
-  height: { base: "100%", lg: "450px" },
-  flexShrink: 0,
-  borderRadius: "25px",
-  overflow: "hidden",
-  position: {
-    base: "relative",
-    lg: "sticky",
-  },
-  top: {
-    base: "unset",
-    lg: 0,
-  },
-};
-
 const ProductInfo = ({ fetchedProduct }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [addons, setAddons] = useState([]);
@@ -169,7 +122,22 @@ const ProductInfo = ({ fetchedProduct }) => {
       flexDir={{ base: "column", lg: "row" }}
       gap={{ base: "20px", lg: "40px" }}
     >
-      <AspectRatio {...imageStyles}>
+      <AspectRatio
+        ratio={1}
+        width={{ base: "100%", lg: "450px" }}
+        height={{ base: "100%", lg: "450px" }}
+        flexShrink={0}
+        borderRadius="25px"
+        overflow="hidden"
+        position={{
+          base: "relative",
+          lg: "sticky",
+        }}
+        top={{
+          base: "unset",
+          lg: 0,
+        }}
+      >
         <Image
           src={product?.photo ? product.photo : "/category-img.png"}
           fill
@@ -186,7 +154,14 @@ const ProductInfo = ({ fetchedProduct }) => {
         gap={"16px"}
         pb={"25px"}
       >
-        <Heading {...productNameStyles}>{product?.name}</Heading>
+        <Heading
+          fontFamily="roboto"
+          fontWeight="700"
+          fontSize={{ base: "18px", lg: "20px" }}
+          color="#0a0a0a"
+        >
+          {product?.name}
+        </Heading>
         <Flex
           bg={"rgb(243, 243, 247)"}
           flexDir={"row"}
@@ -224,18 +199,39 @@ const ProductInfo = ({ fetchedProduct }) => {
           alignItems={"center"}
           gap={"8px"}
         >
-          <Text {...priceStyles}>
+          <Text
+            fontFamily="roboto"
+            fontWeight="700"
+            fontSize={{ base: "20px", lg: "22px" }}
+            color="main"
+          >
             {selectedSize?.discounted_price
               ? selectedSize?.discounted_price
               : selectedSize?.price}{" "}
             сом
           </Text>
           {selectedSize?.discounted_price && (
-            <Text {...discountStyles}>{selectedSize?.price} сом</Text>
+            <Text
+              fontFamily="roboto"
+              fontWeight="400"
+              fontSize={{ base: "18px", lg: "20px" }}
+              color="lightgray"
+              textDecoration="line-through"
+            >
+              {selectedSize?.price} сом
+            </Text>
           )}
         </Flex>
 
-        <Text {...descriptionStyles}>{product?.description}</Text>
+        <Text
+          fontFamily="roboto"
+          fontWeight="400"
+          fontSize={{ base: "14px", lg: "16px" }}
+          color="fontgray"
+          whiteSpace="pre-wrap"
+        >
+          {product?.description}
+        </Text>
         {product?.toppings?.length ? (
           <Flex flexDir={"column"}>
             <Text
@@ -268,6 +264,7 @@ const ProductInfo = ({ fetchedProduct }) => {
           <CustomButton
             text={`${t("addToCart")} ${totalPrice} сом`}
             fn={handleAddToCart}
+            mx={{base:'auto',lg:'unset'}}
           />
         </Flex>
       </Flex>

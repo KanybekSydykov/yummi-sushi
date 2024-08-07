@@ -1,17 +1,14 @@
-'use client'
-import React, { useState } from "react";
-import { Box, Flex, Button, useMediaQuery, Spinner } from "@chakra-ui/react";
+
+import React from "react";
+import { Box, Flex, Button} from "@chakra-ui/react";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Image from "next/image";
 import "@splidejs/react-splide/css";
 import { Link } from "@/lib/navigation";
+import LoadingImage from "../ui/LoadingImage";
 
 const BannerSlider = ({ banners}) => {
-  const [loading,setLoading] = useState(true)
 
-  function onImageLoad(){
-    setLoading(false)
-  }
   return (
     <>
       <Box
@@ -35,25 +32,14 @@ const BannerSlider = ({ banners}) => {
             <SplideSlide key={index}>
               <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,lg:1296/400}} position={'relative'}>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",lg:"block"}}>
-              <Image
-                  src={ item.image_desktop}
-                  alt={item.title}
-                  fill
-                  priority
-                  sizes="100%"
-                />
+           <LoadingImage src={item.image_desktop} alt={item.title} priority={true} />
               </Box>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",lg:"none"}}>
-              <Image
-                  src={loading  ? "/banner-placeholder.avif" : item.image_mobile}
-                  alt={item.title}
-                  fill
-                  priority
-                  onLoad={onImageLoad}
-                  sizes="100%"
-                />
+              
+           <LoadingImage src={item.image_mobile} alt={item.title} priority={true} />
+              
+
               </Box>
-              {loading && <Spinner position={'absolute'} top={'50%'} left={'50%'} transform={'translate(-50%,-50%)'} zIndex={2} color={'#ff8341'} size={'xl'} />}
               <Link href={item.link} style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, width: "100%", height: "100%" }} />
        
               </Box>

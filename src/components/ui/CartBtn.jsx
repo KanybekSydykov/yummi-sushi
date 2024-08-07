@@ -21,7 +21,7 @@ const CartBtn = ({ fn, textBlack = false, fixed = false }) => {
       zIndex={fixed ? "100" : "unset"}
       borderRadius={fixed ? "50%" : "5px"}
       boxShadow={fixed ? "0px 0px 7px 0px #73737333" : "none"}
-      bg={fixed ? "#ff8341" : "transparent"}
+      bg={fixed ? "linear-gradient(304deg, rgba(255, 131, 65, 1) 0%, rgba(255, 213, 65, 1) 100%)" : "transparent"}
       cursor={"pointer"}
       transition={"all 0.3s ease"}
       _hover={{
@@ -51,9 +51,9 @@ const CartBtn = ({ fn, textBlack = false, fixed = false }) => {
         position={"absolute"}
         top={"-5px"}
         right={"-5px"}
-        borderRadius={"2px"}
+        borderRadius={"7px"}
         width={"19px"}
-        h={"13px"}
+        h={"19px"}
         justifyContent={"center"}
         alignItems={"center"}
       >

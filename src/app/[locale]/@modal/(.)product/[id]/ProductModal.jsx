@@ -7,55 +7,17 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  Portal,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {createPortal} from "react-dom";
-
-const productNameStyles = {
-  fontFamily: "roboto",
-  fontWeight: "700",
-  fontSize: { base: "18px", lg: "20px" },
-  color: "#0a0a0a",
-};
-
-const priceStyles = {
-  fontFamily: "roboto",
-  fontWeight: "700",
-  fontSize: { base: "20px", lg: "22px" },
-  color: "main",
-};
-
-const discountStyles = {
-  fontFamily: "roboto",
-  fontWeight: "400",
-  fontSize: { base: "18px", lg: "20px" },
-  color: "lightgray",
-  textDecoration: "line-through",
-};
-
-const descriptionStyles = {
-  fontFamily: "roboto",
-  fontWeight: "400",
-  fontSize: { base: "14px", lg: "16px" },
-  color: "fontgray",
-  whiteSpace: "pre-wrap",
-};
-
-const imageStyles = {
-  ratio: 1,
-  width: { base: "100%", lg: "450px" },
-  height: { base: "100%", lg: "450px" },
-  flexShrink: 0,
-  borderRadius: "25px",
-  overflow: "hidden",
-};
 
 function ProductModal({ children }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen , onOpen, onClose } = useDisclosure();
   const router = useRouter();
+
   useEffect(() => {
-    if (!isOpen) {
+    if(!isOpen){
       onOpen();
     }
   }, []);
@@ -67,7 +29,8 @@ function onDismiss(){
     },400)
   }
 
-  return createPortal(
+  return (
+<Portal>
 
       <Modal
         isCentered
@@ -108,8 +71,8 @@ function onDismiss(){
             {children}
           </ModalBody>
         </ModalContent>
-      </Modal>,
-   document.getElementById("modal-root")
+      </Modal>
+</Portal>
   );
 }
 

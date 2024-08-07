@@ -1,19 +1,11 @@
-'use server';
-
 import { AspectRatio, Flex, Heading, Text, Box } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import CustomButton from "./CustomButton";
 import { Link } from "@/lib/navigation";
-import { getTranslations } from "next-intl/server";
+import LoadingImage from "./LoadingImage";
 
-const ProductCard = async ({ product }) => {
-  const t = await getTranslations("Common");
-
-  // function handleProductClick(product) {
-  //   setSelectedProduct(product);
-  //   router.push(`/product/${product.id}`, { scroll: false });
-  // }
+const ProductCard = async ({ product,t }) => {
   return (
     <Flex
       flexDir={{ base: "row", lg: "column" }}
@@ -31,7 +23,6 @@ const ProductCard = async ({ product }) => {
       }}
       cursor="pointer"
       maxW={{ base: "100%", lg: "240px" }}
-      // onClick={() => handleProductClick(product)}
       role="group"
       position={"relative"}
     >
@@ -60,18 +51,13 @@ const ProductCard = async ({ product }) => {
             transform: "scale3d(1.1, 1.1, 1.05)",
           }}
         >
-          <Image
-            src={product?.photo ? product?.photo : "/category-img.png"}
-            fill
-            alt="product image"
-            sizes="100% 100%"
-          />
+          <LoadingImage src={product?.photo} alt={product.name} />
           {/* <Image src={"/category-img.png"} fill alt="product image" priority={true} sizes="100%" /> */}
         </AspectRatio>
       </Box>
 
       <Flex
-        p={{ base: "6px 12px", lg: "16px" }}
+        p={"6px 12px"}
         flexDir={"column"}
         gap={"16px"}
         h={{ base: "auto", lg: "244px" }}

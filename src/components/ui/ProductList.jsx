@@ -1,7 +1,10 @@
 import { Flex} from "@chakra-ui/react";
 import ProductCard from "./ProductCard";
+import { getTranslations } from "next-intl/server";
 
-const ProductList = ({ products, start = false }) => {
+const ProductList = async ({ products, start = false }) => {
+  const t = await getTranslations("Common");
+
 
 
   return (
@@ -17,6 +20,7 @@ const ProductList = ({ products, start = false }) => {
         <ProductCard
           key={product.id}
           product={product}
+          t={t}
         />
       ))}
     </Flex>

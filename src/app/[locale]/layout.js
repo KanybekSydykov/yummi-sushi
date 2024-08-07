@@ -29,8 +29,6 @@ export default async function LocaleLayout({
               <ErrorBoundary fallback={<Error />}>
               {children}
               {modal}
-              <div id='modal-root'>
-              </div>
               </ErrorBoundary>
               <Footer locale={params.locale} />
             </NextIntlClientProvider>
