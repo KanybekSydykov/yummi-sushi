@@ -1,30 +1,34 @@
-'use server'
+"use server";
 
 import React from "react";
 import { Flex, Box, List, ListItem, Text, Container } from "@chakra-ui/react";
-import Link from "next/link";
 import Image from "next/image";
 import Logo from "../ui/Logo";
 import { ENDPOINTS } from "@/api/endpoints";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/navigation";
 
-const getFooterData = async(locale) =>{
+const getFooterData = async (locale) => {
   const res = await fetch(`${ENDPOINTS.getContacts()}`, {
-    cache: 'no-store',
+    cache: "no-store",
     headers: {
-        'Accept-Language': `${locale}`,
-    }
-})
-const data = await res.json()
-const footerData = { phones: data.phones, emails: data.emails, socials: data.social_links, payment: data.payment_methods,static_pages: data.static_pages}
+      "Accept-Language": `${locale}`,
+    },
+  });
+  const data = await res.json();
+  const footerData = {
+    phones: data.phones,
+    emails: data.emails,
+    socials: data.social_links,
+    payment: data.payment_methods,
+    static_pages: data.static_pages,
+  };
 
-return footerData 
+  return footerData;
+};
 
-}
-
-const Footer = async({  locale }) => {
-
-  const data = await getFooterData(locale)
+const Footer = async ({ locale }) => {
+  const data = await getFooterData(locale);
 
   const t = await getTranslations("HomePage");
 
@@ -59,13 +63,11 @@ const Footer = async({  locale }) => {
             color={"rgba(249, 249, 249, 1)"}
             flexDir={"column"}
           >
-              {data.static_pages.map((item) => (
-            <ListItem key={item.slug}>
-              <Link href={`/info/${item.slug}`}>
-                {item.title}
-              </Link>
-            </ListItem>
-              ))}
+            {data.static_pages.map((item) => (
+              <ListItem key={item.slug}>
+                <Link href={`/info/${item.slug}`}>{item.title}</Link>
+              </ListItem>
+            ))}
           </List>
 
           <List
@@ -83,30 +85,48 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {t('support')}
+              {t("support")}
             </Text>
             {data.phones?.map((item, index) => (
               <ListItem
-                as={Link}
-                href={`tel:${item.phone}`}
                 display={"block"}
-                target="_blank"
                 key={item.phone}
                 mt={"26px"}
+                position={"relative"}
               >
                 {item.phone}
+                <Link
+                  href={`tel:${item.phone}`}
+                  target="_blank"
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
               </ListItem>
             ))}
             {data.emails?.map((item, index) => (
               <ListItem
                 key={item.email}
-                as={Link}
                 display={"block"}
-                href={`mailto:${item.email}`}
-                target="_blank"
                 mt={"20px"}
+                position={"relative"}
               >
                 {item.email}
+                <Link
+                  href={`mailto:${item.email}`}
+                  target="_blank"
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
               </ListItem>
             ))}
           </List>
@@ -119,7 +139,7 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {t('social')}
+              {t("social")}
             </Text>
             <Flex flexDir={"row"} flexWrap={"wrap"} gap={"12px"}>
               {data.socials?.map((item) => (
@@ -172,9 +192,9 @@ const Footer = async({  locale }) => {
               lineHeight={"23.44px"}
               color={"#fff"}
             >
-              {t('payment')}
+              {t("payment")}
             </Text>
-            <Flex flexDir={"row"} maxW={'300px'} flexWrap={"wrap"} gap={"12px"}>
+            <Flex flexDir={"row"} maxW={"300px"} flexWrap={"wrap"} gap={"12px"}>
               {data.payment?.map((item) => (
                 <Flex
                   justifyContent={"center"}

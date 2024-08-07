@@ -14,13 +14,12 @@ import {
 import CartBtn from "../ui/CartBtn";
 import CartItem from "../ui/CartItem";
 import CustomButton from "../ui/CustomButton";
-import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/lib/context-api";
 import EmptyCart from "../ui/EmptyCart";
 import LoginModal from "../Modals/Login";
 import BonusCartItem from "../Bonus/BonusCartItem";
 import { useTranslations } from "next-intl";
-import { getCashback } from "@/lib/auth";
+import { usePathname, useRouter } from "@/lib/navigation";
 
 const formatToTwoDecimalPlaces = (num) => {
   // Convert to string with a fixed number of decimal places, then truncate

@@ -1,6 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import Link from 'next/link';
 import { Providers } from '../Theme';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
@@ -13,28 +12,27 @@ import ProductModal from './@modal/(.)product/[id]/ProductModal';
 export default async function LocaleLayout({
   children,
   modal,
-  params: { locale }
+  params
 }) {
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={params.locale}>
       <body>
         <Providers>
           <CartProvider >
             <NextIntlClientProvider messages={messages}>
               <CartDrawer fixed={true} />
-              <Header locale={locale} />
+              <Header locale={params.locale} />
               <ErrorBoundary fallback={<Error />}>
               {children}
               {modal}
               <div id='modal-root'>
-
               </div>
               </ErrorBoundary>
-              <Footer locale={locale} />
+              <Footer locale={params.locale} />
             </NextIntlClientProvider>
           </CartProvider>
         </Providers>

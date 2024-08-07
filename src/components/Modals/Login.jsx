@@ -24,10 +24,10 @@ import ProfileBtn from "../ui/ProfileBtn";
 import CustomButton from "../ui/CustomButton";
 import { useEffect, useState } from "react";
 import { ENDPOINTS } from "@/api/endpoints";
-import { useRouter } from "next/navigation";
 import { login } from "@/lib/auth";
 import { useCart } from "@/lib/context-api";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/lib/navigation";
 
 const headingStyles = {
   fontWeight: "700",

@@ -2,6 +2,7 @@
 
 import { logout } from "@/lib/auth";
 import { useCart } from "@/lib/context-api";
+import { useRouter } from "@/lib/navigation";
 import {
   Modal,
   ModalOverlay,
@@ -16,8 +17,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+
 import { useEffect } from "react";
 
 const LogOut = () => {

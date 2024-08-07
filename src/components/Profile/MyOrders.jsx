@@ -17,9 +17,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import FormInput from "../ui/FormInput";
 import { useRouter, useSearchParams } from "next/navigation";
-import CustomButton from "../ui/CustomButton";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import OrderDetailsModal from "./OrderDetailsModal";
 import { ENDPOINTS } from "@/api/endpoints";

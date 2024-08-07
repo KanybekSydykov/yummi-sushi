@@ -1,8 +1,8 @@
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import React from "react";
+import { Link } from "@/lib/navigation";
 
 const CallBox = ({ inMenu = false }) => {
   const t = useTranslations("HomePage");

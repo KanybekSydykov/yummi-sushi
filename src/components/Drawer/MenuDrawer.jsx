@@ -16,14 +16,12 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import CallBox from "../ui/CallBox";
-import Link from "next/link";
 import LocaleSwitcher from "../LocaleSwitcher/LocaleSwitcher";
-import ProfileBtn from "../ui/ProfileBtn";
-import CartBtn from "../ui/CartBtn";
 import Image from "next/image";
 import LoginModal from "../Modals/Login";
 import CartDrawer from "./CartDrawer";
 import Bonus from "../ui/Bonus";
+import { Link } from "@/lib/navigation";
 
 const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
   const linkStyles = {

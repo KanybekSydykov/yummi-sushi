@@ -1,6 +1,5 @@
 "use client";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
 import Image from "next/image";
 import GoBack from "../ui/GoBack";
 import { ENDPOINTS } from "@/api/endpoints";
@@ -8,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import SpinnerBox from "../ui/SpinnerBox";
 import { useTranslations } from "next-intl";
+import { Link } from "@/lib/navigation";
 
 const Cashback = ({ token }) => {
   const [bonus, setBonus] = useState(null);

@@ -16,7 +16,6 @@ async function getProductData(params) {
         return data
     }
   } catch (error) { 
-    console.log(error);
     throw new Error(error)
     
   }
@@ -25,9 +24,8 @@ async function getProductData(params) {
 const GetProductData = async({params}) => {
 
   const data = await getProductData(params)
-  console.log(data);
   return (
-    <Box pb={'75px'}>
+    <Box>
     <ProductInfo fetchedProduct={data[0]} />
     </Box>
   )

@@ -1,7 +1,8 @@
 import CustomButton from "@/components/ui/CustomButton"
+import { Link } from "@/lib/navigation"
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react"
 import Image from "next/image"
-import Link from "next/link"
+
 
  
 const headingStyles = {

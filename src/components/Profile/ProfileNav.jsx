@@ -1,10 +1,9 @@
 "use client";
-import { usePathname } from "@/lib/navigation";
+import { Link, usePathname } from "@/lib/navigation";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Flex, Text } from "@chakra-ui/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 

@@ -4,4 +4,21 @@
 
 html{
     scroll-behavior: smooth;
+    scroll-padding-top:25px ;
+}
+
+/* .category-nav-item{
+    border-bottom: 2px solid transparent;
+} */
+
+.active-scroll-spy{
+    border-color: #ff8341 !important;
+    color: #ff8341 !important;
+  }
+
+@media screen and (min-width: 992px) {
+    html{
+        scroll-behavior: smooth;
+        scroll-padding-top:45px ;
+    }
 }

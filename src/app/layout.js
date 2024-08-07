@@ -4,8 +4,12 @@ import GlobalError from './global-error';
 
 export default function RootLayout({ children }) {
     return (
-        <ErrorBoundary FallbackComponent={GlobalError}>
-            {children}  
-        </ErrorBoundary>
+        <html lang="ru"> {/* You can set a default lang here */}
+            <body>
+                <ErrorBoundary FallbackComponent={GlobalError}>
+                    {children}
+                </ErrorBoundary>
+            </body>
+        </html>
     );
 }

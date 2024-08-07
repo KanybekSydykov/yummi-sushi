@@ -2,9 +2,10 @@
 import { ENDPOINTS } from "@/api/endpoints";
 import { getSession } from "@/lib/auth";
 import { useCart } from "@/lib/context-api";
+import { Link } from "@/lib/navigation";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
+
 import React, { useEffect } from "react";
 
 const Bonus = ({textColor='fontgray'}) => {

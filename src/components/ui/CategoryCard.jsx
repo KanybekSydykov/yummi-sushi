@@ -1,7 +1,7 @@
 "use client";
+import { Link } from "@/lib/navigation";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect } from "react";
 
 const CategoryCard = ({ item }) => {

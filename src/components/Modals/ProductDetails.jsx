@@ -19,8 +19,7 @@ import React, { useEffect, useState } from "react";
 import Addon from "../ui/Addon";
 import CustomButton from "../ui/CustomButton";
 import { useCart } from "@/lib/context-api";
-import { useRouter } from "next/navigation";
-import { usePathname } from "@/lib/navigation";
+import { usePathname, useRouter } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 
 const productNameStyles = {

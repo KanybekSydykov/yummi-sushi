@@ -8,6 +8,7 @@ import {
   Button,
   Flex,
   Heading,
+  position,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -15,8 +16,8 @@ import { useTranslations } from "next-intl";
 import { v4 as uuidv4 } from "uuid";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "@/lib/navigation";
 
 const productNameStyles = {
   fontFamily: "roboto",
@@ -55,20 +56,27 @@ const imageStyles = {
   flexShrink: 0,
   borderRadius: "25px",
   overflow: "hidden",
+  position: {
+    base: "relative",
+    lg: "sticky",
+  },
+  top: {
+    base: "unset",
+    lg: 0,
+  },
 };
 
-const ProductInfo = ({fetchedProduct}) => {
+const ProductInfo = ({ fetchedProduct }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [addons, setAddons] = useState([]);
-  const { addItem, editItem, selectedProduct ,setSelectedProduct} = useCart();
+  const { addItem } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const router = useRouter();
   const t = useTranslations("ProductDetails");
   const tCommon = useTranslations("Common");
   const toast = useToast();
 
-  const product = fetchedProduct || selectedProduct;
-  console.log(product,fetchedProduct);
+  const product = fetchedProduct;
 
   useEffect(() => {
     if (product && product.product_sizes) {
@@ -151,7 +159,7 @@ const ProductInfo = ({fetchedProduct}) => {
       ),
     });
 
-    if(fetchedProduct){
+    if (fetchedProduct) {
       return;
     }
     router.back();
@@ -171,7 +179,13 @@ const ProductInfo = ({fetchedProduct}) => {
         />
       </AspectRatio>
 
-      <Flex flexDir={"column"} flexGrow={1} maxW={"550px"} gap={"16px"}>
+      <Flex
+        flexDir={"column"}
+        flexGrow={1}
+        maxW={"550px"}
+        gap={"16px"}
+        pb={"25px"}
+      >
         <Heading {...productNameStyles}>{product?.name}</Heading>
         <Flex
           bg={"rgb(243, 243, 247)"}
@@ -222,27 +236,28 @@ const ProductInfo = ({fetchedProduct}) => {
         </Flex>
 
         <Text {...descriptionStyles}>{product?.description}</Text>
-        <Flex flexDir={"column"}>
-          <Text
-            opacity={product?.toppings?.length ? 1 : 0}
-            fontFamily={"roboto"}
-            fontWeight={"700"}
-            fontSize={"20px"}
-            color={"fontgray"}
-          >
-            {t("adddons")}
-          </Text>
+        {product?.toppings?.length ? (
+          <Flex flexDir={"column"}>
+            <Text
+              fontFamily={"roboto"}
+              fontWeight={"700"}
+              fontSize={"20px"}
+              color={"fontgray"}
+            >
+              {t("adddons")}
+            </Text>
 
-          <Flex mt={"20px"} flexDir={"row"} flexWrap={"wrap"} gap={"16px"}>
-            {product?.toppings?.map((topping) => (
-              <Addon
-                key={topping.name}
-                topping={topping}
-                handleAddon={handleAddonClick}
-              />
-            ))}
+            <Flex mt={"20px"} flexDir={"row"} flexWrap={"wrap"} gap={"16px"}>
+              {product?.toppings?.map((topping) => (
+                <Addon
+                  key={topping.name}
+                  topping={topping}
+                  handleAddon={handleAddonClick}
+                />
+              ))}
+            </Flex>
           </Flex>
-        </Flex>
+        ) : null}
         <Flex
           position={{ base: "sticky", lg: "relative" }}
           left={{ base: "0", lg: "unset" }}

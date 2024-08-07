@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter } from "@/lib/navigation";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const GoBack = () => {

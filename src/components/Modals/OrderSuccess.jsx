@@ -1,5 +1,5 @@
 "use client";
-import { CheckIcon } from "@chakra-ui/icons";
+import { useRouter } from "@/lib/navigation";
 import {
   AspectRatio,
   Modal,
@@ -11,7 +11,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function OrderSuccess({ showModal = false, setShowModal }) {

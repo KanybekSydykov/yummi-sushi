@@ -4,7 +4,7 @@ import { Box, Flex, Button, useMediaQuery, Spinner } from "@chakra-ui/react";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Image from "next/image";
 import "@splidejs/react-splide/css";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 
 const BannerSlider = ({ banners}) => {
   const [loading,setLoading] = useState(true)

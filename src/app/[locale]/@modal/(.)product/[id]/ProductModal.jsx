@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "@/lib/navigation";
 import {
   Modal,
   ModalBody,
@@ -9,7 +10,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import {createPortal} from "react-dom";
 
 const productNameStyles = {

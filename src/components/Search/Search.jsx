@@ -10,10 +10,10 @@ import {
   Flex,
   Spinner,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Link } from "@/lib/navigation";
 
 const Search = () => {
   const [isFocused, setIsFocused] = useState(false);

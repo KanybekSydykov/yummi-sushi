@@ -1,6 +1,7 @@
 'use client'
+import { usePathname, useRouter } from '@/lib/navigation';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { useParams, usePathname, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
 const LocaleSwitcher = ({inMenu=false}) => {
@@ -9,8 +10,7 @@ const LocaleSwitcher = ({inMenu=false}) => {
     const {locale} = useParams();
 
     function switchLocale(lang) {
-      const url = pathName.replace(`${locale}`, `${lang}`);
-      router.push(url);
+      router.push(pathName, { locale: lang });
     }
 
     const buttonStyles = {

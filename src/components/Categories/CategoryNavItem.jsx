@@ -1,8 +1,9 @@
 "use client";
 
-import useIntersectionObserver from "@/lib/Oserver";
+import { useRouter } from "@/lib/navigation";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const CategoryNavItem = ({
@@ -10,20 +11,21 @@ const CategoryNavItem = ({
   isMain = false,
   onMainPage = false,
   firstSection,
-  activeCategory,
   onClickLink
 }) => {
+  const router = useRouter();
+  const params = useParams();
 
-  const handleLinkClick = (e) => {
-    e.preventDefault();
-    const section = document.getElementById(data.slug);
-    if (section) {
-      section.scrollIntoView({
-        behavior: "instant", // Use smooth behavior for better UX
-        block: "start",
-      });
+
+
+  const handleLinkClick = () => {
+    if(onMainPage && !isMain){
+      return;
+    } else if(isMain){
+      router.push(`/`);
+    } else {
+      router.push(`/category/${data.slug}`);
     }
-    onClickLink(data.slug);
   };
   
 
@@ -35,9 +37,9 @@ const CategoryNavItem = ({
       pos={"relative"}
       width={"auto"}
       cursor={"pointer"}
-      fontWeight={activeCategory === data.slug ? "500" : "400"}
-      color={activeCategory === data.slug ? "main" : "rgba(0,0,0,0.5)"}
-      fontSize={activeCategory === data.slug ? "17px" : "16px"}
+      // fontWeight={activeCategory === data.slug ? "500" : "400"}
+      // color={activeCategory === data.slug ? "main" : "rgba(0,0,0,0.5)"}
+      // fontSize={{base:'14px',lg:activeCategory === data.slug ? "17px" : "16px"}}
       _hover={{
         transform: "translateY(-5px)",
         color: "main",
@@ -46,19 +48,16 @@ const CategoryNavItem = ({
       _groupHover={{
         gap: "16px",
       }}
-      transform={
-        activeCategory === data.slug ? "translateY(-2px)" : "translateY(0px)"
-      }
+      // transform={
+      //   activeCategory === data.slug ? "translateY(-2px)" : "translateY(0px)"
+      // }
       transition={"all 0.1s ease"}
       p={"6px 12px"}
       flexShrink={0}
       bg={"#fff"}
       h="100%"
-      borderBottom={
-        activeCategory === data.slug
-          ? "2px solid #ff8341"
-          : "2px solid transparent"
-      }
+
+
     >
       <AspectRatio
       display={{base:'none',lg:'block'}}
@@ -68,11 +67,11 @@ const CategoryNavItem = ({
         maxW={"0px"}
         opacity={"0"}
         _groupHover={{
-          maxHeight: "unset",
-          maxWidth: "unset",
+          maxHeight:{base:'0',lg: "unset"},
+          maxWidth: {base:'0',lg:"unset"},
           opacity: "1",
         }}
-        transition={"all 0.3s linear"}
+        transition={"all 0.1s linear"}
         width={{ base: isMain ? "20px" : "40px", lg: isMain ? "24px" : "60px" }}
       >
         <Image
@@ -88,9 +87,8 @@ const CategoryNavItem = ({
         {data.name}
       </Text>
 
-      <a
+      {/* <a
         href={isMain ? "/" : `${onMainPage ? "#" : "/category/"}${data.slug}`}
-        onClick={handleLinkClick}
         style={{
           position: "absolute",
           top: 0,
@@ -102,7 +100,7 @@ const CategoryNavItem = ({
           height: "100%",
           scrollBehavior: "smooth",
         }}
-      />
+      /> */}
     </Flex>
   );
 };

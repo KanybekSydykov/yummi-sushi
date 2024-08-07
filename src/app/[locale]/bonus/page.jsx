@@ -1,9 +1,8 @@
 import BonusProducts from "@/components/Bonus/BonusProducts";
+import { Link } from "@/lib/navigation";
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
 
 const page = async () => {

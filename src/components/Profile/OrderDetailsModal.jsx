@@ -15,8 +15,6 @@ import {
   AspectRatio,
   Heading,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import CartItem from "../ui/CartItem";
 import Image from "next/image";
 
 const headingStyles = {

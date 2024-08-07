@@ -25,13 +25,14 @@ const buttonStyles = {
   };
 
 
-const CustomButton = ({fn = () => null,text,isDisabled,isRequesting}) => {
+const CustomButton = ({fn = () => null,text,isDisabled,isRequesting,...props}) => {
   const t=useTranslations("Common")
   return (
     <Button onClick={fn} {...buttonStyles}
     isDisabled={isDisabled}
     isLoading={isRequesting}
     loadingText={t('sending')}
+    {...props}
     >
     <Text>{text}</Text>
   </Button>

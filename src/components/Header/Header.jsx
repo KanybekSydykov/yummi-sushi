@@ -4,7 +4,6 @@ import React from "react";
 import Logo from "../ui/Logo";
 import Search from "../Search/Search";
 import Image from "next/image";
-import Link from "next/link";
 import LocaleSwitcher from "../LocaleSwitcher/LocaleSwitcher";
 import CallBox from "../ui/CallBox";
 import MenuDrawer from "../Drawer/MenuDrawer";

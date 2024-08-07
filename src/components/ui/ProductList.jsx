@@ -1,13 +1,5 @@
-"use client";
-
-import { Flex, useDisclosure } from "@chakra-ui/react";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { Flex} from "@chakra-ui/react";
 import ProductCard from "./ProductCard";
-import ProductDetails from "../Modals/ProductDetails";
-import { useRouter, useSearchParams } from "next/navigation";
-import { usePathname } from "@/lib/navigation";
-import Link from "next/link";
-import { useCart } from "@/lib/context-api";
 
 const ProductList = ({ products, start = false }) => {
 

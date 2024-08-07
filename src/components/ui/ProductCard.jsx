@@ -1,22 +1,19 @@
-"use client";
+'use server';
+
 import { AspectRatio, Flex, Heading, Text, Box } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import CustomButton from "./CustomButton";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useCart } from "@/lib/context-api";
+import { Link } from "@/lib/navigation";
+import { getTranslations } from "next-intl/server";
 
-const ProductCard = ({ product }) => {
-  const t = useTranslations("Common");
-  const { setSelectedProduct } = useCart();
-  const router = useRouter();
+const ProductCard = async ({ product }) => {
+  const t = await getTranslations("Common");
 
-
-  function handleProductClick(product) {
-    setSelectedProduct(product);
-    router.push(`/product/${product.id}`, { scroll: false });
-  }
+  // function handleProductClick(product) {
+  //   setSelectedProduct(product);
+  //   router.push(`/product/${product.id}`, { scroll: false });
+  // }
   return (
     <Flex
       flexDir={{ base: "row", lg: "column" }}
@@ -34,16 +31,24 @@ const ProductCard = ({ product }) => {
       }}
       cursor="pointer"
       maxW={{ base: "100%", lg: "240px" }}
-      onClick={() => handleProductClick(product)}
+      // onClick={() => handleProductClick(product)}
       role="group"
+      position={"relative"}
     >
+      <Link href={`/product/${product?.id}`} prefetch={false} scroll={false} style={{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex:5
+      }}/>
       <Box
         overflow={"hidden"}
         w={{ base: "158px", lg: "240px" }}
         h={{ base: "auto", lg: "240px" }}
         flexShrink={0}
-        borderBottomRightRadius={{base:"20px",lg:'unset'}}
-
+        borderBottomRightRadius={{ base: "20px", lg: "unset" }}
       >
         <AspectRatio
           ratio={1}
@@ -145,10 +150,10 @@ const ProductCard = ({ product }) => {
           gap={"16px"}
         >
           <Text
-           fontFamily="roboto"
-           fontWeight="700"
-           fontSize={{ base: "20px", lg: "22px" }}
-           color="main"
+            fontFamily="roboto"
+            fontWeight="700"
+            fontSize={{ base: "20px", lg: "22px" }}
+            color="main"
           >
             {product?.product_sizes[0].discounted_price
               ? product.product_sizes[0].discounted_price
@@ -156,11 +161,13 @@ const ProductCard = ({ product }) => {
             сом
           </Text>
           {product?.product_sizes[0].discounted_price && (
-            <Text  fontFamily="roboto"
-            fontWeight="400"
-            fontSize={{ base: "18px", lg: "20px" }}
-            color="lightgray"
-            textDecoration="line-through">
+            <Text
+              fontFamily="roboto"
+              fontWeight="400"
+              fontSize={{ base: "18px", lg: "20px" }}
+              color="lightgray"
+              textDecoration="line-through"
+            >
               {product?.product_sizes[0].price} сом
             </Text>
           )}
