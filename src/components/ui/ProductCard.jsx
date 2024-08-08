@@ -17,13 +17,13 @@ const ProductCard = async ({ product,t }) => {
       overflow={"hidden"}
       transition={"all 0.3s ease-in-out"}
       boxShadow={"0px 0px 2px 0px rgba(0, 0, 0, 0.25)"}
-      _hover={{
+      _hover={{base:'none' ,lg:{
         boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.25)",
         bg: "rgba(249,250,251,1)",
-      }}
+      }}}
       cursor="pointer"
       maxW={{ base: "100%", lg: "240px" }}
-      role="group"
+      role={{base:'none',lg:"group"}}
       position={"relative"}
     >
       <Link href={`/product/${product?.id}`} prefetch={false} scroll={false} style={{
@@ -146,7 +146,7 @@ const ProductCard = async ({ product,t }) => {
               : product?.product_sizes[0].price}{" "}
             сом
           </Text>
-          {product?.product_sizes[0].discounted_price && (
+          {product?.product_sizes[0].discounted_price ? (
             <Text
               fontFamily="roboto"
               fontWeight="400"
@@ -156,7 +156,7 @@ const ProductCard = async ({ product,t }) => {
             >
               {product?.product_sizes[0].price} сом
             </Text>
-          )}
+          ) : null}
         </Flex>
         <Flex display={{ base: "flex", lg: "none" }}>
           <CustomButton text={t("choose")} />

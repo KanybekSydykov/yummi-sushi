@@ -94,18 +94,15 @@ const Footer = async ({ locale }) => {
                 mt={"26px"}
                 position={"relative"}
               >
-                {item.phone}
                 <Link
                   href={`tel:${item.phone}`}
                   target="_blank"
                   style={{
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    width: "100%",
-                    height: "100%",
+                   textDecoration:'none'
                   }}
-                />
+                >
+                  {item.phone}
+                </Link>
               </ListItem>
             ))}
             {data.emails?.map((item, index) => (
@@ -115,18 +112,14 @@ const Footer = async ({ locale }) => {
                 mt={"20px"}
                 position={"relative"}
               >
-                {item.email}
+                
                 <Link
                   href={`mailto:${item.email}`}
                   target="_blank"
                   style={{
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    width: "100%",
-                    height: "100%",
+                    textDecoration: "none",
                   }}
-                />
+                >{item.email}</Link>
               </ListItem>
             ))}
           </List>

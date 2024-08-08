@@ -1,20 +1,18 @@
-'use client';
-
-import { Link } from "@/lib/navigation";
-import { AspectRatio, Box, SkeletonCircle } from "@chakra-ui/react";
+import { AspectRatio, SkeletonCircle } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 
-const Logo = () => {
+const LogoSkeleton = () => {
   const [loading, setLoading] = useState(true);
 
   return (
     <SkeletonCircle
-    isLoaded={!loading}
-    w={{ base: "44px", md: "86px" }}
-    h={{ base: "44px", md: "86px" }}
-    position={"relative"}
-  >
+      isLoaded={!loading}
+      w={{ base: "44px", md: "86px" }}
+      h={{ base: "44px", md: "86px" }}
+      position={"relative"}
+    >
       <Link
         href={"/"}
         style={{
@@ -39,4 +37,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default LogoSkeleton;

@@ -40,9 +40,13 @@ const OrderInfo = ({ item }) => {
       transition={"all 0.3s ease"}
       maxW={{ base: "100%", lg: "calc(50% - 16px)" }}
       _hover={{
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-        transform: "scale3d(1.02, 1.02, 1.01)",
+        base: "none",
+        lg: {
+          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+          transform: "scale3d(1.02, 1.02, 1.01)",
+        },
       }}
+      role={{base:'none',lg:"group"}}
     >
       <AspectRatio
         w={{ base: "80px", lg: "100px" }}
@@ -87,9 +91,13 @@ const DeliveryInfo = ({ item }) => {
       overflowY={"auto"}
       transition={"all 0.3s ease"}
       _hover={{
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-        transform: "scale3d(1.02, 1.02, 1.01)",
+        base: "none",
+        lg: {
+          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+          transform: "scale3d(1.02, 1.02, 1.01)",
+        },
       }}
+      role={{base:'none',lg:"group"}}
     >
       <AspectRatio
         w={{ base: "80px", lg: "100px" }}
@@ -127,10 +135,13 @@ const PaymentInfo = ({ item }) => {
       overflowY={"auto"}
       transition={"all 0.3s ease"}
       _hover={{
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-        transform: "scale3d(1.02, 1.02, 1.01)",
+        base: "none",
+        lg: {
+          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+          transform: "scale3d(1.02, 1.02, 1.01)",
+        },
       }}
-      role="group"
+      role={{base:'none',lg:"group"}}
     >
       <AspectRatio
         w={{ base: "80px", lg: "80px" }}
@@ -154,41 +165,40 @@ const PaymentInfo = ({ item }) => {
 
         <Text {...textStyles}>{item.description}</Text>
 
-              <Flex
-                flexDir={"row"}
-                width={"100%"}
-                maxW={"350px"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                mt={"30px"}
-                pos={"relative"}
-                mx={"auto"}
-              >
-                <Image
-                  src={"/appstore.svg"}
-                  width={140}
-                  height={41}
-                  alt="app-download-icon"
-                />
-                <Image
-                  src={"/playstore.svg"}
-                  width={140}
-                  height={41}
-                  alt="app-download-icon"
-                />
+        <Flex
+          flexDir={"row"}
+          width={"100%"}
+          maxW={"350px"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          mt={"30px"}
+          pos={"relative"}
+          mx={"auto"}
+        >
+          <Image
+            src={"/appstore.svg"}
+            width={140}
+            height={41}
+            alt="app-download-icon"
+          />
+          <Image
+            src={"/playstore.svg"}
+            width={140}
+            height={41}
+            alt="app-download-icon"
+          />
 
-                <Link
-                  href={"#"}
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                />
-              </Flex>
-
+          <Link
+            href={"#"}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );
