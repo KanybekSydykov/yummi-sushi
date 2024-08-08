@@ -8,6 +8,7 @@ import LoadingImage from "./LoadingImage";
 const ProductCard = async ({ product, t }) => {
   return (
     <Flex
+    className="product-card"
       flexDir={{ base: "row", lg: "column" }}
       flexWrap={"wrap"}
       justifyContent={{ base: "flex-start", lg: "space-between" }}
@@ -15,7 +16,7 @@ const ProductCard = async ({ product, t }) => {
       bg={"rgba(249,250,251,0.75)"}
       width={{ base: "100%", lg: "240px" }}
       overflow={"hidden"}
-      transition={"all 0.3s ease-in-out"}
+      transition={"all 0.3s ease"}
       boxShadow={"0px 0px 2px 0px rgba(0, 0, 0, 0.25)"}
       _hover={{
         "@media screen and (min-width: 992px)": {

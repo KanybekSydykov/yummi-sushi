@@ -20,13 +20,14 @@ const CartBtn = ({ fn, textBlack = false, fixed = false }) => {
       right={fixed ? "16px" : "unset"}
       zIndex={fixed ? "100" : "unset"}
       borderRadius={fixed ? "50%" : "5px"}
-      boxShadow={fixed ? "0px 0px 7px 0px #73737333" : "none"}
+      boxShadow={fixed ? "0px 0px 4px 4px #73737333" : "none"}
       bg={fixed ? "linear-gradient(304deg, rgba(255, 131, 65, 1) 0%, rgba(255, 213, 65, 1) 100%)" : "transparent"}
       cursor={"pointer"}
       transition={"all 0.3s ease"}
       _hover={{
         transform: "scale3d(1.05, 1.05, 1.05)",
-        bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), #FF8341",
+        boxShadow:'0px 0px 7px 0px rgba(255, 213, 65, 1)',
+        bg: "linear-gradient(152deg, rgba(255, 131, 65, 1) 0%, rgba(255, 213, 65, 1) 100%)",
       }}
     >
       <AspectRatio ratio={1} width={"24px"} h={"24px"} position={"relative"} filter={fixed ? "invert(0%) sepia(100%) saturate(0%) hue-rotate(90deg) brightness(200%) contrast(100%)" : 'none'}>
