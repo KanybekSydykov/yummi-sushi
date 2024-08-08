@@ -2,6 +2,23 @@ import React from 'react'
 import ProductInfo from '../../@modal/(.)product/[id]/ProductInfo'
 import { Box } from '@chakra-ui/react'
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  // optionally access and extend (rather than replace) parent metadata
+  const data = await getProductData(params.locale)
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: data[0].name,
+    description: data[0].description,
+    openGraph: {
+      description: data[0].description,
+      title: data[0].name,
+      images: [{ url: data[0].photo }, ...previousImages],
+    },
+  }
+}
+
+
 async function getProductData(params) {
   try {
     const res = await fetch(`https://food.tatadev.pro/api/v1/products/product/search/?id=${params.id}`,{
@@ -22,7 +39,6 @@ async function getProductData(params) {
 }
 
 const GetProductData = async({params}) => {
-
   const data = await getProductData(params)
   return (
     <Box>

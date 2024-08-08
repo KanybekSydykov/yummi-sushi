@@ -33,7 +33,7 @@ const Logo = () => {
         w={{ base: "44px", md: "86px" }}
         h={{ base: "44px", md: "86px" }}
       >
-        <Image src={"/logo.png"} onLoad={() => setLoading(false)} fill alt="logo" priority />
+        <Image src={"/logo.png"} onLoad={() => setLoading(false)} fill alt="logo" priority sizes="100%" />
       </AspectRatio>
     </SkeletonCircle>
   );

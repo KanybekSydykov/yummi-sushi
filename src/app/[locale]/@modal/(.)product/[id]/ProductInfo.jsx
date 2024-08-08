@@ -117,6 +117,8 @@ const ProductInfo = ({ fetchedProduct }) => {
     }
     router.back();
   };
+
+  console.log(fetchedProduct);
   return (
     <Flex
       flexDir={{ base: "column", lg: "row" }}
@@ -169,9 +171,9 @@ const ProductInfo = ({ fetchedProduct }) => {
           p={"2px 2.5px"}
           w={"fit-content"}
         >
-          {product?.product_sizes?.map((size) => (
+          {product?.product_sizes?.map((size,index) => (
             <Button
-              key={size.size}
+              key={index}
               onClick={() => setSelectedSize(size)}
               borderRadius={"30px"}
               bg={selectedSize?.id === size.id ? "white" : "transparent"}
@@ -210,7 +212,7 @@ const ProductInfo = ({ fetchedProduct }) => {
               : selectedSize?.price}{" "}
             сом
           </Text>
-          {selectedSize?.discounted_price && (
+          {selectedSize?.discounted_price ? 
             <Text
               fontFamily="roboto"
               fontWeight="400"
@@ -220,7 +222,7 @@ const ProductInfo = ({ fetchedProduct }) => {
             >
               {selectedSize?.price} сом
             </Text>
-          )}
+           : null}
         </Flex>
 
         <Text
@@ -232,7 +234,7 @@ const ProductInfo = ({ fetchedProduct }) => {
         >
           {product?.description}
         </Text>
-        {product?.toppings?.length ? (
+        {product?.toppings?.length ? 
           <Flex flexDir={"column"}>
             <Text
               fontFamily={"roboto"}
@@ -244,16 +246,16 @@ const ProductInfo = ({ fetchedProduct }) => {
             </Text>
 
             <Flex mt={"20px"} flexDir={"row"} flexWrap={"wrap"} gap={"16px"}>
-              {product?.toppings?.map((topping) => (
+              {product?.toppings?.map((topping, index) => (
                 <Addon
-                  key={topping.name}
+                  key={index}
                   topping={topping}
                   handleAddon={handleAddonClick}
                 />
               ))}
             </Flex>
           </Flex>
-        ) : null}
+        : null}
         <Flex
           position={{ base: "sticky", lg: "relative" }}
           left={{ base: "0", lg: "unset" }}

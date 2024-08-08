@@ -5,7 +5,7 @@ import CustomButton from "./CustomButton";
 import { Link } from "@/lib/navigation";
 import LoadingImage from "./LoadingImage";
 
-const ProductCard = async ({ product,t }) => {
+const ProductCard = async ({ product, t }) => {
   return (
     <Flex
       flexDir={{ base: "row", lg: "column" }}
@@ -17,23 +17,30 @@ const ProductCard = async ({ product,t }) => {
       overflow={"hidden"}
       transition={"all 0.3s ease-in-out"}
       boxShadow={"0px 0px 2px 0px rgba(0, 0, 0, 0.25)"}
-      _hover={{base:'none' ,lg:{
-        boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.25)",
-        bg: "rgba(249,250,251,1)",
-      }}}
+      _hover={{
+        "@media screen and (min-width: 992px)": {
+          boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.25)",
+          bg: "rgba(249,250,251,1)",
+        },
+      }}
       cursor="pointer"
       maxW={{ base: "100%", lg: "240px" }}
-      role={{base:'none',lg:"group"}}
+      role="group"
       position={"relative"}
     >
-      <Link href={`/product/${product?.id}`} prefetch={false} scroll={false} style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        zIndex:5
-      }}/>
+      <Link
+        href={`/product/${product?.id}`}
+        prefetch={true}
+        scroll={false}
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 5,
+        }}
+      />
       <Box
         overflow={"hidden"}
         w={{ base: "158px", lg: "240px" }}
@@ -48,10 +55,12 @@ const ProductCard = async ({ product,t }) => {
           position="relative"
           transition="transform 0.3s ease"
           _groupHover={{
-            transform: "scale3d(1.1, 1.1, 1.05)",
+            "@media screen and (min-width: 992px)": {
+              transform: "scale3d(1.1, 1.1, 1.05)",
+            },
           }}
         >
-          <LoadingImage src={product?.photo} alt={product.name} />
+          <LoadingImage priority={true} src={product?.photo} alt={product.name} />
           {/* <Image src={"/category-img.png"} fill alt="product image" priority={true} sizes="100%" /> */}
         </AspectRatio>
       </Box>

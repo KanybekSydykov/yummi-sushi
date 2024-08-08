@@ -16,9 +16,9 @@ const ProductList = async ({ products, start = false }) => {
       mb={{ base: "0px", lg: start ? "0px" : "129px" }}
       pt="30px"
     >
-      {products?.products.map((product) => (
+      {products?.products.map((product,index) => (
         <ProductCard
-          key={product.id}
+          key={index}
           product={product}
           t={t}
         />

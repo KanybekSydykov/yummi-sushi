@@ -60,15 +60,16 @@ const CategoryNavItem = ({
 
     >
       <AspectRatio
-      display={{base:'none',lg:'block'}}
+      display={{base:'none',lg:'none'}}
         ratio={1}
-        height={"auto"}
-        maxH={"0px"}
-        maxW={"0px"}
+        height={{base:'40px',lg:'60px'}}
+        // maxH={"0px"}
+        // maxW={"0px"}
         opacity={"0"}
         _groupHover={{
-          maxHeight:{base:'0',lg: "unset"},
-          maxWidth: {base:'0',lg:"unset"},
+          // maxHeight:{base:'0',lg: "unset"},
+          // maxWidth: {base:'0',lg:"unset"},
+          display:{base:'none',lg:'block'},
           opacity: "1",
         }}
         transition={"all 0.1s linear"}

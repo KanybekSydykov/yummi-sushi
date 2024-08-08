@@ -64,10 +64,10 @@ const CategorisNavbarScrollAble = ({
           />
         </Box>
       )}
-      {categories.map((category) => (
+      {categories.map((category,index) => (
         <Box
           data-to-scrollspy-id={category.slug}
-          key={category.id}
+          key={index}
           position={"relative"}
           borderBottom={`2px solid ${
             activeCategory === category.slug ? "#ff8341" : "transparent"

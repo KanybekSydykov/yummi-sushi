@@ -40,8 +40,7 @@ const OrderInfo = ({ item }) => {
       transition={"all 0.3s ease"}
       maxW={{ base: "100%", lg: "calc(50% - 16px)" }}
       _hover={{
-        base: "none",
-        lg: {
+        "@media screen and (min-width: 992px)": {
           boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
@@ -91,8 +90,7 @@ const DeliveryInfo = ({ item }) => {
       overflowY={"auto"}
       transition={"all 0.3s ease"}
       _hover={{
-        base: "none",
-        lg: {
+        "@media screen and (min-width: 992px)": {
           boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
@@ -135,8 +133,7 @@ const PaymentInfo = ({ item }) => {
       overflowY={"auto"}
       transition={"all 0.3s ease"}
       _hover={{
-        base: "none",
-        lg: {
+        "@media screen and (min-width: 992px)": {
           boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
