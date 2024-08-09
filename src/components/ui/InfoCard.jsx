@@ -45,7 +45,7 @@ const OrderInfo = ({ item }) => {
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
       }}
-      role={{base:'none',lg:"group"}}
+      role={{ base: "none", lg: "group" }}
     >
       <AspectRatio
         w={{ base: "80px", lg: "100px" }}
@@ -95,7 +95,7 @@ const DeliveryInfo = ({ item }) => {
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
       }}
-      role={{base:'none',lg:"group"}}
+      role={{ base: "none", lg: "group" }}
     >
       <AspectRatio
         w={{ base: "80px", lg: "100px" }}
@@ -138,8 +138,21 @@ const PaymentInfo = ({ item }) => {
           transform: "scale3d(1.02, 1.02, 1.01)",
         },
       }}
-      role={{base:'none',lg:"group"}}
+      role={{ base: "none", lg: "group" }}
     >
+      <Link
+        href={
+          "https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi"
+        }
+        target={"_blank"}
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      />
       <AspectRatio
         w={{ base: "80px", lg: "80px" }}
         ratio={1}
@@ -183,17 +196,6 @@ const PaymentInfo = ({ item }) => {
             width={140}
             height={41}
             alt="app-download-icon"
-          />
-
-          <Link
-            href={"#"}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              width: "100%",
-              height: "100%",
-            }}
           />
         </Flex>
       </Flex>

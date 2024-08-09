@@ -38,9 +38,9 @@ const page = async () => {
           <Text
             fontFamily={"roboto"}
             fontWeight={"600"}
-            fontSize={"14px"}
+            fontSize={"16px"}
             position={"absolute"}
-            bottom={"5px"}
+            bottom={"16px"}
             color={'#fff'}
             left={"10px"}
             right={"10px"}
@@ -49,7 +49,7 @@ const page = async () => {
           >
             Еще больше бонусов в нашем приложении
           </Text>
-          <Link href="#" />
+          <Link target={'_blank'} href="https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi" style={{position:'absolute',top:'0px',right:'0px',width:'100%',height:'100%'}}/>
         </Box>
 
         <Flex
@@ -63,9 +63,19 @@ const page = async () => {
           borderRadius={"30px"}
           aspectRatio={{ base: 358 / 328, lg: 648 / 480 }}
         >
-          <Image src={"/bonus-icon.png"} alt="bonus" width={50} height={50} />
-          <Heading>Бонусы</Heading>
-          <Text>
+          <Image src={"/bonus-icon.png"} alt="bonus" width={128} height={86} />
+          <Heading
+          fontWeight={'700'}
+          fontFamily={'roboto'}
+          fontSize={{base:'30px',lg:'40px'}}
+          color={'#fff'}
+          >Бонусы</Heading>
+          <Text 
+          fontWeight={'600'}
+          fontSize={{base:'16px',lg:'20px'}}
+          color={'#fff'}
+          textAlign={'center'}
+          >
             Получайте кэшбек с каждой покупки, копите бонусы и оплачивайте
             следующие покупки бонусами
           </Text>

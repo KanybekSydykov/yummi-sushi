@@ -13,6 +13,7 @@ reviews:
             suggestion: ''
             type: approve
             time: '2024-08-07T11:15:53.352Z'
+            resolved: true
           - user:
               name: KanybekSydykov
               email: limus.kana@gmail.com
@@ -20,6 +21,7 @@ reviews:
             type: approve
             comment: ''
             time: '2024-08-07T11:15:57.530Z'
+            resolved: true
       ky:
         comments:
           - user:
@@ -30,6 +32,7 @@ reviews:
             suggestion: ''
             type: approve
             time: '2024-08-07T11:16:06.744Z'
+            resolved: true
           - user:
               name: KanybekSydykov
               email: limus.kana@gmail.com
@@ -37,3 +40,20 @@ reviews:
             type: approve
             comment: ''
             time: '2024-08-07T11:16:11.077Z'
+            resolved: true
+          - user:
+              name: KanybekSydykov
+              email: limus.kana@gmail.com
+            id: 86Zng0gxPyaloMunjvvyR
+            type: approve
+            comment: ''
+            time: '2024-08-09T10:17:00.326Z'
+            resolved: true
+          - user:
+              name: KanybekSydykov
+              email: limus.kana@gmail.com
+            id: Z7M8S3z4Nh3MyZIYPG1h0
+            type: approve
+            comment: ''
+            time: '2024-08-09T10:18:22.727Z'
+            resolved: true

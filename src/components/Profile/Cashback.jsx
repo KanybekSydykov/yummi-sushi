@@ -137,7 +137,8 @@ const Cashback = ({ token }) => {
                 />
 
                 <Link
-                  href={"#"}
+                  href={"https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi"}
+                  target={"_blank"}
                   style={{
                     position: "absolute",
                     right: 0,

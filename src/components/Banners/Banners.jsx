@@ -31,11 +31,11 @@ const BannerSlider = ({ banners}) => {
         <Box as={SplideTrack} w={"100%"} h={"100%"}>
           {banners?.map((item, index) => (
             <SplideSlide key={index}>
-              <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,lg:1296/400}} position={'relative'}>
-              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",lg:"block"}}>
+              <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,md:81/25,lg:1296/400}} position={'relative'}>
+              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",md:"block"}}>
            <LoadingImage src={item.image_desktop} alt={item.title} priority={true} />
               </Box>
-              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",lg:"none"}}>
+              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",md:"none"}}>
               
            <LoadingImage src={item.image_mobile} alt={item.title} priority={true} />
               

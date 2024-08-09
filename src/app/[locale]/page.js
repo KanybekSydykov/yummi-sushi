@@ -50,6 +50,8 @@ export default async function HomePage({ params }) {
   const data = await getHomepageData(params.locale)
 
   return <main>
+
+
     <Suspense fallback={<CategoriesNavbarSkeleton />}>
       <CategoriesNavbar locale={params.locale} onMainPage={true} />
     </Suspense>
