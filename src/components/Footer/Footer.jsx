@@ -56,16 +56,28 @@ const Footer = async ({ locale }) => {
           <List
             display={"flex"}
             fontFamily={"roboto"}
-            fontWeight={"300"}
             fontSize={"18px"}
             lineHeight={"27px"}
             gap={"20px"}
-            color={"rgba(249, 249, 249, 1)"}
+            color={"rgba(249, 249, 249, .75)"}
             flexDir={"column"}
+            fontWeight={"300"}
           >
             {data.static_pages.map((item) => (
-              <ListItem key={item.slug}>
-                <Link href={`/info/${item.slug}`}>{item.title}</Link>
+              <ListItem
+                key={item.slug}
+                transition={"all 0.3s ease"}
+                _hover={{
+                  transform: "translate3d(0, -3px, .01px)",
+                  transformStyle: "preserve-3d",
+                  color: "#fff",
+                  filter:"brightness(200%)"
+                }}
+              >
+                <Link href={`/info/${item.slug}`} style={{
+                  display:'block',
+                  width:'100%',
+                }}>{item.title}</Link>
               </ListItem>
             ))}
           </List>
@@ -76,7 +88,7 @@ const Footer = async ({ locale }) => {
             fontSize={"18px"}
             lineHeight={"27px"}
             gap={"20px"}
-            color={"rgba(249, 249, 249, 1)"}
+            color={"rgba(249, 249, 249, .75)"}
           >
             <Text
               fontFamily={"roboto"}
@@ -93,12 +105,21 @@ const Footer = async ({ locale }) => {
                 key={item.phone}
                 mt={"26px"}
                 position={"relative"}
+                transition={"all 0.3s ease"}
+                _hover={{
+                  transform: "translate3d(0, -3px, .01px)",
+                  transformStyle: "preserve-3d",
+                  color: "#fff",
+                  filter:"brightness(200%)"
+                }}
               >
                 <Link
                   href={`tel:${item.phone}`}
                   target="_blank"
                   style={{
-                   textDecoration:'none'
+                    textDecoration: "none",
+                    display:"block",
+                    width:'100%',
                   }}
                 >
                   {item.phone}
@@ -111,15 +132,25 @@ const Footer = async ({ locale }) => {
                 display={"block"}
                 mt={"20px"}
                 position={"relative"}
+                transition={"all 0.3s ease"}
+                _hover={{
+                  transform: "translate3d(0, -3px, .01px)",
+                  transformStyle: "preserve-3d",
+                  color: "#fff",
+                  filter:"brightness(200%)"
+                }}
               >
-                
                 <Link
                   href={`mailto:${item.email}`}
                   target="_blank"
                   style={{
                     textDecoration: "none",
+                    display:"block",
+                    width:'100%',
                   }}
-                >{item.email}</Link>
+                >
+                  {item.email}
+                </Link>
               </ListItem>
             ))}
           </List>
@@ -147,6 +178,13 @@ const Footer = async ({ locale }) => {
                   cursor={"pointer"}
                   position={"relative"}
                   p={"0 2px"}
+                  transition={"all 0.3s ease"}
+                  _hover={{
+                    transform: "translate3d(0, -3px, .01px)",
+                    transformStyle: "preserve-3d",
+                    color: "#fff",
+                    filter:"brightness(200%)"
+                  }}
                 >
                   <Image
                     src={item.icon}
@@ -197,6 +235,13 @@ const Footer = async ({ locale }) => {
                   key={item.link}
                   cursor={"pointer"}
                   position={"relative"}
+                  transition={"all 0.3s ease"}
+                  _hover={{
+                    transform: "translate3d(0, -3px, .01px)",
+                    transformStyle: "preserve-3d",
+                    color: "#fff",
+                    filter:"brightness(125%)"
+                  }}
                 >
                   <Image
                     src={item.icon}

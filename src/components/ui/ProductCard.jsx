@@ -1,14 +1,17 @@
+'use client';
+
 import { AspectRatio, Flex, Heading, Text, Box } from "@chakra-ui/react";
-import Image from "next/image";
 import React from "react";
 import CustomButton from "./CustomButton";
 import { Link } from "@/lib/navigation";
 import LoadingImage from "./LoadingImage";
+import { useTranslations } from "next-intl";
 
-const ProductCard = async ({ product, t }) => {
+const ProductCard = async ({ product }) => {
+  const t = useTranslations("Common");
   return (
     <Flex
-    className="product-card"
+      className="product-card"
       flexDir={{ base: "row", lg: "column" }}
       flexWrap={"wrap"}
       justifyContent={{ base: "flex-start", lg: "space-between" }}
@@ -61,13 +64,17 @@ const ProductCard = async ({ product, t }) => {
             },
           }}
         >
-          <LoadingImage priority={true} src={product?.photo} alt={product.name} />
+          <LoadingImage
+            priority={true}
+            src={product?.photo}
+            alt={product.name}
+          />
           {/* <Image src={"/category-img.png"} fill alt="product image" priority={true} sizes="100%" /> */}
         </AspectRatio>
       </Box>
 
       <Flex
-        p={"6px 12px"}
+        p={{ base: "6px 12px", lg: "12px" }}
         flexDir={"column"}
         gap={"16px"}
         h={{ base: "auto", lg: "244px" }}
@@ -77,7 +84,7 @@ const ProductCard = async ({ product, t }) => {
         <Heading
           fontFamily={"roboto"}
           fontWeight={"600"}
-          fontSize={{ base: "16px", lg: "18px" }}
+          fontSize={{ base: "16px", lg: "20px" }}
           color={"#0a0a0a"}
           h={"43px"}
           noOfLines={{ base: 3, lg: 2 }}
@@ -103,7 +110,7 @@ const ProductCard = async ({ product, t }) => {
               : product?.product_sizes[0].price}{" "}
             сом
           </Text>
-          {product?.product_sizes[0].discounted_price && (
+          {product?.product_sizes[0].discounted_price ? (
             <Text
               fontFamily="roboto"
               fontWeight="400"
@@ -113,14 +120,14 @@ const ProductCard = async ({ product, t }) => {
             >
               {product?.product_sizes[0].price} сом
             </Text>
-          )}
+          ) : ''}
         </Flex>
 
         <Text
           noOfLines={{ base: 3, lg: 2 }}
           fontFamily="roboto"
           fontWeight="400"
-          fontSize={{ base: "14px", lg: "16px" }}
+          fontSize={{ base: "14px", lg: "18px" }}
           color="fontgray"
         >
           {product?.description}
@@ -137,7 +144,7 @@ const ProductCard = async ({ product, t }) => {
         justifyContent={"space-between"}
         alignItems={"center"}
         w={"100%"}
-        gap={"32px"}
+        gap={{ base: "16px", lg: "32px" }}
       >
         <Flex
           flexDir={"row"}
@@ -166,7 +173,9 @@ const ProductCard = async ({ product, t }) => {
             >
               {product?.product_sizes[0].price} сом
             </Text>
-          ) : null}
+          ) : (
+            ""
+          )}
         </Flex>
         <Flex display={{ base: "flex", lg: "none" }}>
           <CustomButton text={t("choose")} />

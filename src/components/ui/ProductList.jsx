@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import { getTranslations } from "next-intl/server";
 
 const ProductList = async ({ products, start = false }) => {
-  const t = await getTranslations("Common");
+
 
 
 
@@ -20,7 +20,6 @@ const ProductList = async ({ products, start = false }) => {
         <ProductCard
           key={index}
           product={product}
-          t={t}
         />
       ))}
     </Flex>

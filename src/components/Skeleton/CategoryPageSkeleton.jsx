@@ -4,7 +4,7 @@ import ProductCardSkeleton from './ProductCartSkeleton'
 
 const CategoryPageSkeleton = () => {
   return (
-    <Flex flexDir={'row'} flexWrap={'wrap'} gap={'40px'} mt={'100px'}>
+    <Flex as={'section'} flexDir={'row'} flexWrap={'wrap'} gap={'40px'} mt={'100px'}>
         <ProductCardSkeleton />
         <ProductCardSkeleton />
         <ProductCardSkeleton />
