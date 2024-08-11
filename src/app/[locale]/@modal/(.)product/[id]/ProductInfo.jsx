@@ -111,14 +111,10 @@ const ProductInfo = ({ fetchedProduct }) => {
         </Flex>
       ),
     });
-
-    if (fetchedProduct) {
-      return;
-    }
     router.back();
+
   };
 
-  console.log(fetchedProduct);
   return (
     <Flex
       flexDir={{ base: "column", lg: "row" }}
