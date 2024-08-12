@@ -14,10 +14,9 @@ import {
   Text,
   Grid,
   GridItem,
-  useToast,
   Spinner,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FormInput from "../ui/FormInput";
 import { getSession } from "@/lib/auth";
 import { ENDPOINTS } from "@/api/endpoints";
@@ -103,7 +102,7 @@ export default function AdressModal({
         {children}
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"sm"}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
         <ModalOverlay />
         <ModalContent fontFamily={"roboto"}>
           {isRequesting && (
@@ -139,8 +138,10 @@ export default function AdressModal({
             >
               <GridItem colSpan={2}>
                 <GoogleMapsAutocomplete city={city}  setCity={setCity} />
+
+       
               </GridItem>
-          
+
               <GridItem colSpan={1}>
                 <FormInput
                   title={"Квартира"}

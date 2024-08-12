@@ -1,6 +1,5 @@
 import { Flex} from "@chakra-ui/react";
 import ProductCard from "./ProductCard";
-import { getTranslations } from "next-intl/server";
 
 const ProductList = async ({ products, start = false }) => {
 

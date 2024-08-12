@@ -7,7 +7,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Portal,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -30,8 +29,6 @@ function onDismiss(){
   }
 
   return (
-<Portal>
-
       <Modal
         isCentered
         isOpen={isOpen}
@@ -72,7 +69,6 @@ function onDismiss(){
           </ModalBody>
         </ModalContent>
       </Modal>
-</Portal>
   );
 }
 

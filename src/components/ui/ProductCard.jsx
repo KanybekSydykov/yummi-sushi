@@ -7,7 +7,7 @@ import { Link } from "@/lib/navigation";
 import LoadingImage from "./LoadingImage";
 import { useTranslations } from "next-intl";
 
-const ProductCard = async ({ product }) => {
+const ProductCard =({ product }) => {
   const t = useTranslations("Common");
   return (
     <Flex
@@ -34,8 +34,9 @@ const ProductCard = async ({ product }) => {
     >
       <Link
         href={`/product/${product?.id}`}
-        prefetch={true}
+        prefetch={false}
         scroll={false}
+        tabIndex={-1}
         style={{
           width: "100%",
           height: "100%",

@@ -7,7 +7,7 @@ import ProductInfoSkeleton from '@/components/Skeleton/ProductInfoSkeleton'
 
 const page = ({ params }) => {
   return (
-    <ProductModal>
+    <ProductModal key={params.id}>
       <Suspense fallback={<ProductInfoSkeleton />}>
         <GetProductData params={params} />
       </Suspense>

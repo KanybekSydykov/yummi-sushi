@@ -5,6 +5,7 @@ import CustomButton from "@/components/ui/CustomButton";
 import { useCart } from "@/lib/context-api";
 import {
   AspectRatio,
+  Box,
   Button,
   Flex,
   Heading,
@@ -120,6 +121,8 @@ const ProductInfo = ({ fetchedProduct }) => {
       flexDir={{ base: "column", lg: "row" }}
       gap={{ base: "20px", lg: "40px" }}
     >
+      <Box position='sticky' top={0}>
+
       <AspectRatio
         ratio={1}
         width={{ base: "100%", lg: "450px" }}
@@ -127,14 +130,7 @@ const ProductInfo = ({ fetchedProduct }) => {
         flexShrink={0}
         borderRadius="25px"
         overflow="hidden"
-        position={{
-          base: "relative",
-          lg: "sticky",
-        }}
-        top={{
-          base: "unset",
-          lg: 0,
-        }}
+        position='relative'
       >
         <Image
           src={product?.photo ? product.photo : "/category-img.png"}
@@ -144,6 +140,7 @@ const ProductInfo = ({ fetchedProduct }) => {
           priority={true}
         />
       </AspectRatio>
+      </Box>
 
       <Flex
         flexDir={"column"}
