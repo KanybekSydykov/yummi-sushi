@@ -7,7 +7,6 @@ import CartDrawer from '@/components/Drawer/CartDrawer';
 import { CartProvider } from '@/lib/context-api';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import Error from './error';
-import ProductModal from './@modal/(.)product/[id]/ProductModal';
 import GetApp from '@/components/ui/GetApp';
 
 export default async function LocaleLayout({

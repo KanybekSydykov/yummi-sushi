@@ -12,7 +12,7 @@ const GetCategoryData = ({ params, start = false, isFirstCategory = false }) => 
 
   const fetchProducts = async () => {
     const data = await fetch(`${ENDPOINTS.getCategoryData(params.category)}`, {
-      cache: "no-store",
+      cache: "no-cache",
       headers: {
         "Accept-Language": `${params.locale}`,
       },

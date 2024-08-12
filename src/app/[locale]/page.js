@@ -11,6 +11,25 @@ import CategoriesNavbar from '@/components/Categories/CategoriesNavbar';
 import '../globals.css';
 import CashbackHandler from '@/components/Bonus/CashbackHandler';
 import ScrollSpyWrapper from '@/components/ui/ScrollSpyWrapper';
+import HomeInfoSkeleton from '@/components/Skeleton/HomeInfoSkeleton';
+
+
+
+async function getCategories(locale) {
+  try {
+    const res = await fetch(`${ENDPOINTS.getCategories()}`, {
+      cache: "no-store",
+      headers: {
+        "Accept-Language": `${locale}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 
 const getHomepageData = async (locale) => {
   try {
@@ -45,9 +64,9 @@ export async function generateMetadata({ params, searchParams }, parent) {
     },
   }
 }
-
 export default async function HomePage({ params }) {
-  const data = await getHomepageData(params.locale)
+
+  const data = await getCategories(params.locale);
 
   return <main>
 
@@ -68,7 +87,7 @@ export default async function HomePage({ params }) {
 
         <ScrollSpyWrapper>
 
-          {data?.categories.map((category,index) => (
+          {data?.map((category,index) => (
             <Suspense key={category.slug} fallback={<CategoryPageSkeleton />}>
               <GetCategoryData start={true} params={{ locale: params.locale, category: category.slug }} isFirstCategory={index === 0} />
 
@@ -82,7 +101,8 @@ export default async function HomePage({ params }) {
 
     </Container>
 
-    <HomeInfo info={{ delivery: data.main_page.delivery_conditions, payment: data.main_page.methods_of_payment, order: data.main_page.order_types }} />
-    <CashbackHandler value={data.cash_back.web} />
+<Suspense fallback={<HomeInfoSkeleton /> }>
+    <HomeInfo params={params}   />
+</Suspense>
   </main>;
 }
