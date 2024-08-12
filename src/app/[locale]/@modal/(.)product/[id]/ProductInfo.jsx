@@ -121,7 +121,7 @@ const ProductInfo = ({ fetchedProduct }) => {
       flexDir={{ base: "column", lg: "row" }}
       gap={{ base: "20px", lg: "40px" }}
     >
-      <Box position='sticky' top={0}>
+      <Box position={{ base: "relative", lg: "sticky" }} top={0} height={'fit-content'}>
 
       <AspectRatio
         ratio={1}

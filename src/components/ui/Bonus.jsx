@@ -90,7 +90,7 @@ const Bonus = ({textColor='fontgray'}) => {
       >
         Бонус
       </Text>
-      <Link href={'/bonus'} style={{position: 'absolute', top: '0', left: '0', bottom: '0', right: '0', width: '100%', height: '100%'}} />
+      <Link href={'/bonus'} tabIndex={-1} prefetch={false} style={{position: 'absolute', top: '0', left: '0', bottom: '0', right: '0', width: '100%', height: '100%'}} />
 
     </Flex>
   );

@@ -31,7 +31,7 @@ const CartBtn = ({ fn, textBlack = false, fixed = false }) => {
       }}
     >
       <AspectRatio ratio={1} width={"24px"} h={"24px"} position={"relative"} filter={fixed ? "invert(0%) sepia(100%) saturate(0%) hue-rotate(90deg) brightness(200%) contrast(100%)" : 'none'}>
-        <Image src={"/cart-icon.svg"} alt="profile" fill />
+        <Image src={"/cart-icon.svg"} alt="profile" fill sizes="100%" />
       </AspectRatio>
       {fixed ? null : (
         <Text

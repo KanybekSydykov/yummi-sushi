@@ -70,7 +70,7 @@ const OrderDetailsModal = ({ isOpen, onClose, onOpen, order }) => {
                     <Image
                       src={item.product.image}
                       fill
-                      alt={"pizza"}
+                      alt={item.product.name}
                       sizes="100%"
                     />
                   </AspectRatio>

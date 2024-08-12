@@ -21,7 +21,7 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
   useEffect(() => {
     if (showModal) {
       if (delay > 0) {
-        // setTimeout(() => setDelay(delay - 1), 1000);
+        setTimeout(() => setDelay(delay - 1), 1000);
       } else {
         router.push("/");
         setShowModal(false);
@@ -58,7 +58,7 @@ export default function OrderSuccess({ showModal = false, setShowModal }) {
               pos={'relative'}
             >
 
-            <Image src={'/animated-checkmark.gif'} fill sizes="100%" />
+            <Image src={'/animated-checkmark.gif'} alt="successfull order image" fill sizes="100%" />
             </AspectRatio>
             <Text
               fontFamily={"roboto"}

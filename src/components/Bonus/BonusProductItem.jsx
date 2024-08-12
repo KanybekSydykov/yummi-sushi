@@ -19,7 +19,7 @@ const BonusProductItem = ({ item,bonusId }) => {
         ratio={1}
         pos={"relative"}
       >
-        <Image src={item.product_photo} fill sizes="100%" />
+        <Image src={item.product_photo} alt={item.product_name} fill sizes="100%" />
       </AspectRatio>
       <Text
         fontFamily={"roboto"}

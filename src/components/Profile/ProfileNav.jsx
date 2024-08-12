@@ -62,7 +62,7 @@ const ProfileNav = () => {
             height: "100%",
           }}
         />
-        <Image src={"/cashback.svg"} alt="profile" width={20} height={20} />
+        <Image src={"/cashback.svg"} alt="bonus" width={20} height={20} />
         <Text>{t('bonuses')}</Text>
       </Flex>
       <Flex
@@ -85,7 +85,7 @@ const ProfileNav = () => {
             height: "100%",
           }}
         />
-        <Image src={"/orders-icon.svg"} alt="profile" width={20} height={20} />
+        <Image src={"/orders-icon.svg"} alt="order-icon" width={20} height={20} />
         <Text>{t('myOrders')}</Text>
       </Flex>
       <Flex
@@ -108,7 +108,7 @@ const ProfileNav = () => {
             height: "100%",
           }}
         />
-        <Image src={"/log-out-icon.svg"} alt="profile" width={20} height={20} />
+        <Image src={"/log-out-icon.svg"} alt="logout icon" width={20} height={20} />
         <Text>{t('logout')}</Text>
       </Flex>
     </Flex>

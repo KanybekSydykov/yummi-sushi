@@ -61,7 +61,7 @@ const OrderInfo = ({ item }) => {
         top={{ base: "-40px", lg: "-50px" }}
         left={{ base: "calc(50% - 40px)", lg: "calc(50% - 50px)" }}
       >
-        <Image src={item.image} fill alt="infomation image" />
+        <Image src={item.image} fill alt="infomation image" sizes="100%" />
       </AspectRatio>
 
       <Flex flexDir={"column"} gap={"28px"}>
@@ -107,7 +107,7 @@ const DeliveryInfo = ({ item }) => {
         overflow={"hidden"}
         flexShrink={0}
       >
-        <Image src={item.image} fill alt="infomation image" />
+        <Image src={item.image} fill alt="infomation image" sizes="100%" />
       </AspectRatio>
 
       <Flex flexDir={"column"} gap={"28px"}>
@@ -167,7 +167,7 @@ const PaymentInfo = ({ item }) => {
           transform: "scale(1.1)",
         }}
       >
-        <Image src={item.image} fill alt="infomation image" />
+        <Image src={item.image} fill alt="infomation image" sizes="100%" />
       </AspectRatio>
 
       <Flex flexDir={"column"} gap={"28px"}>

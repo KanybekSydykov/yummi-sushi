@@ -13,7 +13,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
 import DeliveryMethod from "../Modals/DeliveryMethod";
 import CustomButton from "../ui/CustomButton";
@@ -29,6 +29,24 @@ import OrderSuccess from "../Modals/OrderSuccess";
 import { useTranslations } from "next-intl";
 
 const DELIVERY_OPTIONS = ["Самовывоз", "Доставка"];
+
+const isRestaurantOpen = (openingHour, closingHour) => {
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  // Convert hours to numbers if they're in string format
+  const opening = parseInt(openingHour, 10);
+  const closing = parseInt(closingHour, 10);
+
+  // Handle cases where closing time is past midnight
+  if (closing < opening) {
+    // Closing time is on the next day
+    return currentHour >= opening || currentHour < closing;
+  }
+
+  // Normal case where opening and closing times are on the same day
+  return currentHour >= opening && currentHour < closing;
+};
 
 const formatToTwoDecimalPlaces = (num) => {
   // Convert to string with a fixed number of decimal places, then truncate
@@ -81,6 +99,18 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const t = useTranslations("Common");
   const tCart = useTranslations("Cart");
   const { locale } = useParams();
+  const [isResaurantOpen, setIsResaurantOpen] = useState(false);
+
+  useEffect(() => {
+    if (branches && branches.length > 0) {
+      const openingHour = branches[0].opening_hours; // Assume format is 'HH'
+      const closingHour = branches[0].closing_hours; // Assume format is 'HH'
+      
+      setIsResaurantOpen(isRestaurantOpen(openingHour, closingHour));
+    }
+  }, [branches]);
+
+  
 
   function openDeliveryModal(change = false) {
     if (change === false) {
@@ -147,15 +177,19 @@ const Checkout = ({ defaultAddress, token, branches }) => {
     const body = {
       products: [...products, ...bonusProducts],
       is_pickup,
-      delivery: {
-        user_address_id: selectedAdress?.id,
-      },
       restaurant_id,
       change,
       comment,
       payment_method: paymentMethod,
       order_source: "web",
     };
+
+    
+    if (selectedAdress) {
+      body.delivery = {
+        user_address_id: selectedAdress?.id,
+      };
+    }
 
     try {
       setIsOrdering(true);
@@ -187,6 +221,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
       throw new Error({ status: error.status || 500 });
     }
   }
+  
   return (
     <Flex
       position={"relative"}
@@ -270,7 +305,11 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         position={{ base: "relative", lg: "sticky" }}
         top={{ base: "unset", lg: "16px" }}
       >
-        <Flex flexDir={locale === "ru" ? "row" : "row-reverse"} gap={'6px'} justifyContent={'center'}>
+        <Flex
+          flexDir={locale === "ru" ? "row" : "row-reverse"}
+          gap={"6px"}
+          justifyContent={"center"}
+        >
           <Text
             textAlign={"center"}
             fontFamily={"roboto"}
@@ -287,7 +326,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontSize={{ base: "18px", lg: "22px" }}
             color={"#000"}
           >
-            {deliveryMethod === 'Самовывоз' ? t('pickup') : t('delivery')}
+            {deliveryMethod === "Самовывоз" ? t("pickup") : t("delivery")}
           </Text>
         </Flex>
 
@@ -302,7 +341,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontSize={{ base: "16px", lg: "18px" }}
             fontWeight={{ base: "500", lg: "600" }}
           >
-            {deliveryMethod === "Самовывоз" ? t('restoranAdress') : t('deliveryAdress')}
+            {deliveryMethod === "Самовывоз"
+              ? t("restoranAdress")
+              : t("deliveryAdress")}
           </Text>
           <Flex
             ref={scope}
@@ -360,7 +401,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               fontWeight={"600"}
               cursor={"pointer"}
             >
-              {t('edit')}
+              {t("edit")}
             </Text>
 
             <Text
@@ -371,10 +412,12 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               fontSize={"14px"}
               fontWeight={"600"}
               cursor={"pointer"}
-              mt={'20px'}
+              mt={"20px"}
             >
               <span style={{ textTransform: "lowercase" }}>
-                {deliveryMethod !== "Доставку" ? t('chooseDelivery') : t('choosePickup')}
+                {deliveryMethod !== "Доставку"
+                  ? t("chooseDelivery")
+                  : t("choosePickup")}
               </span>
             </Text>
           </Flex>
@@ -410,16 +453,16 @@ const Checkout = ({ defaultAddress, token, branches }) => {
                   fontSize={{ base: "12px", lg: "16px" }}
                   fontWeight={{ base: "400", lg: "400" }}
                 >
-                 {t('cash')}
+                  {t("cash")}
                 </Text>
               </Radio>
-              <Radio size="md" value="card" colorScheme="orange" mt={'12px'}>
+              <Radio size="md" value="card" colorScheme="orange" mt={"12px"}>
                 <Text
                   fontFamily={"roboto"}
                   fontSize={{ base: "12px", lg: "16px" }}
                   fontWeight={{ base: "400", lg: "400" }}
                 >
-                 {t('mbank')}
+                  {t("mbank")}
                 </Text>
               </Radio>
             </Stack>
@@ -450,7 +493,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            <Text>{t('bonusAdded')}</Text>
+            <Text>{t("bonusAdded")}</Text>
 
             <Text>+{countCashback(getTotalPrice())} </Text>
           </Flex>
@@ -460,7 +503,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
               alignItems={"center"}
               justifyContent={"space-between"}
             >
-              <Text>{t('delivery')}</Text>
+              <Text>{t("delivery")}</Text>
               <DeliveryPrice
                 id={selectedAdressId}
                 adress={selectedAdress}
@@ -481,7 +524,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             fontWeight={"600"}
             color={"#000"}
           >
-            <Text>{t('totalAmount')}</Text>
+            <Text>{t("totalAmount")}</Text>
 
             <Text>{+getTotalPrice() + deliveryPrice} сом</Text>
           </Flex>
@@ -510,9 +553,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         </Flex>
         <Tooltip
           hasArrow
-          label=""
-          isDisabled={getTotalPrice() >= 1000}
-          bg="red.600"
+          label={getTotalPrice() < 1000 ? "Минимальная сумма заказа 1000 сом" : isResaurantOpen ? "" : "Мы работаем с 11:00 до 23:00"}
+          isDisabled={getTotalPrice() >= 1000 || !isResaurantOpen}
+          bg="main"
         >
           <Box
             position={{ base: "sticky", lg: "relative" }}
@@ -523,9 +566,9 @@ const Checkout = ({ defaultAddress, token, branches }) => {
             mt={{ base: "16px", lg: "55px" }}
           >
             <CustomButton
-              isDisabled={cart.length === 0 || getTotalPrice() < 1000}
+              isDisabled={cart.length === 0 || getTotalPrice() < 1000 || !isResaurantOpen}
               isRequesting={isOrdering}
-              text={t('confirm')}
+              text={t("confirm")}
               fn={createOrder}
             />
           </Box>

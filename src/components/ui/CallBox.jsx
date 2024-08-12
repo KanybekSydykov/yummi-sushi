@@ -29,7 +29,7 @@ const CallBox = ({ inMenu = false }) => {
       </Text>
       <Flex flexDir="row" gap={"10px"} alignItems={"center"}>
         <AspectRatio ratio={1} w={"36px"} h={"36px"}>
-          <Image src={"/phone_icon.svg"} alt="phone" fill priority />
+          <Image src={"/phone_icon.svg"} alt="phone" fill priority sizes="100%" />
         </AspectRatio>
         <Text
           fontWeight={"700"}

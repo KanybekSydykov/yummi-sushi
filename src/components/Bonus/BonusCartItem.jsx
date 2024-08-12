@@ -47,7 +47,7 @@ const BonusCartItem = ({ product, isLast }) => {
           <Image
             src={product.product_photo}
             fill
-            alt={"pizza"}
+            alt={product.product_name}
             sizes="100%"
             style={{
               borderRadius: "10px",

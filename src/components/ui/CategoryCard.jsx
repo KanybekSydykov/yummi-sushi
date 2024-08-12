@@ -48,7 +48,7 @@ const CategoryCard = ({ item }) => {
         overflow={"hidden"}
         transition={"all 0.3s ease"}
       >
-        <Image src={item?.image ? item?.image : "/category-ph.png"} fill sizes="100%" />
+        <Image src={item?.image ? item?.image : "/category-ph.png"} alt={item?.name} fill sizes="100%" />
         {/* <Image src={'/category-img.png'} fill/> */}
       </AspectRatio>
       <Text {...categoryTextStyles}>{item?.name}</Text>

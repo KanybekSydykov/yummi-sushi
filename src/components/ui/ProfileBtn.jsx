@@ -27,7 +27,7 @@ const ProfileBtn = ({ fn ,textBlack = false,isAuthenticated}) => {
       }}
     >
       <AspectRatio ratio={1} width={"24px"} h={"24px"} position={"relative"}>
-        <Image src={"/profile-icon.svg"} alt="profile" fill />
+        <Image src={"/profile-icon.svg"} alt="profile" fill sizes="100%" />
       </AspectRatio>
       <Text
       fontFamily={'roboto'}

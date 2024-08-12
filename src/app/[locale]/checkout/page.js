@@ -1,29 +1,8 @@
 import { ENDPOINTS } from '@/api/endpoints';
-import Bread from '@/components/BreadCrumbs/Bread'
 import Checkout from '@/components/Checkout/Checkout';
 import { getSession } from '@/lib/auth';
 import { Container } from '@chakra-ui/react';
 import { redirect } from 'next/navigation';
-
-import React from 'react'
-
-const labelStyles = {
-    fontWeight: "400",
-    fontSize: "16px",
-    color: "#666666",
-};
-
-const inputStyles = {
-    border: "1px solid #A0A0A0",
-    borderRadius: "10px",
-    _focus: {
-        borderColor: "#FF8341",
-        boxShadow: "0px 0px 0px 1px #FF8341",
-    },
-    _hover: {
-        borderColor: "#FF8341",
-    }
-};
 
 async function getUserAddresses(token) {
     try {

@@ -9,22 +9,34 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/navigation";
 
 const getFooterData = async (locale) => {
-  const res = await fetch(`${ENDPOINTS.getContacts()}`, {
-    cache: "no-store",
-    headers: {
-      "Accept-Language": `${locale}`,
-    },
-  });
-  const data = await res.json();
-  const footerData = {
-    phones: data.phones,
-    emails: data.emails,
-    socials: data.social_links,
-    payment: data.payment_methods,
-    static_pages: data.static_pages,
-  };
 
-  return footerData;
+  try {
+    const res = await fetch(`${ENDPOINTS.getContacts()}`, {
+      cache: "no-store",
+      headers: {
+        "Accept-Language": `${locale}`,
+      },
+    });
+
+    if(!res.ok) {
+      throw new Error();
+    }
+
+    const data = await res.json();
+    const footerData = {
+      phones: data.phones,
+      emails: data.emails,
+      socials: data.social_links,
+      payment: data.payment_methods,
+      static_pages: data.static_pages,
+    };
+  
+    return footerData;
+  } catch (error) {
+    throw new Error(error);
+  }
+
+
 };
 
 const Footer = async ({ locale }) => {

@@ -87,7 +87,6 @@ const ProductCard =({ product }) => {
           fontWeight={"600"}
           fontSize={{ base: "16px", lg: "20px" }}
           color={"#0a0a0a"}
-          h={"43px"}
           noOfLines={{ base: 3, lg: 2 }}
         >
           {product?.name}

@@ -10,7 +10,7 @@ const EmptyCart = ({onClose}) => {
 
   return (
     <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} gap={'50px'} h={'100%'}>
-      <Image src={"/empty-cart.png"} width={200} height={200} />
+      <Image src={"/empty-cart.png"} alt="empty-cart" width={200} height={200} />
 
       <Text fontFamily={'roboto'} fontSize={'16px'} fontWeight={'500'} textAlign={'center'} maxW={'350px'}>
         {tCart('emptyDesc')}

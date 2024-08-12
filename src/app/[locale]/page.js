@@ -55,7 +55,7 @@ export default async function HomePage({ params }) {
     <Suspense fallback={<CategoriesNavbarSkeleton />}>
       <CategoriesNavbar locale={params.locale} onMainPage={true} />
     </Suspense>
-    <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '16px', xl: '0px' }}>
+    <Container maxW={{ base: 'container.xl', xl: '1296px' }} p={{ base: '16px', '2xl': '0px' }}>
 
       <Suspense fallback={<BannerSkeleton />}>
         <BannersCover />
@@ -68,9 +68,9 @@ export default async function HomePage({ params }) {
 
         <ScrollSpyWrapper>
 
-          {data?.categories.map((category) => (
+          {data?.categories.map((category,index) => (
             <Suspense key={category.slug} fallback={<CategoryPageSkeleton />}>
-              <GetCategoryData start={true} params={{ locale: params.locale, category: category.slug }} />
+              <GetCategoryData start={true} params={{ locale: params.locale, category: category.slug }} isFirstCategory={index === 0} />
 
             </Suspense>
           ))}

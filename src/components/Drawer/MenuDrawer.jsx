@@ -42,31 +42,31 @@ const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
         gridTemplateColumns={"repeat(3, 1fr)"}
       >
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
         <GridItem pos={"relative"}>
-          <Image src={"/sushi-menu2.png"} fill alt={"menu"} />
+          <Image src={"/sushi-menu2.png"} fill sizes="100%" alt={"menu"} />
         </GridItem>
       </Grid>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={"sm"}>

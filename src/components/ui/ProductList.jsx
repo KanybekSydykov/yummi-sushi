@@ -1,11 +1,7 @@
 import { Flex} from "@chakra-ui/react";
 import ProductCard from "./ProductCard";
 
-const ProductList = async ({ products, start = false }) => {
-
-
-
-
+const ProductList = ({ products, start = false }) => {
   return (
     <Flex
       flexDir="row"

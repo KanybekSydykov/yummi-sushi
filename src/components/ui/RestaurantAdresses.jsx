@@ -18,8 +18,7 @@ const RestaurantAdresses = ({
     restaurants ? restaurants : []
   );
   const [isRequesting, setIsRequesting] = useState(false);
-
-
+  
   return (
     <Flex flexDir={"column"} gap={"20px"} position={"relative"}>
       {restaurantAdresses?.map((address) => (
@@ -74,7 +73,7 @@ function RestoranAdressItem({
         position={"relative"}
         flexShrink={0}
       >
-        <Image src={"/location-icon.svg"} fill alt="location" />
+        <Image src={"/location-icon.svg"} fill alt="location" sizes="100%" />
       </AspectRatio>
       <Text>{address.name}</Text>
       <Text>{address.address}</Text>

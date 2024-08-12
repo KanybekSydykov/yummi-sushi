@@ -36,7 +36,7 @@ const AdressItem = ({ address,selectedAdressId,handleAdressSelect,deleteUserAdre
         position={"relative"}
         flexShrink={0}
       >
-        <Image src={"/location-icon.svg"} fill alt="location" />
+        <Image src={"/location-icon.svg"} fill alt="location" sizes="100%" />
       </AspectRatio>
       <Text maxW={"calc(100% - 60px)"} textAlign={"center"}>
         {getAdressString(addresInfo)}
