@@ -1,25 +1,21 @@
 "use client";
 
-import { AspectRatio, Flex, Heading, Text, Box } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading, Text, Box, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "./CustomButton";
 import LoadingImage from "./LoadingImage";
 import { useTranslations } from "next-intl";
-import { useCart } from "@/lib/context-api";
-import { useRouter } from "next/navigation";
+import ProdModal from "../Modals/ProdModal";
 
 const ProductCard = ({ product }) => {
   const t = useTranslations("Common");
-  const { setSelectedProduct } = useCart();
-  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
+    <>
     <Flex
       className="product-card"
-      onClick={() => {
-        setSelectedProduct(product);
-        router.push(`/product/${product?.id}`,{scroll:false});
-      }}
+      onClick={onOpen}
       flexDir={{ base: "row", lg: "column" }}
       flexWrap={"wrap"}
       justifyContent={{ base: "flex-start", lg: "space-between" }}
@@ -192,6 +188,9 @@ const ProductCard = ({ product }) => {
         </Flex>
       </Flex>
     </Flex>
+          <ProdModal product={product} isOpen={isOpen} onClose={onClose} />
+    </>
+
   );
 };
 

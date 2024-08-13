@@ -553,8 +553,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         </Flex>
         <Tooltip
           hasArrow
-          label={getTotalPrice() < 1000 ? "Минимальная сумма заказа 1000 сом" : isResaurantOpen ? "" : "Мы работаем с 11:00 до 23:00"}
-          isDisabled={getTotalPrice() >= 1000 || !isResaurantOpen}
+          label={getTotalPrice() < 1000 ? "Минимальная сумма заказа 1000 сом" : isResaurantOpen === true ? "" : "Мы работаем с 11:00 до 23:00"}
+          isDisabled={getTotalPrice() < 1000 || !isResaurantOpen}
           bg="main"
         >
           <Box
