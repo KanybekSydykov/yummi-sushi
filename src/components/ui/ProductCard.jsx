@@ -1,17 +1,25 @@
-'use client';
+"use client";
 
 import { AspectRatio, Flex, Heading, Text, Box } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "./CustomButton";
-import { Link } from "@/lib/navigation";
 import LoadingImage from "./LoadingImage";
 import { useTranslations } from "next-intl";
+import { useCart } from "@/lib/context-api";
+import { useRouter } from "next/navigation";
 
-const ProductCard =({ product }) => {
+const ProductCard = ({ product }) => {
   const t = useTranslations("Common");
+  const { setSelectedProduct } = useCart();
+  const router = useRouter();
+
   return (
     <Flex
       className="product-card"
+      onClick={() => {
+        setSelectedProduct(product);
+        router.push(`/product/${product?.id}`,{scroll:false});
+      }}
       flexDir={{ base: "row", lg: "column" }}
       flexWrap={"wrap"}
       justifyContent={{ base: "flex-start", lg: "space-between" }}
@@ -32,7 +40,7 @@ const ProductCard =({ product }) => {
       role="group"
       position={"relative"}
     >
-      <Link
+      {/* <Link
         href={`/product/${product?.id}`}
         prefetch={false}
         scroll={false}
@@ -45,7 +53,7 @@ const ProductCard =({ product }) => {
           left: 0,
           zIndex: 5,
         }}
-      />
+      /> */}
       <Box
         overflow={"hidden"}
         w={{ base: "158px", lg: "240px" }}
@@ -120,7 +128,9 @@ const ProductCard =({ product }) => {
             >
               {product?.product_sizes[0].price} сом
             </Text>
-          ) : ''}
+          ) : (
+            ""
+          )}
         </Flex>
 
         <Text

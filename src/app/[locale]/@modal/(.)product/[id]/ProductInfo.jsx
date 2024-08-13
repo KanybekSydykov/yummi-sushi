@@ -9,7 +9,6 @@ import {
   Button,
   Flex,
   Heading,
-  position,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -23,14 +22,17 @@ import { useRouter } from "@/lib/navigation";
 const ProductInfo = ({ fetchedProduct }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [addons, setAddons] = useState([]);
-  const { addItem } = useCart();
+  const { addItem,selectedProduct } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const router = useRouter();
   const t = useTranslations("ProductDetails");
   const tCommon = useTranslations("Common");
   const toast = useToast();
 
-  const product = fetchedProduct;
+  const product = selectedProduct || fetchedProduct;
+
+  console.log(selectedProduct, 'selectedProduct');
+  
 
   useEffect(() => {
     if (product && product.product_sizes) {
