@@ -4,7 +4,7 @@ import { Box, Skeleton, useMediaQuery } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const LoadingImage = ({ src ,alt,priority = false}) => {
+const LoadingImage = ({ src ,alt,priority = false,size}) => {
   const [loading, setLoading] = useState(true);
 
 
@@ -23,8 +23,8 @@ const LoadingImage = ({ src ,alt,priority = false}) => {
         priority={priority}
         onLoad={() => setLoading(false)}
         alt={alt}
-        sizes="100% 100%"
-        style={{ objectFit: "cover" }}
+        sizes={size ? size : "100% 100%"}
+        objectFit="cover"
       />
     </Skeleton>
   );

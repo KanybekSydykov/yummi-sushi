@@ -36,20 +36,6 @@ const ProductCard = ({ product }) => {
       role="group"
       position={"relative"}
     >
-      {/* <Link
-        href={`/product/${product?.id}`}
-        prefetch={false}
-        scroll={false}
-        tabIndex={-1}
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: 5,
-        }}
-      /> */}
       <Box
         overflow={"hidden"}
         w={{ base: "158px", lg: "240px" }}
@@ -73,8 +59,8 @@ const ProductCard = ({ product }) => {
             priority={true}
             src={product?.photo}
             alt={product.name}
+            size={"(max-width: 768px) 158px, 240px"}
           />
-          {/* <Image src={"/category-img.png"} fill alt="product image" priority={true} sizes="100%" /> */}
         </AspectRatio>
       </Box>
 
