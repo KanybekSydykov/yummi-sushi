@@ -33,7 +33,7 @@ const BannerSlider = ({ banners}) => {
             <SplideSlide as={Box} key={index}>
               <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,md:81/25,lg:1296/400}} position={'relative'}>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",md:"block"}}>
-           <LoadingImage src={item.image_desktop} alt={item.title} priority={true} />
+           <LoadingImage src={item.image_desktop} alt={item.title} priority={true} index={index} load={index !== 0 ? 'lazy' : "eager"} />
               </Box>
               <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",md:"none"}}>
               

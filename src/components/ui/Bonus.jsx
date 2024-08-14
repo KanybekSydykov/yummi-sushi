@@ -69,7 +69,7 @@ const Bonus = ({textColor='fontgray'}) => {
           src={BonusImg}
           alt="bonus"
           fill
-          sizes="100%"
+          sizes="24px"
           style={{
             position: "absolute",
             top: "0",
