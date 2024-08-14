@@ -5,6 +5,7 @@ import { useCart } from "@/lib/context-api";
 import { Link } from "@/lib/navigation";
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import BonusImg from '@/../public/bonus-icon.webp'
 
 import React, { useEffect } from "react";
 
@@ -65,7 +66,7 @@ const Bonus = ({textColor='fontgray'}) => {
         ratio={1}
       >
         <Image
-          src={"/bonus-icon.png"}
+          src={BonusImg}
           alt="bonus"
           fill
           sizes="100%"
