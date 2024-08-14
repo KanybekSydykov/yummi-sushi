@@ -6,12 +6,29 @@ import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import SpinnerBox from "./SpinnerBox";
 import Image from "next/image";
 
+const isRestaurantOpen = (openingHour, closingHour) => {
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  // Convert hours to numbers if they're in string format
+  const opening = parseInt(openingHour, 10);
+  const closing = parseInt(closingHour, 10);
+
+  console.log(opening, closing, currentHour);
+  
+
+   if(currentHour >= opening && currentHour <= closing) {
+    return true;
+   } else {
+    return false;
+   }
+};
+
 const RestaurantAdresses = ({
   handleAdressSelect,
   selectedAdressId,
   setSelectedRestaurant,
   restaurants,
-
   selectedRestaurant
 }) => {
   const [restaurantAdresses, setRestaurantAdresses] = useState(
@@ -47,6 +64,8 @@ function RestoranAdressItem({
   
 }) {
 
+  const [isOpen, setIsOpen] = useState(isRestaurantOpen(address.opening_hours, address.closing_hours));
+
   return (
     <Flex
       flexDir={"row"}
@@ -54,17 +73,18 @@ function RestoranAdressItem({
       gap={"20px"}
       w={"100%"}
       borderRadius={"10px"}
+      bg={isOpen ? "white" : "rgb(243, 243, 247)"}
       border={`2px solid ${
-        selectedRestaurant?.id === address.id ? "#FF8341" : "#EAEAEA"
+        selectedRestaurant?.id === address.id && isOpen ? "#FF8341" : "#EAEAEA"
       }`}
       p={"10px"}
       alignItems={"center"}
       flexGrow={1}
       minH={"80px"}
-      cursor={"pointer"}
-      onClick={() => {
+      cursor={isOpen ? "pointer" : "not-allowed"}
+      onClick={isOpen ? () => {
         setSelectedRestaurant(address);
-      }}
+      } : null }
     >
       <AspectRatio
         ratio={1}
@@ -82,8 +102,13 @@ function RestoranAdressItem({
         gap={"8px"}
         justifyContent={"flex-start"}
         alignItems={"center"}
+        fontSize={'14px'}
+        color={ isOpen ? 'green.500' : 'red.500'}
       >
-        <Text>{address.opening_hours}</Text>:
+        <Text>
+         Заказы принимаем с
+        </Text>
+        <Text>{address.opening_hours}</Text> до
         <Text>{address.closing_hours}</Text>
       </Flex>
     </Flex>

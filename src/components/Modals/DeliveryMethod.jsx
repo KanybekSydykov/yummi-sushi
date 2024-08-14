@@ -29,7 +29,8 @@ function DeliveryMethod({
   selectedAdressId,
   restaurants,
   setSelectedRestaurant,
-  selectedRestaurant
+  selectedRestaurant,
+  isResaurantOpen,
 }) {
 
   return (
@@ -119,7 +120,7 @@ function DeliveryMethod({
               </AdressModal>
             )}
 
-<CustomButton fn={onClose} text={"Выбрать"} />
+<CustomButton fn={onClose} text={isResaurantOpen ? "Выбрать" : "Закрыть"} />
           </ModalFooter>
         </ModalContent>
       </Modal>

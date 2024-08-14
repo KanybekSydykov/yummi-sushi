@@ -38,14 +38,14 @@ const isRestaurantOpen = (openingHour, closingHour) => {
   const opening = parseInt(openingHour, 10);
   const closing = parseInt(closingHour, 10);
 
-  // Handle cases where closing time is past midnight
-  if (closing < opening) {
-    // Closing time is on the next day
-    return currentHour >= opening || currentHour < closing;
-  }
+  console.log(opening, closing, currentHour);
+  
 
-  // Normal case where opening and closing times are on the same day
-  return currentHour >= opening && currentHour < closing;
+   if(currentHour >= opening && currentHour <= closing) {
+    return true;
+   } else {
+    return false;
+   }
 };
 
 const formatToTwoDecimalPlaces = (num) => {
@@ -89,7 +89,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(
     branches ? branches[0] : null
   );
-  const [change, setChange] = useState(0);
+  const [change, setChange] = useState("");
   const [comment, setComment] = useState(" ");
   const toast = useToast();
   const router = useRouter();
@@ -109,6 +109,10 @@ const Checkout = ({ defaultAddress, token, branches }) => {
       setIsResaurantOpen(isRestaurantOpen(openingHour, closingHour));
     }
   }, [branches]);
+
+  console.log(branches);
+  console.log(isResaurantOpen);
+  
 
   
 
@@ -553,8 +557,8 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         </Flex>
         <Tooltip
           hasArrow
-          label={getTotalPrice() < 1000 ? "Минимальная сумма заказа 1000 сом" : isResaurantOpen === true ? "" : "Мы работаем с 11:00 до 23:00"}
-          isDisabled={getTotalPrice() < 1000 || !isResaurantOpen}
+          label={getTotalPrice() < 1000 ? "Минимальная сумма заказа 1000 сом" : isResaurantOpen === true ? "" : `Мы работаем с ${branches[0].opening_hours}  до ${branches[0].closing_hours}`}
+          isDisabled={getTotalPrice() < 1000 || isResaurantOpen}
           bg="main"
         >
           <Box
@@ -585,6 +589,7 @@ const Checkout = ({ defaultAddress, token, branches }) => {
         restaurants={branches}
         setSelectedRestaurant={setSelectedRestaurant}
         selectedRestaurant={selectedRestaurant}
+        isResaurantOpen={isResaurantOpen}
       />
       <OrderSuccess showModal={orderSuccess} setShowModal={setOrderSuccess} />
     </Flex>
