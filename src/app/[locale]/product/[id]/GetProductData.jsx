@@ -1,6 +1,6 @@
 import React from 'react'
-import ProductInfo from '../../@modal/(.)product/[id]/ProductInfo'
 import { Box } from '@chakra-ui/react'
+import ProductInfo from '@/components/ui/ProductInfo'
 
 export async function generateMetadata({ params, searchParams }, parent) {
   // optionally access and extend (rather than replace) parent metadata

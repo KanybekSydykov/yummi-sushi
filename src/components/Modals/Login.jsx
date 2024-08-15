@@ -54,7 +54,7 @@ const inputStyles = {
   },
 };
 
-function LoginModal({ textBlack, closeMenu, children }) {
+function LoginModal({ textBlack, children,closeMenu }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { setAuth, isAuthenticated } = useCart();
   const [number, setNumber] = useState("");
@@ -93,6 +93,7 @@ function LoginModal({ textBlack, closeMenu, children }) {
     } else {
       closeMenu();
       router.push("/profile?tab=profile");
+
     }
   }
 
@@ -139,6 +140,7 @@ function LoginModal({ textBlack, closeMenu, children }) {
                 setNumber={setNumber}
                 setIsNumberSent={setIsNumberSent}
                 setOtp = {setOtp}
+                closeMenu={closeMenu}
               />
             ) : (
               <OtpBox
@@ -239,7 +241,7 @@ function OtpBox({ handleOtp, setIsNumberSent, isOtpConfirming, number }) {
   );
 }
 
-function LoginBox({ number, setNumber, setIsNumberSent,setOtp }) {
+function LoginBox({ number, setNumber, setIsNumberSent,setOtp ,closeMenu}) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isRequesting, setIsRequesting] = useState(false);
   const t = useTranslations("Common");
@@ -266,6 +268,7 @@ function LoginBox({ number, setNumber, setIsNumberSent,setOtp }) {
       if (res.ok) {
         setIsNumberSent(true);
         setIsRequesting(false);
+        closeMenu();
       }
 
       const data = await res.json();

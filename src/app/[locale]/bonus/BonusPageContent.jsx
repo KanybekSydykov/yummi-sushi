@@ -13,7 +13,7 @@ const BonusPageContent = async () => {
       maxW={{ base: "container.xl", xl: "1296px" }}
       p={{ base: "20px", xl: "50px 0px" }}
     >
-      <Flex flexDir={"row"} gap={{base:'20px',lg:"64px"}} mt={"40px"}>
+      <Flex flexDir={"row"} flexWrap={"wrap"} gap={{base:'20px',lg:"64px"}} mt={"40px"}>
         <Box
           bg={"rgba(255, 132, 65, 1)"}
           position={"relative"}

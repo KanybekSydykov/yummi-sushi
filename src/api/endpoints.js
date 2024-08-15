@@ -21,4 +21,5 @@ export const ENDPOINTS = {
     getUserOrders : () => _URI + 'orders/orders/',
     getBonusProducts: () => _URI + 'products/bonus/',
     getStaticPageInfo: (slug) => _URI + `pages/static-pages/${slug}/`,
+    deleteUser: () => _URI + 'users/user-delete/',
 }

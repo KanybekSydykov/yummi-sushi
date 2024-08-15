@@ -33,7 +33,7 @@ const priceStyles = {
   color: "main",
 };
 
-const CartDrawer = ({ textBlack, fixed }) => {
+const CartDrawer = ({ textBlack, fixed,closeMenu }) => {
   const t = useTranslations("Common");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();

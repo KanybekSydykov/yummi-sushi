@@ -111,6 +111,29 @@ const ProfileNav = () => {
         <Image src={"/log-out-icon.svg"} alt="logout icon" width={20} height={20} />
         <Text>{t('logout')}</Text>
       </Flex>
+      <Flex
+        flexDir={"row"}
+        gap={"10px"}
+        alignItems={"center"}
+        p={"14px 20px"}
+        pos={"relative"}
+        boxShadow={"0px 0px 4px 0px rgba(151, 151, 151, 0.25)"}
+        bg={searchParams.get("tab") === "delete" ? "rgba(255, 131, 65, 0.2)" : "transparent"}
+        transition={"all 0.3s ease"}
+      >
+        <Link
+          href={path + "?tab=delete"}
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        />
+        <Image src={"/trash-icon.svg"} alt="logout icon" width={20} height={20} />
+        <Text>Удалить профиль</Text>
+      </Flex>
     </Flex>
   );
 };

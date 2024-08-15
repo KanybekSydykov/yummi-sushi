@@ -1,6 +1,6 @@
 import { ENDPOINTS } from '@/api/endpoints'
-import Bread from '@/components/BreadCrumbs/Bread'
 import Cashback from '@/components/Profile/Cashback'
+import Delete from '@/components/Profile/Delete'
 import LogOut from '@/components/Profile/LogOut'
 import MyOrders from '@/components/Profile/MyOrders'
 import ProfileInfo from '@/components/Profile/ProfileInfo'
@@ -41,8 +41,8 @@ const ProfilePageContent = async({ params }) => {
                 <ProfileInfo data={data} token={access_token}/>
                 <Cashback token={access_token} />
                 <MyOrders token={access_token} />
-                <LogOut />
-
+                <LogOut  />
+                <Delete token={access_token} />
             </Flex>
         </Container>
 

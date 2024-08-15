@@ -9,7 +9,7 @@ import BonusImg from '@/../public/bonus-icon.webp'
 
 import React, { useEffect } from "react";
 
-const Bonus = ({textColor='fontgray'}) => {
+const Bonus = ({textColor='fontgray',closeMenu}) => {
     const {isAuthenticated,setBonusAmount,bonusAmount} = useCart()
 
     async function getBonusAmount(){
@@ -54,6 +54,7 @@ const Bonus = ({textColor='fontgray'}) => {
       bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), #FF8341",
 
     }}
+    onClick={closeMenu}
     >
         <Flex flexDir={'row'} alignItems={'center'} justifyContent={'space-between'}>
   {bonusAmount !== 0 && isAuthenticated && <Text fontFamily={'roboto'} fontWeight={'600'} fontSize={'10px'} color={'#000'}>

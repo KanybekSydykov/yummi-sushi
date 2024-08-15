@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
 import React from "react";
-import { Box, Flex, Button} from "@chakra-ui/react";
+import { Box, Flex, Button } from "@chakra-ui/react";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Image from "next/image";
 import "@splidejs/react-splide/css";
 import { Link } from "@/lib/navigation";
 import LoadingImage from "../ui/LoadingImage";
 
-const BannerSlider = ({ banners}) => {
+const BannerSlider = ({ banners }) => {
+  console.log(banners);
 
   return (
     <>
@@ -17,12 +18,8 @@ const BannerSlider = ({ banners}) => {
         aria-label="My Favorite Images"
         hasTrack={false}
         options={{
-          type: "slide",
-          loop: true,
+          type: "fade",
           pagination: false,
-          speed: 1000,
-          drag: "free",
-          snap: true,
           mediaQuery: "min",
         }}
         w={"100%"}
@@ -31,18 +28,29 @@ const BannerSlider = ({ banners}) => {
         <Box as={SplideTrack} w={"100%"} h={"100%"}>
           {banners?.map((item, index) => (
             <SplideSlide as={Box} key={index}>
-              <Box pos={"relative"} w={"100%"} h={"100%"} borderRadius={"30px"} overflow={"hidden"} aspectRatio={{base:358/350,md:81/25,lg:1296/400}} position={'relative'}>
-              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"none",md:"block"}}>
-           <LoadingImage src={item.image_desktop} alt={item.title} priority={true} index={index} load={index !== 0 ? 'lazy' : "eager"} />
-              </Box>
-              <Box pos={"absolute"} w={"100%"} h={"100%"} zIndex={1} display={{base:"block",md:"none"}}>
-              
-           <LoadingImage src={item.image_mobile} alt={item.title} priority={true} />
-              
-
-              </Box>
-              <Link href={item.link} style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, width: "100%", height: "100%" }} />
-       
+              <Box
+                pos={"relative"}
+                w={"100%"}
+                h={"100%"}
+                borderRadius={"10px"}
+                overflow={"hidden"}
+                position={"relative"}
+              >
+                <Box
+                  pos={"absolute"}
+                  w={"100%"}
+                  h={"100%"}
+                  zIndex={1}
+                >
+                  <LoadingImage
+                    src={item?.image_desktop}
+                    alt={item.title}
+                    priority={index === 0 ? true : undefined}
+                    size={"100vw"}
+                    load={index !== 0 ? "lazy" : undefined}
+                  />
+                </Box>
+                <Link href={item.type === 'link' ? item.link.link : `/${item.type}/${item.link ? item.link.link : '#'}`} w={"100%"} h={"100%"} style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, width: "100%", height: "100%" }} />
               </Box>
             </SplideSlide>
           ))}

@@ -1,12 +1,11 @@
 "use client";
 
-import { Box, Skeleton, useMediaQuery } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const LoadingImage = ({ src ,alt,priority = false,size,load = "eager"}) => {
+const LoadingImage = ({ src ,alt,priority,size,load}) => {
   const [loading, setLoading] = useState(true);
-
 
   return (
     <Skeleton
@@ -18,14 +17,16 @@ const LoadingImage = ({ src ,alt,priority = false,size,load = "eager"}) => {
       isLoaded={!loading}
     >
       <Image
-        src={src}
+        src={src ? src : "/banner-1.svg"}
         fill
         priority={priority}
         onLoad={() => setLoading(false)}
         alt={alt}
         sizes={size ? size : "100vw"}
-        objectFit="cover"
-        loading={load}
+        loading={!priority ? load : undefined} // Avoid conflict by conditionally using 'loading'
+        style={{
+          objectFit: "cover",
+        }}
       />
     </Skeleton>
   );

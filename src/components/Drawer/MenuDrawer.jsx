@@ -89,6 +89,7 @@ const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
                 alignItems={"center"}
                 justifyContent={"center"}
                 fontFamily={"roboto"}
+                onClick={onClose}
               >
                 <Link href={"/"} style={linkStyles}>
                   Главная
@@ -98,7 +99,7 @@ const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
                 </Link>
               </Flex>
 
-              <LocaleSwitcher inMenu={true} />
+              <LocaleSwitcher inMenu={true} closeMenu={onClose} />
 
               <Flex
                 flexDir={"row"}
@@ -106,11 +107,11 @@ const MenuDrawer = ({ onOpen, isOpen, onClose }) => {
                 alignItems={"flex-start"}
                 justifyContent={"center"}
               >
-                <Bonus textColor="#fff" />
+                <Bonus textColor="#fff" closeMenu={onClose} />
 
                 <LoginModal closeMenu={onClose} />
 
-                <CartDrawer />
+                <CartDrawer  />
               </Flex>
             </Flex>
           </DrawerBody>

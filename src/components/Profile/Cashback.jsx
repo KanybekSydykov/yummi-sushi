@@ -40,14 +40,17 @@ const Cashback = ({ token }) => {
     return null;
   } else
     return (
-      <Box pos={"relative"} minW={"100%"} minH={"100%"}>
+      <Box
+        pos={{ base: "absolute", md: "relative" }}
+        top={{ base: "0", md: "unset" }}
+        left={{ base: "0", md: "unset" }}
+        minW={"100%"}
+        minH={"100%"}
+      >
         {isLoading ? (
           <SpinnerBox />
         ) : (
           <Flex
-            pos={{ base: "absolute", md: "relative" }}
-            top={{ base: "0", md: "unset" }}
-            left={{ base: "0", md: "unset" }}
             zIndex={"100"}
             bg={"#fff"}
             flexDir={"column"}
@@ -137,7 +140,9 @@ const Cashback = ({ token }) => {
                 />
 
                 <Link
-                  href={"https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi"}
+                  href={
+                    "https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi"
+                  }
                   target={"_blank"}
                   style={{
                     position: "absolute",

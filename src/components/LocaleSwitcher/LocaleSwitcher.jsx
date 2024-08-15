@@ -4,7 +4,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useParams } from 'next/navigation'
 import React from 'react'
 
-const LocaleSwitcher = ({inMenu=false}) => {
+const LocaleSwitcher = ({inMenu=false,closeMenu}) => {
     const router = useRouter();
     const pathName = usePathname();
     const {locale} = useParams();
@@ -38,16 +38,21 @@ const LocaleSwitcher = ({inMenu=false}) => {
         }
     }
 
+    function handleLocaleSwitch(lang){
+        switchLocale(lang);
+        closeMenu();
+    }
+
   return (
    <Flex flexDir={'row'} alignItems={'center'} gap={'2.5px'}
    >
-    <Button onClick={() => switchLocale('ru')}  {...buttonStyles} isDisabled={locale === 'ru'} 
+    <Button onClick={() => handleLocaleSwitch('ru')}  {...buttonStyles} isDisabled={locale === 'ru'} 
 >
         РУ
     </Button>
     <Box w={'1.5px'} h={'12px'} bg={inMenu ? "lightgray":'black'}>
     </Box>
-    <Button fontWeight={'inherit'} onClick={() => switchLocale('ky')} {...buttonStyles} isDisabled={locale === 'ky'}>
+    <Button fontWeight={'inherit'} onClick={() => handleLocaleSwitch('ky')} {...buttonStyles} isDisabled={locale === 'ky'}>
         КГ
     </Button>
    </Flex>
