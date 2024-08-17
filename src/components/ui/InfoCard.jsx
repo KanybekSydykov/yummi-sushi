@@ -1,5 +1,5 @@
 import { Link } from "@/lib/navigation";
-import { AspectRatio, Flex, Heading, Text } from "@chakra-ui/react";
+import { AspectRatio, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
@@ -185,18 +185,47 @@ const PaymentInfo = ({ item }) => {
           pos={"relative"}
           mx={"auto"}
         >
-          <Image
-            src={"/appstore.svg"}
-            width={140}
-            height={41}
-            alt="app-download-icon"
-          />
-          <Image
-            src={"/playstore.svg"}
-            width={140}
-            height={41}
-            alt="app-download-icon"
-          />
+          <Box pos={"relative"}>
+            <Image
+              src={"/appstore.svg"}
+              width={140}
+              height={41}
+              alt="app-download-icon"
+            />
+            <Link
+              href={"https://apps.apple.com/kg/app/yummi-sushi/id6624314455"}
+              target="_blank"
+              style={{
+                position: "absolute",
+                top: "0px",
+                right: "0px",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </Box>
+          <Box pos={"relative"}>
+            <Link
+              href={
+                "https://play.google.com/store/apps/details?id=com.tatadev.yummi_sushi"
+              }
+              target="_blank"
+              style={{
+                position: "absolute",
+                top: "0px",
+                right: "0px",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+
+            <Image
+              src={"/playstore.svg"}
+              width={140}
+              height={41}
+              alt="app-download-icon"
+            />
+          </Box>
         </Flex>
       </Flex>
     </Flex>
