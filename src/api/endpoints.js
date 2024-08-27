@@ -22,4 +22,5 @@ export const ENDPOINTS = {
     getBonusProducts: () => _URI + 'products/bonus/',
     getStaticPageInfo: (slug) => _URI + `pages/static-pages/${slug}/`,
     deleteUser: () => _URI + 'users/user-delete/',
+    getMainPageMeta: () => _URI + 'pages/home/',
 }

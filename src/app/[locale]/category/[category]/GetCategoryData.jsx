@@ -40,7 +40,7 @@ const GetCategoryData = ({ params, start = false, isFirstCategory = false }) => 
     <Box
       as={"section"}
       id={params.category}
-      paddingTop={{ base: start ? "50px" : "0px", lg: start ? "100px" : "0px" }}
+      marginTop={{ base: start ? "50px" : "0px", lg: start ? "100px" : "0px" }}
     >
       <Heading {...headingStyles}>
         {products?.products[0]?.category_name}

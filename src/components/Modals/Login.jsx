@@ -79,6 +79,7 @@ function LoginModal({ textBlack, children,closeMenu }) {
         login(data);
         setAuth(true);
         onClose();
+        closeMenu();
         setIsOtpConfirming(false);
       }
     } catch (error) {
@@ -124,8 +125,8 @@ function LoginModal({ textBlack, children,closeMenu }) {
           >
             <Heading {...headingStyles}>{t("loginTitle")}</Heading>
             {otp ? 
-            <Flex>
-              <Text>
+            <Flex flexDir={'column'} gap={'12px'} justifyContent={'center'}>
+              <Text textAlign={'center'}>
                 {t("enterCode")}
               </Text>
               <Text textAlign={'center'}>
@@ -268,7 +269,7 @@ function LoginBox({ number, setNumber, setIsNumberSent,setOtp ,closeMenu}) {
       if (res.ok) {
         setIsNumberSent(true);
         setIsRequesting(false);
-        closeMenu();
+        // closeMenu();
       }
 
       const data = await res.json();
